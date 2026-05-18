@@ -32,7 +32,7 @@
           <!-- Status Row -->
           <div class="combined-status-row">
             <div class="info-card-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/ftatus_layanan_tqhco8.png" alt="Status Layanan" class="hero-custom-icon" />
             </div>
             <div class="info-card-body">
               <div class="info-card-label">Status Layanan</div>
@@ -46,7 +46,7 @@
           <!-- Hours Row always expanded -->
           <div class="combined-hours-row">
             <div class="info-card-icon" style="margin-top:2px">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/jam_operasional_rhj8gd.png" alt="Jam Operasional" class="hero-custom-icon" />
             </div>
             <div class="info-card-body" style="flex:1">
               <div class="info-card-label">Jam Operasional</div>
@@ -65,8 +65,8 @@
         <!-- Alamat Card -->
         <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" class="hero-alamat-card">
           <div class="info-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/alamat_b6kxii.png" alt="Alamat" class="hero-custom-icon" />
+            </div>
           <div class="info-card-body">
             <div class="info-card-label">Alamat</div>
             <div class="hero-alamat-val">Jl. H. Andi Depu No.177</div>
@@ -109,6 +109,14 @@ const hoursData = computed(() => {
 <style scoped>
 .hero-location-btn {
   display: none;
+}
+
+.hero-custom-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 .hero-alamat-card {

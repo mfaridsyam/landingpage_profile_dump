@@ -30,7 +30,6 @@ import NetworkSection from '@/components/NetworkSection.vue'
 import ContactSection from '@/components/ContactSection.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import TheFab from '@/components/TheFab.vue'
-import FloatingParticles from '@/components/FloatingParticles.vue'
 import { useScrollReveal } from '@/composables/useScrollReveal.js'
 
 const careerOpen = ref(false)

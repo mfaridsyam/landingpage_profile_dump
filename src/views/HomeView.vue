@@ -4,11 +4,11 @@
     <TheNavbar />
     <HeroSection />
     <StockBar />
+    <AboutSection />
+    <ServicesSection />
+    <GallerySection />
     <PortalSection @open-career="careerOpen = true" />
     <CareerModal v-model="careerOpen" />
-    <ServicesSection />
-    <AboutSection />
-    <GallerySection />
     <NetworkSection />
     <ContactSection />
     <TheFooter />

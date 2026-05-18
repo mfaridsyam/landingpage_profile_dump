@@ -27,20 +27,6 @@
       </div>
 
       <div class="hero-right">
-        <!-- Alamat Card -->
-        <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" class="hero-alamat-card">
-          <div class="info-card-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div class="info-card-body">
-            <div class="info-card-label">Alamat</div>
-            <div class="hero-alamat-val">Jl. H. Andi Depu No.177</div>
-          </div>
-          <div class="hero-alamat-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </div>
-        </a>
-        
         <!-- Combined Status + Hours Card -->
         <div class="info-card-combined" :class="isOpen ? 'combined-open' : 'combined-closed'">
           <!-- Status Row -->
@@ -75,6 +61,20 @@
             </div>
           </div>
         </div>
+        
+        <!-- Alamat Card -->
+        <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" class="hero-alamat-card">
+          <div class="info-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="info-card-body">
+            <div class="info-card-label">Alamat</div>
+            <div class="hero-alamat-val">Jl. H. Andi Depu No.177</div>
+          </div>
+          <div class="hero-alamat-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </a>
       </div>
 
     </div>

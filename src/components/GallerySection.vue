@@ -816,7 +816,6 @@ const videos = [
   color: #fff; border-radius: 50%; width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: background 0.2s;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.30);
 }
 .screen-close-btn:hover { background: #374151; }
 

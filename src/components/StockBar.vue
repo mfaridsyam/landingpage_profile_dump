@@ -9,7 +9,7 @@
         <div class="stock-price">3.070</div>
         <div class="stock-change up">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          20 (0,33%)
+          10 (0,33%)
         </div>
       </div>
       <div class="stock-sep"></div>

@@ -177,12 +177,12 @@ const hoursData = computed(() => {
 
 .combined-open {
   background: rgba(22, 163, 74, 0.10);
-  border-color: rgba(22, 163, 74, 0.30);
+  border-color: rgba(74, 222, 128, 0.45);
 }
 
 .combined-closed {
   background: rgba(220, 38, 38, 0.08);
-  border-color: rgba(220, 38, 38, 0.25);
+  border-color: rgba(248, 113, 113, 0.45);
 }
 
 .combined-status-row {

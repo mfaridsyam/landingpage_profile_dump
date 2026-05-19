@@ -34,6 +34,7 @@
             <div class="artikel-featured-body">
               <span class="artikel-time">{{ articles[0].time }}</span>
               <h3 class="artikel-featured-title">{{ articles[0].label }}</h3>
+              <p class="artikel-featured-excerpt">{{ articles[0].excerpt }}</p>
             </div>
           </div>
 
@@ -332,12 +333,12 @@ if (typeof window !== 'undefined') {
 }
 
 const articles = [
-  { img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80', label: 'BRI Dorong UMKM Polewali Naik Kelas Lewat Program KUR 2026', time: '30 menit lalu' },
-  { img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80', label: 'Ekspansi Jaringan AgenBRI Jangkau Desa Terpencil di Sulbar', time: '1 hari lalu' },
-  { img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80', label: 'Program CSR BRI untuk Masyarakat Polewali Mandar', time: '6 hari lalu' },
-  { img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80', label: 'KUR Berhasil Berdayakan Petani Lokal di Polewali', time: '1 jam lalu' },
-  { img: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=600&q=80', label: 'BRImo Raih Penghargaan Best Digital Banking 2026', time: '6 jam lalu' },
-  { img: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80', label: 'Literasi Keuangan BRI Sasar 10.000 Pelaku UMKM', time: '1 minggu lalu' },
+  { img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80', label: 'BRI Dorong UMKM Polewali Naik Kelas Lewat Program KUR 2026', time: '30 menit lalu', excerpt: 'BRI terus berkomitmen mendorong pertumbuhan ekonomi masyarakat Polewali Mandar melalui program KUR yang menjangkau ribuan pelaku usaha kecil di seluruh pelosok Sulawesi Barat...' },
+  { img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80', label: 'Ekspansi Jaringan AgenBRI Jangkau Desa Terpencil di Sulbar', time: '1 hari lalu', excerpt: 'Jaringan AgenBRI terus diperluas ke wilayah terpencil...' },
+  { img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80', label: 'Program CSR BRI untuk Masyarakat Polewali Mandar', time: '6 hari lalu', excerpt: 'BRI hadir memberdayakan masyarakat melalui berbagai program sosial...' },
+  { img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80', label: 'KUR Berhasil Berdayakan Petani Lokal di Polewali', time: '1 jam lalu', excerpt: 'Ribuan petani di Polewali berhasil meningkatkan produksi...' },
+  { img: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=600&q=80', label: 'BRImo Raih Penghargaan Best Digital Banking 2026', time: '6 jam lalu', excerpt: 'Penghargaan bergengsi diraih BRImo atas inovasi...' },
+  { img: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80', label: 'Literasi Keuangan BRI Sasar 10.000 Pelaku UMKM', time: '1 minggu lalu', excerpt: 'Program literasi keuangan BRI berhasil menjangkau...' },
 ]
 
 const photos = [
@@ -413,6 +414,17 @@ const videos = [
   color: rgba(255,255,255,0.92);
   line-height: 1.35;
   letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.artikel-featured-excerpt {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.50);
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
 }
 
 /* Side column */
@@ -800,12 +812,13 @@ const videos = [
 /* ── MODALS (shared) ── */
 .screen-close-btn {
   position: fixed; top: 20px; right: 24px; z-index: 10100;
-  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+  background: #111827; border: 1px solid rgba(0,0,0,0.15);
   color: #fff; border-radius: 50%; width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: background 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.30);
 }
-.screen-close-btn:hover { background: rgba(255,255,255,0.25); }
+.screen-close-btn:hover { background: #374151; }
 
 .artikel-modal-overlay {
   position: fixed; inset: 0; background: #f4f4f0; z-index: 9999; overflow-y: auto;

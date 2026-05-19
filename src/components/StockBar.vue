@@ -6,18 +6,18 @@
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           BBRI
         </div>
-        <div class="stock-price">3.070</div>
-        <div class="stock-change up">
+        <div class="stock-price">3.260</div>
+        <div class="stock-change down">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          10 (0,33%)
+          -50,00 (-1,51%)
         </div>
       </div>
       <div class="stock-sep"></div>
       <div class="stock-meta">
-        <div class="stock-meta-item"><span class="meta-lbl">Volume</span><span class="meta-val">132.095.600</span></div>
-        <div class="stock-meta-item"><span class="meta-lbl">Day's Range</span><span class="meta-val">3.040 – 3.140</span></div>
+        <div class="stock-meta-item"><span class="meta-lbl">Volume</span><span class="meta-val">335.638.700</span></div>
+        <div class="stock-meta-item"><span class="meta-lbl">Day's Range</span><span class="meta-val">3.260 – 3.360</span></div>
         <div class="stock-meta-item"><span class="meta-lbl">52wk Range</span><span class="meta-val">2.980 – 4.450</span></div>
-        <div class="stock-meta-item"><span class="meta-lbl">Update</span><span class="meta-val">19/05/2026 13:01 WIB</span></div>
+        <div class="stock-meta-item"><span class="meta-lbl">Update</span><span class="meta-val">10/05/2026 21:16 WIB</span></div>
       </div>
       <a href="https://www.ir-bri.com/" target="_blank" class="stock-ir-btn">
         Investor Relations

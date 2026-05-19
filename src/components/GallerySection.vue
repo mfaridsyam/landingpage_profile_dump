@@ -71,7 +71,6 @@
 
         <div class="gallery-load-more reveal">
           <button class="btn-load-more" @click="modalType='artikel'; showModal=true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             Tampilkan Lainnya
           </button>
         </div>
@@ -94,7 +93,6 @@
         </div>
         <div class="gallery-load-more reveal">
           <button class="btn-load-more" @click="modalType='foto'; showModal=true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             Tampilkan Lainnya
           </button>
         </div>
@@ -139,7 +137,6 @@
 
         <div class="gallery-load-more reveal">
           <button class="btn-load-more" @click="modalType='video'; showModal=true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
             Tampilkan Lainnya
           </button>
         </div>

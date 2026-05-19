@@ -6,10 +6,10 @@
       </a>
       <ul class="nav-links">
         <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
-        <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
         <li><a href="#tentang" :class="{ active: activeSection === 'tentang' }" @click.prevent="scrollTo('tentang')">Tentang</a></li>
-        <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Galeri</a></li>
-        <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Jaringan</a></li>
+        <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
+        <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Media</a></li>
+        <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Lokasi</a></li>
         <li><a href="#kontak" :class="{ active: activeSection === 'kontak' }" @click.prevent="scrollTo('kontak')">Kontak</a></li>
       </ul>
       <div class="nav-cta">
@@ -29,7 +29,7 @@ const scrolled = ref(false)
 const scrollY = ref(0)
 const activeSection = ref('hero')
 
-const sections = ['kontak', 'jaringan', 'galeri', 'tentang', 'layanan', 'hero']
+const sections = ['kontak', 'jaringan', 'galeri', 'layanan', 'tentang', 'hero']
 
 const navStyle = computed(() => {
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)

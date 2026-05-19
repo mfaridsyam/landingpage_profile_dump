@@ -452,36 +452,200 @@ footer { background: rgba(5,10,20,0.85); backdrop-filter: blur(16px); padding: 6
 .reveal-delay-4 { transition-delay: 0.40s; }
 
 /* RESPONSIVE */
-@media (max-width: 1100px) {
-  .hero-inner { grid-template-columns: 1fr; min-height: auto; }
-  .hero-right { padding: 20px 0 60px; }
-  .portal-layout { grid-template-columns: 1fr; gap: 32px; }
-  .portal-grid { grid-template-columns: repeat(3, 1fr); }
-  .services-grid { grid-template-columns: 1fr 1fr; }
-  .about-hero-layout { grid-template-columns: 1fr; }
-  .about-hero-right { justify-content: center; }
-  .numbers-grid { grid-template-columns: repeat(3, 1fr); }
-  .contact-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-  .gallery-item.featured { grid-row: span 1; }
-  .unit-grid { grid-template-columns: repeat(3, 1fr); }
-  .video-grid { grid-template-columns: 1fr 1fr; }
+/* ══════════════════════════════════════════
+   RESPONSIVE — Laptop & Tablet Breakpoints
+   ══════════════════════════════════════════ */
+
+/* Large laptop: 1280px–1440px — slight scale down */
+@media (max-width: 1380px) {
+  :root { --px: clamp(24px, 4vw, 60px); }
+  .hero-title { font-size: clamp(38px, 4.5vw, 60px); }
+  .about-title { font-size: clamp(26px, 3vw, 40px); }
+  .section-title { font-size: clamp(24px, 2.8vw, 38px); }
 }
-@media (max-width: 700px) {
+
+/* Standard laptop: 1024px–1280px */
+@media (max-width: 1280px) {
+  :root { --px: clamp(20px, 3.5vw, 48px); }
+  .hero-title { font-size: clamp(34px, 4vw, 52px); }
+  .nav-links a { font-size: 13px; padding: 6px 11px; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .about-hero-layout { gap: 48px; }
+  .about-building-frame { max-width: 420px; }
+  .portal-grid { grid-template-columns: repeat(3, 1fr); }
+  .artikel-layout { grid-template-columns: 1fr 300px; }
+  .video-layout { grid-template-columns: 1fr 260px; }
+}
+
+/* Small laptop / large tablet: 900px–1024px */
+@media (max-width: 1024px) {
+  :root { --px: clamp(20px, 3vw, 40px); }
+
+  /* Nav */
+  .nav-links a { font-size: 12.5px; padding: 6px 9px; }
+  .btn-primary { padding: 8px 14px; font-size: 12.5px; }
+
+  /* Hero: stack vertically */
+  .hero-inner { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 56px 0 32px; }
+  .hero-right { padding: 0 0 56px; }
+  .hero-title { font-size: clamp(32px, 5vw, 48px); }
+  .hero-subtitle { max-width: 100%; font-size: 14px; }
+
+  /* About: stack */
+  .about-hero-layout { grid-template-columns: 1fr; gap: 36px; }
+  .about-hero-right { justify-content: center; }
+  .about-building-frame { max-width: 380px; margin: 0 auto; }
+  .about-title { font-size: clamp(26px, 4vw, 38px); }
+  .about-desc { max-width: 100%; }
+
+  /* Services */
+  .services-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Numbers */
+  .numbers-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .number-val { font-size: 32px; }
+
+  /* Portal */
+  .portal-layout { grid-template-columns: 1fr; gap: 28px; }
+  .portal-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  /* Gallery */
+  .artikel-layout { grid-template-columns: 1fr 280px; gap: 12px; }
+  .artikel-bottom-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .foto-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .video-layout { grid-template-columns: 1fr 240px; gap: 12px; }
+
+  /* Network */
+  .unit-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Contact */
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* Tablet: 768px–900px */
+@media (max-width: 900px) {
+  :root { --px: clamp(20px, 4vw, 36px); }
+
+  /* Nav: hide links, keep logo + cta */
   .nav-links { display: none; }
-  .portal-grid { grid-template-columns: 1fr; }
-  .services-grid { grid-template-columns: 1fr; }
-  .numbers-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .stock-meta { display: none; }
-  .form-row { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: 1fr; }
-  .modal-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Hero */
+  .hero-title { font-size: clamp(30px, 5.5vw, 44px); }
+  .btn-hero-primary, .btn-hero-ghost { padding: 12px 22px; font-size: 13px; }
+
+  /* Services */
+  .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  /* About */
+  .about-hero-layout { gap: 28px; }
+  .about-building-frame { max-width: 320px; }
+
+  /* Numbers */
+  .numbers-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .number-val { font-size: 28px; }
+  .number-card { padding: 20px 16px; }
+
+  /* Portal */
+  .portal-grid { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+  /* Gallery artikel */
+  .artikel-layout { grid-template-columns: 1fr; gap: 12px; }
+  .artikel-side-col { flex-direction: row; gap: 12px; }
+  .artikel-bottom-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .foto-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .video-layout { grid-template-columns: 1fr; gap: 12px; }
+  .video-side-list { flex-direction: row; flex-wrap: wrap; }
+  .video-side-item { flex: 1; min-width: 200px; }
+
+  /* Network */
   .unit-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Contact */
+  .contact-info-list { gap: 10px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Modals */
+  .more-artikel-grid { grid-template-columns: 1fr 1fr; }
+  .more-foto-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Mobile: < 700px */
+@media (max-width: 700px) {
+  :root { --px: 20px; }
+
+  /* Nav */
+  .nav-links { display: none; }
+  .nav-cta .btn-primary span { display: none; }
+
+  /* Hero */
+  .hero-title { font-size: clamp(28px, 7vw, 38px); }
+  .hero-subtitle { font-size: 13.5px; margin-bottom: 32px; }
+  .hero-actions { gap: 10px; }
+  .btn-hero-primary, .btn-hero-ghost { padding: 11px 18px; font-size: 13px; }
+
+  /* About */
+  .about-title { font-size: clamp(24px, 6vw, 32px); }
+  .about-building-frame { max-width: 260px; }
+
+  /* Services */
+  .services-grid { grid-template-columns: 1fr; gap: 10px; }
+  .service-card { padding: 22px 20px; }
+
+  /* Numbers */
+  .numbers-grid { grid-template-columns: 1fr; gap: 10px; }
+  .number-card { padding: 18px 20px; }
+
+  /* Portal */
+  .portal-grid { grid-template-columns: 1fr; gap: 10px; }
+  .portal-layout { gap: 20px; }
+
+  /* Stock bar */
+  .stock-meta { display: none; }
+
+  /* Gallery */
+  .gallery-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .artikel-layout { grid-template-columns: 1fr; }
+  .artikel-side-col { flex-direction: column; }
+  .artikel-bottom-row { grid-template-columns: 1fr; }
+  .foto-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .video-layout { grid-template-columns: 1fr; }
+  .video-side-list { flex-direction: column; }
+
+  /* Network */
+  .unit-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .map-dropdown-wrap { flex-direction: column; align-items: flex-start; }
   .map-select-wrap { min-width: 100%; width: 100%; }
   .map-embed-container { height: 240px; }
-  .gallery-header { flex-direction: column; align-items: flex-start; }
+
+  /* Contact */
+  .form-row { grid-template-columns: 1fr; }
+  .contact-info-list { gap: 10px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Modals */
+  .more-artikel-grid { grid-template-columns: 1fr; }
+  .more-foto-grid { grid-template-columns: repeat(2, 1fr); }
+  .more-modal-box { max-height: 92vh; }
+  .artikel-modal-scroll { padding: 72px 16px 60px; }
+  .news-headline { font-size: clamp(22px, 5vw, 32px); }
+  .media-nav-left { left: 8px; }
+  .media-nav-right { right: 8px; }
+  .foto-modal-overlay { padding: 60px 52px 30px; }
+}
+
+/* Very small mobile: < 400px */
+@media (max-width: 400px) {
+  .hero-title { font-size: 26px; }
+  .unit-grid { grid-template-columns: 1fr; }
+  .foto-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-tabs { gap: 2px; }
+  .gallery-tab { padding: 7px 10px; font-size: 12px; }
 }

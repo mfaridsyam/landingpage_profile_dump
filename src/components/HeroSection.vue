@@ -32,7 +32,7 @@
           <!-- Status Row -->
           <div class="combined-status-row">
             <div class="info-card-icon">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/ftatus_layanan_tqhco8.png" alt="Status Layanan" class="hero-custom-icon" />
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/ftatus_layanan_dj0zst.png" alt="Status Layanan" class="hero-custom-icon" />
             </div>
             <div class="info-card-body">
               <div class="info-card-label">Status Layanan</div>
@@ -46,7 +46,7 @@
           <!-- Hours Row always expanded -->
           <div class="combined-hours-row">
             <div class="info-card-icon" style="margin-top:2px">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/jam_operasional_rhj8gd.png" alt="Jam Operasional" class="hero-custom-icon" />
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/jam_operasional_hl4mm3.png" alt="Jam Operasional" class="hero-custom-icon" />
             </div>
             <div class="info-card-body" style="flex:1">
               <div class="info-card-label">Jam Operasional</div>
@@ -65,7 +65,7 @@
         <!-- Alamat Card -->
         <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" class="hero-alamat-card">
           <div class="info-card-icon">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779102603/alamat_b6kxii.png" alt="Alamat" class="hero-custom-icon" />
+              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/alamat_rqdoy8.png" alt="Alamat" class="hero-custom-icon" />
             </div>
           <div class="info-card-body">
             <div class="info-card-label">Alamat</div>

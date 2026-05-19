@@ -32,7 +32,7 @@ const services = [
     name: 'KUR & Kredit UMKM',
     desc: 'Kredit Usaha Rakyat dengan bunga rendah untuk mendorong pertumbuhan usaha mikro, kecil, dan menengah di Polewali Mandar.',
     tags: ['KUR Mikro', 'KUR Kecil', 'KUR TKI'],
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/></svg>`
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 12h3v8h5v-5h4v5h5v-8h3L12 2z"/><circle cx="12" cy="10" r="2"/></svg>`
   },
   {
     name: 'BRImo Mobile Banking',

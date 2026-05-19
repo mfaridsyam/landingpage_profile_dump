@@ -5,11 +5,12 @@
         <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342906/Logo_header_mini_ihzdof.png" alt="BRI Cabang Polewali" />
       </a>
       <ul class="nav-links">
-        <li><a href="#" class="active">Beranda</a></li>
-        <li><a href="#layanan">Layanan</a></li>
-        <li><a href="#tentang">Tentang</a></li>
-        <li><a href="#galeri">Galeri</a></li>
-        <li><a href="#kontak">Kontak</a></li>
+        <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
+        <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
+        <li><a href="#tentang" :class="{ active: activeSection === 'tentang' }" @click.prevent="scrollTo('tentang')">Tentang</a></li>
+        <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Galeri</a></li>
+        <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Jaringan</a></li>
+        <li><a href="#kontak" :class="{ active: activeSection === 'kontak' }" @click.prevent="scrollTo('kontak')">Kontak</a></li>
       </ul>
       <div class="nav-cta">
         <a href="https://www.bri.co.id" target="_blank" class="btn-primary">
@@ -26,6 +27,9 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const scrolled = ref(false)
 const scrollY = ref(0)
+const activeSection = ref('hero')
+
+const sections = ['kontak', 'jaringan', 'galeri', 'tentang', 'layanan', 'hero']
 
 const navStyle = computed(() => {
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)
@@ -38,9 +42,33 @@ const navStyle = computed(() => {
   }
 })
 
+function scrollTo(id) {
+  if (id === 'hero') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+function detectSection() {
+  const offset = 120
+  for (const id of sections) {
+    if (id === 'hero') {
+      activeSection.value = 'hero'
+      break
+    }
+    const el = document.getElementById(id)
+    if (el && el.getBoundingClientRect().top <= offset) {
+      activeSection.value = id
+      break
+    }
+  }
+}
+
 function onScroll() {
   scrollY.value = window.scrollY
   scrolled.value = window.scrollY > 20
+  detectSection()
 }
 
 onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))

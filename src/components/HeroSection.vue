@@ -32,7 +32,7 @@
           <!-- Status Row -->
           <div class="combined-status-row">
             <div class="info-card-icon">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/ftatus_layanan_dj0zst.png" alt="Status Layanan" class="hero-custom-icon" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             </div>
             <div class="info-card-body">
               <div class="info-card-label">Status Layanan</div>
@@ -46,7 +46,7 @@
           <!-- Hours Row always expanded -->
           <div class="combined-hours-row">
             <div class="info-card-icon" style="margin-top:2px">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/jam_operasional_hl4mm3.png" alt="Jam Operasional" class="hero-custom-icon" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             </div>
             <div class="info-card-body" style="flex:1">
               <div class="info-card-label">Jam Operasional</div>
@@ -65,7 +65,7 @@
         <!-- Alamat Card -->
         <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" class="hero-alamat-card">
           <div class="info-card-icon">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1779149877/alamat_rqdoy8.png" alt="Alamat" class="hero-custom-icon" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             </div>
           <div class="info-card-body">
             <div class="info-card-label">Alamat</div>

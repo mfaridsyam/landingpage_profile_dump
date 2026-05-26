@@ -37,6 +37,10 @@
           </div>
           <div class="unit-card-addr">{{ unit.addr }}</div>
           <div class="unit-card-hours">Sen–Jum 08.00–15.00</div>
+          <a :href="gMapsUrl(unit)" target="_blank" rel="noopener" class="unit-maps-btn" @click.stop>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Buka di Google Maps
+          </a>
         </div>
       </div>
 
@@ -86,6 +90,10 @@ function selectUnit(idx) {
 }
 
 function onSelectChange() {}
+
+function gMapsUrl(unit) {
+  return `https://maps.google.com/?q=${encodeURIComponent(`BRI ${unit.name} ${unit.addr}`)}`
+}
 </script>
 
 <style scoped>
@@ -95,4 +103,19 @@ function onSelectChange() {}
   gap: 8px;
   margin-bottom: 6px;
 }
+
+.unit-maps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #60a5fa;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+  width: fit-content;
+}
+.unit-maps-btn:hover { opacity: 1; color: #93c5fd; }
 </style>

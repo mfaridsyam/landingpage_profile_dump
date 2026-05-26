@@ -14,6 +14,10 @@
           <div class="service-tags">
             <span v-for="tag in svc.tags" :key="tag" class="service-tag">{{ tag }}</span>
           </div>
+          <a href="#kontak" class="service-cta">
+            Tanya Kami
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -75,4 +79,23 @@ const services = [
   color: rgba(255,255,255,0.92);
   line-height: 1.3;
 }
+
+.service-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #60a5fa;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s, transform 0.25s, gap 0.2s;
+}
+.service-card:hover .service-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+.service-cta:hover { gap: 8px; }
 </style>

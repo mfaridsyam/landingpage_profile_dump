@@ -79,12 +79,26 @@
       </div>
 
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" :class="{ hidden: scrolledPast }">
+      <span class="scroll-label">Gulir ke bawah</span>
+      <div class="scroll-chevrons">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useBranchStatus } from '@/composables/useBranchStatus.js'
+
+const scrolledPast = ref(false)
+function onScroll() { scrolledPast.value = window.scrollY > 80 }
+onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
+onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 const { isOpen } = useBranchStatus()
 
@@ -108,6 +122,44 @@ const hoursData = computed(() => {
 </script>
 
 <style scoped>
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.scroll-indicator.hidden { opacity: 0; }
+.scroll-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+}
+.scroll-chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: -2px;
+  color: rgba(255,255,255,0.25);
+  animation: bounce-scroll 2s ease-in-out infinite;
+}
+.scroll-chevrons svg:first-child { opacity: 0.45; margin-bottom: -6px; }
+@keyframes bounce-scroll {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+@media (max-width: 700px) { .scroll-indicator { display: none; } }
+
 .hero-location-btn {
   display: none;
 }

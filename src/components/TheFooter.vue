@@ -1,5 +1,14 @@
 <template>
   <footer>
+    <div class="footer-brand-bar">
+      <div class="container footer-brand-bar-inner">
+        <span class="footer-brand-bar-text">PT Bank Rakyat Indonesia (Persero) Tbk</span>
+        <span class="footer-brand-bar-sep">·</span>
+        <span class="footer-brand-bar-text">Cabang Polewali</span>
+        <span class="footer-brand-bar-sep">·</span>
+        <span class="footer-brand-bar-text footer-brand-bar-highlight">BBRI.JK</span>
+      </div>
+    </div>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -24,7 +33,7 @@
           <div class="footer-links">
             <a href="#" class="footer-link">Beranda</a>
             <a href="#layanan" class="footer-link">Layanan</a>
-            <a href="#tentang" class="footer-link">Tentang Kami</a>
+            <a href="#galeri" class="footer-link">Media</a>
             <a href="#jaringan" class="footer-link">Jaringan</a>
             <a href="#kontak" class="footer-link">Kontak</a>
           </div>

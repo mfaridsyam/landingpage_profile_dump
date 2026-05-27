@@ -1,11 +1,14 @@
 <template>
   <div>
-    <FloatingParticles />
     <TheNavbar />
     <HeroSection />
+    <MarqueeBand />
     <StockBar />
-    <AboutSection />
     <ServicesSection />
+    <KeunggulanSection />
+    <SubsidiarySection />
+    <KursSection />
+    <LoanCalculatorSection />
     <GallerySection />
     <PortalSection @open-career="careerOpen = true" />
     <CareerModal v-model="careerOpen" />
@@ -20,12 +23,16 @@
 import { ref } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import HeroSection from '@/components/HeroSection.vue'
+import MarqueeBand from '@/components/MarqueeBand.vue'
 import StockBar from '@/components/StockBar.vue'
+import ServicesSection from '@/components/ServicesSection.vue'
+import KeunggulanSection from '@/components/KeunggulanSection.vue'
+import SubsidiarySection from '@/components/SubsidiarySection.vue'
+import KursSection from '@/components/KursSection.vue'
+import LoanCalculatorSection from '@/components/LoanCalculatorSection.vue'
+import GallerySection from '@/components/GallerySection.vue'
 import PortalSection from '@/components/PortalSection.vue'
 import CareerModal from '@/components/CareerModal.vue'
-import ServicesSection from '@/components/ServicesSection.vue'
-import AboutSection from '@/components/AboutSection.vue'
-import GallerySection from '@/components/GallerySection.vue'
 import NetworkSection from '@/components/NetworkSection.vue'
 import ContactSection from '@/components/ContactSection.vue'
 import TheFooter from '@/components/TheFooter.vue'

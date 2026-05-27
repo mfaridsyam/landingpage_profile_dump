@@ -6,7 +6,6 @@
       </a>
       <ul class="nav-links">
         <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
-        <li><a href="#tentang" :class="{ active: activeSection === 'tentang' }" @click.prevent="scrollTo('tentang')">Tentang</a></li>
         <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
         <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Media</a></li>
         <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Lokasi</a></li>
@@ -51,6 +50,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { lenis } from '@/lenis.js'
 
 const scrolled = ref(false)
 const scrollY = ref(0)
@@ -60,14 +60,13 @@ const mobileOpen = ref(false)
 
 const navItems = [
   { id: 'hero', label: 'Beranda' },
-  { id: 'tentang', label: 'Tentang' },
   { id: 'layanan', label: 'Layanan' },
   { id: 'galeri', label: 'Media' },
   { id: 'jaringan', label: 'Lokasi' },
   { id: 'kontak', label: 'Kontak' },
 ]
 
-const sections = ['kontak', 'jaringan', 'galeri', 'layanan', 'tentang', 'hero']
+const sections = ['kontak', 'jaringan', 'galeri', 'layanan', 'hero']
 
 const navStyle = computed(() => {
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)
@@ -82,9 +81,10 @@ const navStyle = computed(() => {
 
 function scrollTo(id) {
   if (id === 'hero') {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    lenis.scrollTo(0, { duration: 1.2 })
   } else {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(id)
+    if (el) lenis.scrollTo(el, { offset: -68, duration: 1.2 })
   }
 }
 

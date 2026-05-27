@@ -11,11 +11,12 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { lenis } from '@/lenis.js'
 
 const fabVisible = ref(false)
 
 function scrollTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  lenis.scrollTo(0, { duration: 1.2 })
 }
 
 function onScroll() {

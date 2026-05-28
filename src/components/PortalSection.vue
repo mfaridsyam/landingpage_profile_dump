@@ -14,14 +14,16 @@
           class="portal-card reveal" style="--accent: #f5a623;">
           <div class="portal-card-accent"></div>
           <div class="portal-card-body">
-            <div class="portal-logo-wrap">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342902/Logo_Info_lelang_kbvebb.png" alt="Info Lelang" />
+            <div class="portal-card-head">
+              <div class="portal-logo-wrap">
+                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342902/Logo_Info_lelang_kbvebb.png" alt="Info Lelang" />
+              </div>
+              <div class="portal-card-meta">
+                <div class="portal-card-tag">Lelang Aset</div>
+                <div class="portal-card-name">Info Lelang</div>
+              </div>
             </div>
-            <div class="portal-card-content">
-              <div class="portal-card-tag">Lelang Aset</div>
-              <div class="portal-card-name">Info Lelang</div>
-              <div class="portal-card-desc">Platform lelang resmi aset BRI — temukan penawaran terbaik aset properti dan kendaraan dari seluruh Indonesia.</div>
-            </div>
+            <div class="portal-card-desc">Platform lelang resmi aset BRI — temukan penawaran terbaik aset properti dan kendaraan dari seluruh Indonesia.</div>
           </div>
           <div class="portal-card-foot">
             <span class="portal-card-url">infolelang.bri.co.id</span>
@@ -36,14 +38,16 @@
         <button class="portal-card reveal reveal-delay-1" style="--accent: #3b82f6;" @click="$emit('openCareer')">
           <div class="portal-card-accent"></div>
           <div class="portal-card-body">
-            <div class="portal-logo-wrap">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778826643/logo_rekrut_n5gdut.png" alt="Karier BRI" />
+            <div class="portal-card-head">
+              <div class="portal-logo-wrap">
+                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778826643/logo_rekrut_n5gdut.png" alt="Karier BRI" />
+              </div>
+              <div class="portal-card-meta">
+                <div class="portal-card-tag">Rekrutmen</div>
+                <div class="portal-card-name">Karier BRI Group</div>
+              </div>
             </div>
-            <div class="portal-card-content">
-              <div class="portal-card-tag">Rekrutmen</div>
-              <div class="portal-card-name">Karier BRI Group</div>
-              <div class="portal-card-desc">Bergabunglah bersama BRI Group — portal rekrutmen resmi untuk talenta terbaik Indonesia di berbagai jalur karier.</div>
-            </div>
+            <div class="portal-card-desc">Bergabunglah bersama BRI Group — portal rekrutmen resmi untuk talenta terbaik Indonesia di berbagai jalur karier.</div>
           </div>
           <div class="portal-card-foot">
             <span class="portal-card-url">E-Recruitment Portal</span>
@@ -59,14 +63,16 @@
           class="portal-card reveal reveal-delay-2" style="--accent: #10b981;">
           <div class="portal-card-accent"></div>
           <div class="portal-card-body">
-            <div class="portal-logo-wrap">
-              <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778774735/lgogo_invest_zkkrvo.png" alt="Investor Relations" />
+            <div class="portal-card-head">
+              <div class="portal-logo-wrap">
+                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778774735/lgogo_invest_zkkrvo.png" alt="Investor Relations" />
+              </div>
+              <div class="portal-card-meta">
+                <div class="portal-card-tag">Investor</div>
+                <div class="portal-card-name">Investor Relations</div>
+              </div>
             </div>
-            <div class="portal-card-content">
-              <div class="portal-card-tag">Investor</div>
-              <div class="portal-card-name">Investor Relations</div>
-              <div class="portal-card-desc">Informasi saham BBRI, laporan keuangan tahunan, dan data korporat lengkap untuk para investor dan analis.</div>
-            </div>
+            <div class="portal-card-desc">Informasi saham BBRI, laporan keuangan tahunan, dan data korporat lengkap untuk para investor dan analis.</div>
           </div>
           <div class="portal-card-foot">
             <span class="portal-card-url">ir-bri.com</span>
@@ -132,13 +138,20 @@ defineEmits(['openCareer'])
 .portal-card-body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   padding: 24px 24px 16px;
   flex: 1;
 }
 
+/* icon + tag + name row */
+.portal-card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .portal-logo-wrap {
-  width: 60px; height: 60px;
+  width: 56px; height: 56px;
   border-radius: 14px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.10);
@@ -146,11 +159,14 @@ defineEmits(['openCareer'])
   overflow: hidden; flex-shrink: 0;
 }
 .portal-logo-wrap img {
-  width: 44px; height: 44px;
+  width: 40px; height: 40px;
   object-fit: contain; display: block;
 }
 
-.portal-card-content { display: flex; flex-direction: column; gap: 8px; }
+.portal-card-meta {
+  display: flex; flex-direction: column; gap: 4px;
+  min-width: 0;
+}
 
 .portal-card-tag {
   font-size: 10px; font-weight: 800;
@@ -159,7 +175,7 @@ defineEmits(['openCareer'])
   opacity: 0.80;
 }
 .portal-card-name {
-  font-size: 18px; font-weight: 800;
+  font-size: 17px; font-weight: 800;
   color: rgba(255,255,255,0.92);
   letter-spacing: -0.02em; line-height: 1.2;
 }

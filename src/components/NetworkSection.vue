@@ -28,7 +28,7 @@
       </div>
 
       <!-- Main panel -->
-      <div class="network-panel reveal">
+      <div class="network-panel">
 
         <!-- Left: filter + list -->
         <div class="network-list-col">
@@ -76,7 +76,7 @@
 
         <!-- Right: map -->
         <div class="network-map-col">
-          <div class="map-wrap">
+          <div class="map-wrap" @mouseenter="lenis.stop()" @mouseleave="lenis.start()">
             <Transition name="map-fade" mode="out-in">
               <iframe
                 :key="selectedIdx"
@@ -107,6 +107,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { lenis } from '@/lenis.js'
 
 const selectedIdx = ref(0)
 const activeFilter = ref('semua')
@@ -334,11 +335,15 @@ function gMapsUrl(unit) {
   aspect-ratio: 16/10;
   overflow: hidden;
   background: rgba(0,0,0,0.20);
+  transform: translateZ(0);
+  isolation: isolate;
 }
 .map-iframe {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   border: none; display: block;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .map-selected-info {

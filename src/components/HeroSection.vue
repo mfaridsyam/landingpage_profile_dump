@@ -1,133 +1,54 @@
 <template>
-  <section class="hero">
-    <div class="hero-bg-dots"></div>
-    <div class="hero-bg-glow"></div>
+  <section class="hero" ref="heroRef">
+    <canvas ref="canvasRef" class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-glow" aria-hidden="true"></div>
 
-    <!-- ── 5-ROW BRI MARQUEE (alternating directions) ── -->
-    <div class="hero-bri-marquee" aria-hidden="true">
-      <div class="hero-bri-row">
-        <div class="hero-bri-track dir-left sp1"><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span></div>
-      </div>
-      <div class="hero-bri-row">
-        <div class="hero-bri-track dir-right sp2"><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span></div>
-      </div>
-      <div class="hero-bri-row">
-        <div class="hero-bri-track dir-left sp3"><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span></div>
-      </div>
-      <div class="hero-bri-row">
-        <div class="hero-bri-track dir-right sp4"><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span></div>
-      </div>
-      <div class="hero-bri-row">
-        <div class="hero-bri-track dir-left sp5"><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span><span>BRI</span></div>
+    <!-- ── CENTERED HERO BODY ── -->
+    <div class="hero-body">
+      <!-- Frame A: outer group, column, center -->
+      <div class="hero-content-group">
+        <!-- Frame B: headline group, column, left-align -->
+        <div class="hero-headline-group">
+          <p class="hero-kicker">#MelayaniSepenuhHati</p>
+          <h1 class="hero-h1">BANK RAKYAT INDONESIA</h1>
+        </div>
+        <!-- Description fills Frame A width, centered -->
+        <p class="hero-desc">
+          Melayani dengan sepenuh hati, mendorong pertumbuhan ekonomi masyarakat Polewali Mandar menuju<br>
+          kesejahteraan yang berkelanjutan.
+        </p>
       </div>
     </div>
 
-    <!-- ── MAIN CONTENT: LEFT + RIGHT ── -->
-    <div class="hero-inner">
+    <!-- CTA Buttons: absolute, sejajar status pill, tengah bawah -->
+    <div class="hero-ctas">
+      <a href="#layanan" class="hero-btn-primary">
+        Produk &amp; Layanan
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#kontak" class="hero-btn-ghost">Hubungi Kami</a>
+    </div>
 
-      <!-- LEFT -->
-      <div class="hero-left">
-        <div class="hero-tag">
-          <span class="hero-tag-dot"></span>
-          #MelayaniSepenuhHati
-        </div>
-        <h1 class="hero-title">Bank <em>Rakyat</em><br>Indonesia</h1>
-        <p class="hero-cabang-label">Cabang Polewali</p>
-        <p class="hero-subtitle">
-          Melayani dengan sepenuh hati, mendorong pertumbuhan ekonomi masyarakat Polewali Mandar menuju kesejahteraan yang berkelanjutan.
-        </p>
-        <div class="hero-actions">
-          <a href="#layanan" class="btn-hero-primary">
-            Produk &amp; Layanan
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#kontak" class="btn-hero-ghost">Hubungi Kami</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat-item">
-            <span class="hero-stat-num">128<sup>+</sup></span>
-            <span class="hero-stat-lbl">Tahun Melayani</span>
-          </div>
-          <div class="hero-stat-sep"></div>
-          <div class="hero-stat-item">
-            <span class="hero-stat-num">13</span>
-            <span class="hero-stat-lbl">Unit Kerja</span>
-          </div>
-          <div class="hero-stat-sep"></div>
-          <div class="hero-stat-item">
-            <span class="hero-stat-num">24/7</span>
-            <span class="hero-stat-lbl">ATM &amp; CDM</span>
-          </div>
-        </div>
+    <!-- ── BOTTOM STATS BAR ── -->
+    <div class="hero-stats-bar">
+      <div class="hero-stat">
+        <span class="hero-stat-n">128<sup>+</sup></span>
+        <span class="hero-stat-l">Tahun Melayani</span>
       </div>
-
-      <!-- RIGHT: Quick Access Panel -->
-      <div class="hero-right">
-        <div class="hero-right-glow" aria-hidden="true"></div>
-
-        <div class="hero-panel">
-          <div class="hero-panel-eyebrow">Akses Cepat</div>
-          <div class="hero-quick-grid">
-
-            <a href="#layanan" class="hero-quick-card">
-              <div class="hero-quick-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M11 19h2"/></svg>
-              </div>
-              <div class="hero-quick-body">
-                <div class="hero-quick-name">BRImo</div>
-                <div class="hero-quick-sub">Mobile Banking 24/7</div>
-              </div>
-              <svg class="hero-quick-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-
-            <a href="#layanan" class="hero-quick-card">
-              <div class="hero-quick-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 12h3v8h5v-5h4v5h5v-8h3L12 2z"/><circle cx="12" cy="10" r="2"/></svg>
-              </div>
-              <div class="hero-quick-body">
-                <div class="hero-quick-name">KUR UMKM</div>
-                <div class="hero-quick-sub">Bunga mulai 6% p.a.</div>
-              </div>
-              <svg class="hero-quick-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-
-            <a href="#jaringan" class="hero-quick-card">
-              <div class="hero-quick-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2v4H7z"/><path d="M11 10h6"/><path d="M11 13h4"/></svg>
-              </div>
-              <div class="hero-quick-body">
-                <div class="hero-quick-name">ATM &amp; CDM</div>
-                <div class="hero-quick-sub">Tersebar di Polman</div>
-              </div>
-              <svg class="hero-quick-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-
-            <a href="#layanan" class="hero-quick-card">
-              <div class="hero-quick-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M10 15h6"/></svg>
-              </div>
-              <div class="hero-quick-body">
-                <div class="hero-quick-name">Tabungan</div>
-                <div class="hero-quick-sub">BritAma &amp; Simpedes</div>
-              </div>
-              <svg class="hero-quick-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-
-          </div>
-        </div>
-
-        <!-- Address card -->
-        <a href="https://maps.google.com/?q=Bank+BRI+Polewali" target="_blank" rel="noopener" class="hero-addr-card">
-          <div class="hero-addr-pin">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          </div>
-          <div class="hero-addr-body">
-            <div class="hero-addr-name">Jl. H. Andi Depu No.177</div>
-            <div class="hero-addr-city">Polewali Mandar, Sulawesi Barat</div>
-          </div>
-          <svg class="hero-addr-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
-        </a>
-
+      <div class="hero-stat-vline"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">13</span>
+        <span class="hero-stat-l">Unit Kerja</span>
+      </div>
+      <div class="hero-stat-vline"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">24/7</span>
+        <span class="hero-stat-l">ATM &amp; CDM</span>
+      </div>
+      <div class="hero-stat-vline"></div>
+      <div class="hero-stat hero-stat-loc">
+        <span class="hero-stat-n">Polewali</span>
+        <span class="hero-stat-l">Sulawesi Barat</span>
       </div>
     </div>
 
@@ -154,15 +75,6 @@
       </button>
     </div>
 
-    <!-- ── SCROLL INDICATOR ── -->
-    <div class="scroll-indicator" :class="{ hidden: scrolledPast }">
-      <span class="scroll-label">Gulir ke bawah</span>
-      <div class="scroll-chevrons">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </div>
-
   </section>
 </template>
 
@@ -170,24 +82,136 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useBranchStatus } from '@/composables/useBranchStatus.js'
 
-const scrolledPast = ref(false)
-const showHours    = ref(false)
+const heroRef        = ref(null)
+const canvasRef      = ref(null)
+const showHours      = ref(false)
 const statusFloatRef = ref(null)
 
-function onScroll() { scrolledPast.value = window.scrollY > 80 }
+// ── CANVAS PARTICLE NETWORK ──
+let animId = null
+let ctx    = null
+let nodes  = []
+let mouseX = -9999
+let mouseY = -9999
+
+const LINE_DIST      = 200
+const REPEL_RADIUS   = 160
+const REPEL_STRENGTH = 3.5
+const ANGLE_DRIFT    = 0.018
+
+function initCanvas() {
+  const canvas  = canvasRef.value
+  const section = heroRef.value
+  canvas.width  = section.offsetWidth
+  canvas.height = section.offsetHeight
+  ctx = canvas.getContext('2d')
+
+  const count = canvas.width < 700 ? 55 : 100
+  nodes = Array.from({ length: count }, () => {
+    const angle = Math.random() * Math.PI * 2
+    const speed = 0.12 + Math.random() * 0.18
+    return {
+      x:      Math.random() * canvas.width,
+      y:      Math.random() * canvas.height,
+      angle,
+      speed,
+      vx:     Math.cos(angle) * speed,
+      vy:     Math.sin(angle) * speed,
+      r:      Math.random() * 1.1 + 0.65,
+      repelX: 0,
+      repelY: 0,
+    }
+  })
+}
+
+function tick() {
+  const canvas = canvasRef.value
+  if (!canvas || !ctx) return
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  for (const n of nodes) {
+    n.angle += (Math.random() - 0.5) * ANGLE_DRIFT
+    n.vx = Math.cos(n.angle) * n.speed
+    n.vy = Math.sin(n.angle) * n.speed
+
+    const dx   = n.x - mouseX
+    const dy   = n.y - mouseY
+    const dist = Math.hypot(dx, dy)
+    if (dist < REPEL_RADIUS && dist > 1) {
+      const f = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH / dist
+      n.repelX += dx * f
+      n.repelY += dy * f
+    }
+    n.repelX *= 0.82
+    n.repelY *= 0.82
+
+    n.x += n.vx + n.repelX
+    n.y += n.vy + n.repelY
+
+    if (n.x < 0)             { n.x = 0;             n.angle = Math.PI - n.angle }
+    if (n.x > canvas.width)  { n.x = canvas.width;  n.angle = Math.PI - n.angle }
+    if (n.y < 0)             { n.y = 0;             n.angle = -n.angle }
+    if (n.y > canvas.height) { n.y = canvas.height; n.angle = -n.angle }
+  }
+
+  ctx.lineWidth = 1.2
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x
+      const dy = nodes[i].y - nodes[j].y
+      const d  = dx * dx + dy * dy
+      if (d < LINE_DIST * LINE_DIST) {
+        const alpha = (1 - Math.sqrt(d) / LINE_DIST) * 0.22
+        ctx.strokeStyle = `rgba(255,255,255,${alpha.toFixed(3)})`
+        ctx.beginPath()
+        ctx.moveTo(nodes[i].x, nodes[i].y)
+        ctx.lineTo(nodes[j].x, nodes[j].y)
+        ctx.stroke()
+      }
+    }
+  }
+
+  for (const n of nodes) {
+    ctx.beginPath()
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
+    ctx.fillStyle = 'rgba(255,255,255,0.30)'
+    ctx.fill()
+  }
+
+  animId = requestAnimationFrame(tick)
+}
+
+function onCanvasMouseMove(e) {
+  if (!heroRef.value) return
+  const rect = heroRef.value.getBoundingClientRect()
+  mouseX = e.clientX - rect.left
+  mouseY = e.clientY - rect.top
+}
+function onCanvasMouseLeave() { mouseX = -9999; mouseY = -9999 }
+function onResize() { if (canvasRef.value && heroRef.value) initCanvas() }
 function onKeydown(e) { if (e.key === 'Escape') showHours.value = false }
 function onClickOutside(e) {
-  if (statusFloatRef.value && !statusFloatRef.value.contains(e.target)) showHours.value = false
+  if (statusFloatRef.value && !statusFloatRef.value.contains(e.target))
+    showHours.value = false
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('keydown', onKeydown)
+  initCanvas()
+  tick()
+  heroRef.value?.addEventListener('mousemove',  onCanvasMouseMove)
+  heroRef.value?.addEventListener('mouseleave', onCanvasMouseLeave)
+  window.addEventListener('resize',    onResize)
+  window.addEventListener('keydown',   onKeydown)
   document.addEventListener('mousedown', onClickOutside)
 })
+
 onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('keydown', onKeydown)
+  cancelAnimationFrame(animId)
+  heroRef.value?.removeEventListener('mousemove',  onCanvasMouseMove)
+  heroRef.value?.removeEventListener('mouseleave', onCanvasMouseLeave)
+  window.removeEventListener('resize',   onResize)
+  window.removeEventListener('keydown',  onKeydown)
   document.removeEventListener('mousedown', onClickOutside)
 })
 
@@ -213,201 +237,194 @@ const hoursData = computed(() => {
 </script>
 
 <style scoped>
-/* ── 5-ROW BRI MARQUEE ── */
-.hero-bri-marquee {
+/* ── CANVAS ── */
+.hero-canvas {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  overflow: hidden;
+  width: 100%; height: 100%;
   pointer-events: none; z-index: 0;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 82%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 82%, transparent 100%);
-}
-.hero-bri-row {
-  flex: 1; overflow: hidden;
-  display: flex; align-items: center;
-}
-.hero-bri-track {
-  display: flex; flex-shrink: 0;
-  gap: 72px; padding-right: 72px;
-  will-change: transform;
-}
-.hero-bri-track span {
-  font-size: clamp(54px, 7vw, 108px);
-  font-weight: 900;
-  color: rgba(255,255,255,0.028);
-  letter-spacing: -0.04em; line-height: 1;
-  user-select: none; white-space: nowrap;
 }
 
-/* Direction keyframes (24 items = 2× the 12-item visual repeat → -50% loops seamlessly) */
-.dir-left  { animation: bri-left  linear infinite; }
-.dir-right { animation: bri-right linear infinite; }
-@keyframes bri-left  { 0% { transform: translateX(0);    } 100% { transform: translateX(-50%); } }
-@keyframes bri-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0);    } }
-
-/* Different speeds per row */
-.sp1 { animation-duration: 36s; }
-.sp2 { animation-duration: 27s; }
-.sp3 { animation-duration: 43s; }
-.sp4 { animation-duration: 24s; }
-.sp5 { animation-duration: 33s; }
-
-/* ── HERO TAG ── */
-.hero-tag-dot {
-  display: block; width: 6px; height: 6px;
+/* ── CENTRAL AMBIENT GLOW ── */
+.hero-glow {
+  position: absolute;
+  top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 600px;
   border-radius: 50%;
-  background: var(--bri-gold, #F5A623);
-  flex-shrink: 0;
-  animation: pulse-dot 2.8s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 6px rgba(245,166,35,0.45); }
-  50%       { box-shadow: 0 0 14px rgba(245,166,35,0.85), 0 0 28px rgba(245,166,35,0.25); }
+  background: radial-gradient(ellipse, rgba(0,87,184,0.13) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
 }
 
-/* ── STATS ── */
-.hero-stats {
-  display: flex; align-items: center; gap: 20px;
-  margin-top: 40px; padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+/* ── HERO BODY (centered) ── */
+.hero-body {
+  position: relative; z-index: 1;
+  width: 100%;
+  max-width: var(--max-w, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--px, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 68px - 78px);
+  justify-content: center;
+  padding-bottom: 100px;
 }
-.hero-stat-item { display: flex; flex-direction: column; gap: 4px; }
-.hero-stat-num {
-  font-size: 22px; font-weight: 800;
+
+/* ── CONTENT GROUP (Frame A: column, center) ── */
+.hero-content-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ── HEADLINE GROUP (Frame B: column, left-align) ── */
+.hero-headline-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* ── KICKER ── */
+.hero-kicker {
+  font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.40);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* ── MAIN HEADLINE ── */
+.hero-h1 {
+  font-size: clamp(44px, 6.5vw, 86px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ── DESCRIPTION ── */
+.hero-desc {
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: rgba(255,255,255,0.65);
+  line-height: 1.78;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+/* ── CTA BUTTONS ── */
+.hero-ctas {
+  position: absolute;
+  bottom: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.hero-btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 34px;
+  background: var(--bri-blue, #0057B8);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 14px; font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 4px 32px rgba(0,87,184,0.45);
+  transition: transform 0.22s, box-shadow 0.22s, background 0.22s;
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 44px rgba(0,87,184,0.62);
+  background: #0068d6;
+}
+
+.hero-btn-ghost {
+  display: inline-flex; align-items: center;
+  padding: 15px 34px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.80);
+  border-radius: 100px;
+  font-size: 14px; font-weight: 700;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: background 0.22s, border-color 0.22s, transform 0.22s;
+}
+
+.hero-btn-ghost:hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.26);
+  transform: translateY(-2px);
+}
+
+/* ── BOTTOM STATS BAR ── */
+.hero-stats-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 var(--px, 40px);
+  height: 78px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: rgba(4,10,24,0.30);
+  backdrop-filter: blur(6px);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 36px;
+}
+
+.hero-stat-loc .hero-stat-n {
+  font-size: 15px; letter-spacing: -0.01em;
+}
+
+.hero-stat-n {
+  font-size: 21px; font-weight: 800;
   color: rgba(255,255,255,0.90);
   letter-spacing: -0.04em; line-height: 1;
 }
-.hero-stat-num sup {
+
+.hero-stat-n sup {
   font-size: 11px; font-weight: 700;
   color: var(--bri-gold, #F5A623);
   vertical-align: top; margin-top: 2px;
 }
-.hero-stat-lbl {
-  font-size: 9.5px; font-weight: 700;
-  color: rgba(255,255,255,0.30);
-  text-transform: uppercase; letter-spacing: 0.06em;
-}
-.hero-stat-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.09); flex-shrink: 0; }
 
-/* ── RIGHT GLOW ── */
-.hero-right-glow {
-  position: absolute; top: 5%; right: -20%;
-  width: 420px; height: 420px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,87,184,0.13) 0%, transparent 68%);
-  pointer-events: none; z-index: 0;
+.hero-stat-l {
+  font-size: 9px; font-weight: 700;
+  color: rgba(255,255,255,0.22);
+  text-transform: uppercase; letter-spacing: 0.09em;
+  white-space: nowrap;
 }
 
-/* ── QUICK ACCESS PANEL ── */
-.hero-panel {
-  position: relative; z-index: 1;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  border-radius: 20px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-}
-.hero-panel-eyebrow {
-  padding: 14px 18px 10px;
-  font-size: 10px; font-weight: 800;
-  letter-spacing: 0.10em; text-transform: uppercase;
-  color: rgba(255,255,255,0.30);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.hero-quick-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: rgba(255,255,255,0.06);
-}
-.hero-quick-card {
-  display: flex; align-items: center; gap: 12px;
-  padding: 16px 18px;
-  text-decoration: none;
-  background: rgba(6,14,32,0.55);
-  transition: background 0.2s;
-  position: relative;
-}
-.hero-quick-card:hover { background: rgba(0,87,184,0.12); }
-.hero-quick-card:hover .hero-quick-arrow { opacity: 1; transform: translate(2px, -2px); }
-
-.hero-quick-icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.11);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.75);
+.hero-stat-vline {
+  width: 1px; height: 28px;
+  background: rgba(255,255,255,0.08);
   flex-shrink: 0;
-  transition: background 0.2s, border-color 0.2s;
 }
-.hero-quick-card:hover .hero-quick-icon {
-  background: rgba(0,87,184,0.25);
-  border-color: rgba(0,87,184,0.40);
-  color: #60a5fa;
-}
-
-.hero-quick-body { flex: 1; min-width: 0; }
-.hero-quick-name {
-  font-size: 13px; font-weight: 700;
-  color: rgba(255,255,255,0.88);
-  margin-bottom: 2px;
-}
-.hero-quick-sub {
-  font-size: 11px; color: rgba(255,255,255,0.35);
-  line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.hero-quick-arrow {
-  color: rgba(255,255,255,0.30); flex-shrink: 0;
-  opacity: 0;
-  transition: opacity 0.18s, transform 0.18s;
-}
-
-/* ── ADDRESS CARD ── */
-.hero-addr-card {
-  position: relative; z-index: 1;
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.09);
-  border-radius: 14px;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: border-color 0.22s, background 0.22s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
-}
-.hero-addr-card:hover {
-  border-color: rgba(0,87,184,0.45);
-  background: rgba(0,87,184,0.08);
-  transform: translateX(4px);
-}
-.hero-addr-pin {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.11);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.55); flex-shrink: 0;
-  transition: background 0.2s, color 0.2s;
-}
-.hero-addr-card:hover .hero-addr-pin { background: rgba(0,87,184,0.25); color: #60a5fa; }
-.hero-addr-body { flex: 1; min-width: 0; }
-.hero-addr-name {
-  font-size: 13px; font-weight: 700;
-  color: rgba(255,255,255,0.88); margin-bottom: 2px;
-}
-.hero-addr-city {
-  font-size: 11px; color: rgba(255,255,255,0.35);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.hero-addr-arrow {
-  color: rgba(255,255,255,0.30); flex-shrink: 0;
-  transition: color 0.2s, transform 0.2s;
-}
-.hero-addr-card:hover .hero-addr-arrow { color: #60a5fa; transform: translate(2px, -2px); }
 
 /* ── FLOATING STATUS PILL ── */
 .hero-status-float {
-  position: absolute; bottom: 80px; right: var(--px, 40px);
+  position: absolute; bottom: 96px; right: var(--px, 40px);
   z-index: 10;
   display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
 }
+
 .hero-status-pill {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 10px 16px; border-radius: 100px;
@@ -419,25 +436,33 @@ const hoursData = computed(() => {
   white-space: nowrap;
   transition: border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.22s;
 }
+
 .is-open .hero-status-pill {
-  border-color: rgba(74,222,128,0.40); background: rgba(16,185,129,0.14);
+  border-color: rgba(74,222,128,0.40);
+  background: rgba(16,185,129,0.14);
   box-shadow: 0 4px 20px rgba(22,163,74,0.18);
 }
+
 .is-closed .hero-status-pill {
-  border-color: rgba(248,113,113,0.38); background: rgba(220,38,38,0.12);
+  border-color: rgba(248,113,113,0.38);
+  background: rgba(220,38,38,0.12);
   box-shadow: 0 4px 20px rgba(220,38,38,0.14);
 }
-.hero-status-pill:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(0,0,0,0.40); }
+
+.hero-status-pill:hover { transform: translateY(-1px); }
 
 .status-pulse-dot {
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
   animation: pulse-status 2.5s ease-in-out infinite;
 }
+
 .is-open  .status-pulse-dot { background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.65); }
 .is-closed .status-pulse-dot { background: #f87171; box-shadow: 0 0 8px rgba(248,113,113,0.65); }
+
 @keyframes pulse-status {
   0%, 100% { opacity: 1; } 50% { opacity: 0.40; }
 }
+
 .status-chevron {
   color: rgba(255,255,255,0.38); flex-shrink: 0;
   transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
@@ -453,6 +478,7 @@ const hoursData = computed(() => {
   box-shadow: 0 20px 56px rgba(0,0,0,0.55), inset 0 0 0 0.5px rgba(255,255,255,0.04);
   overflow: hidden;
 }
+
 .hero-hours-head {
   display: flex; align-items: center; gap: 8px;
   padding: 11px 14px;
@@ -461,12 +487,15 @@ const hoursData = computed(() => {
   color: rgba(255,255,255,0.32);
   border-bottom: 1px solid rgba(255,255,255,0.07);
 }
+
 .hero-hours-list { padding: 4px 0; }
+
 .hero-hours-row {
   display: flex; align-items: center;
   justify-content: space-between; padding: 7px 14px;
   transition: background 0.14s;
 }
+
 .hero-hours-row:hover { background: rgba(255,255,255,0.025); }
 .hero-hours-row.is-today { background: rgba(255,255,255,0.04); }
 .hours-day { font-size: 12.5px; color: rgba(255,255,255,0.52); }
@@ -480,35 +509,22 @@ const hoursData = computed(() => {
 .hours-drop-enter-from { opacity: 0; transform: translateY(10px) scale(0.96); }
 .hours-drop-leave-to   { opacity: 0; transform: translateY(8px)  scale(0.97); }
 
-/* ── SCROLL INDICATOR ── */
-.scroll-indicator {
-  position: absolute; bottom: 28px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  opacity: 1; transition: opacity 0.5s ease; pointer-events: none; z-index: 2;
-}
-.scroll-indicator.hidden { opacity: 0; }
-.scroll-label {
-  font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.22);
-}
-.scroll-chevrons {
-  display: flex; flex-direction: column; align-items: center;
-  color: rgba(255,255,255,0.25);
-  animation: bounce-scroll 2s ease-in-out infinite;
-}
-.scroll-chevrons svg:first-child { opacity: 0.45; margin-bottom: -6px; }
-@keyframes bounce-scroll {
-  0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); }
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero-body { padding-bottom: 80px; }
+  .hero-h1 { white-space: normal; }
+  .hero-ctas { bottom: 88px; gap: 10px; }
+  .hero-status-float { bottom: 148px; right: var(--px, 40px); }
+  .hero-stat { padding: 0 20px; }
+  .hero-stat-loc { display: none; }
+  .hero-desc br.hero-br { display: none; }
+  .hero-stats-bar { overflow-x: auto; justify-content: flex-start; padding: 0 var(--px); }
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .hero-quick-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 700px) {
-  .scroll-indicator { display: none; }
-  .hero-status-float { bottom: 24px; right: 16px; }
+@media (max-width: 480px) {
+  .hero-h1 { font-size: clamp(32px, 8vw, 52px); }
+  .hero-ctas { flex-direction: column; align-items: center; bottom: 100px; }
+  .hero-status-float { bottom: 188px; right: 16px; }
+  .hero-stat { padding: 0 16px; }
 }
 </style>

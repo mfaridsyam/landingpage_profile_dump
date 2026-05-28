@@ -2,11 +2,9 @@
   <div>
     <TheNavbar />
     <HeroSection />
-    <MarqueeBand />
-    <StockBar />
     <ServicesSection />
     <KeunggulanSection />
-    <SubsidiarySection />
+    <StockBar />
     <KursSection />
     <LoanCalculatorSection />
     <GallerySection />
@@ -23,11 +21,9 @@
 import { ref } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import HeroSection from '@/components/HeroSection.vue'
-import MarqueeBand from '@/components/MarqueeBand.vue'
 import StockBar from '@/components/StockBar.vue'
 import ServicesSection from '@/components/ServicesSection.vue'
 import KeunggulanSection from '@/components/KeunggulanSection.vue'
-import SubsidiarySection from '@/components/SubsidiarySection.vue'
 import KursSection from '@/components/KursSection.vue'
 import LoanCalculatorSection from '@/components/LoanCalculatorSection.vue'
 import GallerySection from '@/components/GallerySection.vue'

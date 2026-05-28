@@ -7,21 +7,6 @@
         <p class="section-sub" style="max-width:520px">Kami hadir dengan solusi keuangan terlengkap, jaringan terluas, dan teknologi terdepan untuk mendukung setiap langkah Anda.</p>
       </div>
 
-      <div class="numbers-grid reveal">
-        <div class="number-card">
-          <div class="number-val">1946<span style="font-size:1.1rem">est.</span></div>
-          <div class="number-lbl">Tahun Berdiri BRI</div>
-        </div>
-        <div class="number-card">
-          <div class="number-val">13<span>+</span></div>
-          <div class="number-lbl">Unit Kerja di Polewali Mandar</div>
-        </div>
-        <div class="number-card">
-          <div class="number-val">24<span>/7</span></div>
-          <div class="number-lbl">Layanan Digital ATM &amp; BRImo</div>
-        </div>
-      </div>
-
       <div class="why-grid">
         <div v-for="(item, i) in whyItems" :key="i"
           class="why-card reveal" :class="i > 0 ? `reveal-delay-${Math.min(i, 4)}` : ''">

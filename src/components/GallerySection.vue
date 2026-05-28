@@ -1331,4 +1331,21 @@ const videos = [
   .more-artikel-row-thumb { width: 76px; height: 50px; }
   .more-artikel-row { padding: 10px 16px; gap: 10px; }
 }
+
+/* ── MODAL SCROLLBAR ── */
+.video-modal-left::-webkit-scrollbar,
+.video-modal-sidebar::-webkit-scrollbar,
+.more-modal-scroll::-webkit-scrollbar { width: 4px; }
+.video-modal-left::-webkit-scrollbar-track,
+.video-modal-sidebar::-webkit-scrollbar-track,
+.more-modal-scroll::-webkit-scrollbar-track { background: transparent; }
+.video-modal-left::-webkit-scrollbar-thumb,
+.video-modal-sidebar::-webkit-scrollbar-thumb,
+.more-modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.14);
+  border-radius: 100px;
+}
+.video-modal-left::-webkit-scrollbar-thumb:hover,
+.video-modal-sidebar::-webkit-scrollbar-thumb:hover,
+.more-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,87,184,0.50); }
 </style>

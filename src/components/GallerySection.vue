@@ -718,8 +718,8 @@ const videos = [
   margin-bottom: 16px;
 }
 .artikel-featured {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   overflow: hidden;
   backdrop-filter: blur(8px);
@@ -757,8 +757,8 @@ const videos = [
 }
 .artikel-side-col { display: flex; flex-direction: column; gap: 12px; }
 .artikel-side-item {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 12px; overflow: hidden; backdrop-filter: blur(8px);
   transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
   flex: 1; display: flex; flex-direction: column; cursor: pointer;

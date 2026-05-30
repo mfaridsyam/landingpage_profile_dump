@@ -81,11 +81,11 @@ const whyItems = [
   margin-bottom: 56px;
 }
 .number-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   padding: 28px 24px;
-
+  backdrop-filter: blur(8px);
   text-align: center;
 }
 .number-val {
@@ -114,11 +114,11 @@ const whyItems = [
   gap: 16px;
 }
 .why-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   padding: 24px 22px;
-
+  backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   gap: 14px;

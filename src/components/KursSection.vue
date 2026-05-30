@@ -221,7 +221,7 @@ function swapCalc() {
   padding: 9px 20px; border-radius: 100px;
   font-size: 12.5px; font-weight: 700;
   color: rgba(255,255,255,0.38);
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
   border: 1.5px solid rgba(255,255,255,0.08);
   cursor: pointer; font-family: inherit;
   transition: color 0.2s, background 0.2s, border-color 0.2s;
@@ -252,7 +252,7 @@ function swapCalc() {
   gap: 10px;
 }
 .kurs-card {
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
   border: 1.5px solid rgba(255,255,255,0.08);
   border-radius: 16px;
   padding: 16px;
@@ -296,11 +296,11 @@ function swapCalc() {
 
 /* Calculator */
 .kurs-calc {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 20px;
   padding: 24px 20px;
-
+  backdrop-filter: blur(8px);
   display: flex; flex-direction: column; gap: 18px;
   position: sticky; top: 88px;
 }
@@ -313,7 +313,7 @@ function swapCalc() {
 .kurs-mode-row {
   display: grid; grid-template-columns: 1fr 1fr; gap: 0;
   background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.13);
   border-radius: 10px; overflow: hidden;
 }
 .kurs-mode-btn {
@@ -336,7 +336,7 @@ function swapCalc() {
   display: flex;
   border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 10px; overflow: hidden;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
   transition: border-color 0.2s;
 }
 .kurs-field-row:focus-within { border-color: rgba(0,87,184,0.50); }

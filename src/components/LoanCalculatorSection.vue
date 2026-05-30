@@ -303,8 +303,8 @@ function scrollTo(id) {
 .loan-tab-pill {
   display: flex; align-items: center; gap: 10px;
   padding: 12px 22px; border-radius: 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.08);
   color: rgba(255,255,255,0.45);
   font-size: 13px; font-weight: 700;
   font-family: inherit; cursor: pointer;
@@ -321,11 +321,11 @@ function scrollTo(id) {
 
 /* Card */
 .loan-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 24px;
   overflow: hidden;
-
+  backdrop-filter: blur(8px);
 }
 
 /* Form */
@@ -366,7 +366,7 @@ function scrollTo(id) {
   display: flex; align-items: center;
   border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 10px; overflow: hidden;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
   transition: border-color 0.2s;
 }
 .loan-input-wrap:focus-within { border-color: rgba(0,87,184,0.50); }
@@ -415,7 +415,7 @@ function scrollTo(id) {
 .loan-select-wrap { position: relative; }
 .loan-select {
   width: 100%; appearance: none;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
   border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 10px;
   color: rgba(255,255,255,0.85);

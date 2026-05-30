@@ -161,15 +161,15 @@ async function handleSubmit() {
 /* Info strip */
 .contact-strip {
   display: flex; align-items: center;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.08);
   border-radius: 18px; padding: 22px 32px;
   gap: 0; margin-bottom: 28px; flex-wrap: wrap;
   gap: 24px;
 }
 .contact-strip-sep {
   width: 1px; height: 48px;
-  background: rgba(255,255,255,0.04); flex-shrink: 0;
+  background: rgba(255,255,255,0.08); flex-shrink: 0;
 }
 .contact-strip-item {
   display: flex; align-items: center; gap: 14px;
@@ -215,11 +215,11 @@ async function handleSubmit() {
 
 /* Form card */
 .contact-form-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 24px;
   padding: 36px 36px 32px;
-
+  backdrop-filter: blur(8px);
 }
 .contact-form { display: flex; flex-direction: column; gap: 22px; }
 
@@ -239,7 +239,7 @@ async function handleSubmit() {
 
 .form-input {
   background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 10px;
   color: rgba(255,255,255,0.88);
   font-family: inherit; font-size: 14px; font-weight: 500;
@@ -255,7 +255,7 @@ async function handleSubmit() {
 
 .form-textarea {
   background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 10px;
   color: rgba(255,255,255,0.88);
   font-family: inherit; font-size: 14px; font-weight: 500;

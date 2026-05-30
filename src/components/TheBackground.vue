@@ -81,7 +81,7 @@ function tick() {
       const dy = nodes[i].y - nodes[j].y
       const d  = dx * dx + dy * dy
       if (d < LINE_DIST * LINE_DIST) {
-        const alpha = (1 - Math.sqrt(d) / LINE_DIST) * 0.22
+        const alpha = (1 - Math.sqrt(d) / LINE_DIST) * 0.13
         ctx.strokeStyle = `rgba(255,255,255,${alpha.toFixed(3)})`
         ctx.beginPath()
         ctx.moveTo(nodes[i].x, nodes[i].y)
@@ -94,7 +94,7 @@ function tick() {
   for (const n of nodes) {
     ctx.beginPath()
     ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-    ctx.fillStyle = 'rgba(255,255,255,0.28)'
+    ctx.fillStyle = 'rgba(255,255,255,0.16)'
     ctx.fill()
   }
 

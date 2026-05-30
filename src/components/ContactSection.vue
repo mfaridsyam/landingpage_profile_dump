@@ -162,14 +162,14 @@ async function handleSubmit() {
 .contact-strip {
   display: flex; align-items: center;
   background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.16);
   border-radius: 18px; padding: 22px 32px;
   gap: 0; margin-bottom: 28px; flex-wrap: wrap;
   gap: 24px;
 }
 .contact-strip-sep {
   width: 1px; height: 48px;
-  background: rgba(255,255,255,0.09); flex-shrink: 0;
+  background: rgba(255,255,255,0.16); flex-shrink: 0;
 }
 .contact-strip-item {
   display: flex; align-items: center; gap: 14px;
@@ -215,7 +215,7 @@ async function handleSubmit() {
 
 /* Form card */
 .contact-form-card {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 24px;
   padding: 36px 36px 32px;

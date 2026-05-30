@@ -118,7 +118,7 @@ const allServices = [
 .services-header-right {
   display: flex; align-items: center; gap: 24px;
   background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.16);
   border-radius: 14px; padding: 18px 28px; flex-shrink: 0;
 }
 .services-stat { text-align: center; }
@@ -148,7 +148,7 @@ const allServices = [
 /* ── CARD ── */
 .svc-card {
   display: block;
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 20px;
   text-decoration: none;

@@ -718,7 +718,7 @@ const videos = [
   margin-bottom: 16px;
 }
 .artikel-featured {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   overflow: hidden;
@@ -757,7 +757,7 @@ const videos = [
 }
 .artikel-side-col { display: flex; flex-direction: column; gap: 12px; }
 .artikel-side-item {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 12px; overflow: hidden; backdrop-filter: blur(5px);
   transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
@@ -793,7 +793,7 @@ const videos = [
 /* ── BOTTOM LIST ROWS ── */
 .artikel-list-rows {
   display: flex; flex-direction: column;
-  border: 1.5px solid rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.16);
   border-radius: 14px; overflow: hidden;
   margin-bottom: 24px;
 }

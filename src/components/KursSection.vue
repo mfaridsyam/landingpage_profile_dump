@@ -296,7 +296,7 @@ function swapCalc() {
 
 /* Calculator */
 .kurs-calc {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 20px;
   padding: 24px 20px;

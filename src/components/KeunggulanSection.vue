@@ -81,7 +81,7 @@ const whyItems = [
   margin-bottom: 56px;
 }
 .number-card {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   padding: 28px 24px;
@@ -114,7 +114,7 @@ const whyItems = [
   gap: 16px;
 }
 .why-card {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.16);
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   padding: 24px 22px;

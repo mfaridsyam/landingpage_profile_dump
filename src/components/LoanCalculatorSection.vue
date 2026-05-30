@@ -321,10 +321,11 @@ function scrollTo(id) {
 
 /* Card */
 .loan-card {
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 24px;
   overflow: hidden;
+  backdrop-filter: blur(5px);
 }
 
 /* Form */

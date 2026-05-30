@@ -58,24 +58,24 @@
           </div>
         </button>
 
-        <!-- Investor Relations -->
-        <a href="https://www.ir-bri.com/" target="_blank" rel="noopener"
+        <!-- AgenBRI -->
+        <a href="https://agen.bri.co.id/" target="_blank" rel="noopener"
           class="portal-card reveal reveal-delay-2" style="--accent: #10b981;">
           <div class="portal-card-accent"></div>
           <div class="portal-card-body">
             <div class="portal-card-head">
               <div class="portal-logo-wrap">
-                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778774735/lgogo_invest_zkkrvo.png" alt="Investor Relations" />
+                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342902/Logo_Info_lelang_kbvebb.png" alt="AgenBRI" style="filter:hue-rotate(140deg) saturate(0.8)" />
               </div>
               <div class="portal-card-meta">
-                <div class="portal-card-tag">Investor</div>
-                <div class="portal-card-name">Investor Relations</div>
+                <div class="portal-card-tag">Agen Laku Pandai</div>
+                <div class="portal-card-name">AgenBRI</div>
               </div>
             </div>
-            <div class="portal-card-desc">Informasi saham BBRI, laporan keuangan tahunan, dan data korporat lengkap untuk para investor dan analis.</div>
+            <div class="portal-card-desc">Daftarkan diri sebagai AgenBRI dan hadirkan layanan perbankan BRI langsung di komunitas Anda — mudah, cepat, dan menguntungkan.</div>
           </div>
           <div class="portal-card-foot">
-            <span class="portal-card-url">ir-bri.com</span>
+            <span class="portal-card-url">agen.bri.co.id</span>
             <span class="portal-card-cta">
               Kunjungi
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>

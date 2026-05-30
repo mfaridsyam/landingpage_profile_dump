@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"d:\\\\PROJECT\\\\Website\\\\bri-polewali-vue\\\\src\\\\components\" -Filter \"*.vue\")",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(Sort-Object)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "WebFetch(domain:app.rekrutmencpns.id)",
+      "WebFetch(domain:www.svz.io)"
+    ]
+  }
+}

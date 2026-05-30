@@ -3,8 +3,8 @@
     <div class="container">
       <div class="keunggulan-header reveal">
         <div class="section-eyebrow">Keunggulan Kami</div>
-        <h2 class="section-title" style="margin-bottom:8px">Mengapa Memilih BRI Polewali?</h2>
-        <p class="section-sub" style="max-width:520px">Kami hadir dengan solusi keuangan terlengkap, jaringan terluas, dan teknologi terdepan untuk mendukung setiap langkah Anda.</p>
+        <h2 class="section-title" style="margin-bottom:8px">Mengapa Memilih BRI?</h2>
+        <p class="section-sub" style="max-width:520px">Solusi keuangan terlengkap, jaringan terluas, dan teknologi terdepan — hadir untuk mendukung setiap langkah Anda.</p>
       </div>
 
       <div class="why-grid">
@@ -34,13 +34,13 @@ const whyItems = [
   {
     icon: 'shield',
     title: 'Terpercaya & Terjamin',
-    desc: 'Bank BUMN milik pemerintah Indonesia dengan reputasi terjaga lebih dari 128 tahun. Dana Anda dijamin LPS hingga Rp 2 miliar.',
+    desc: 'Bank BUMN milik pemerintah Indonesia, terpercaya dan diawasi langsung oleh OJK. Dana Anda dijamin LPS hingga Rp 2 miliar.',
     badge: 'Bank BUMN'
   },
   {
     icon: 'map',
     title: 'Jaringan Paling Luas',
-    desc: '13+ unit kerja yang tersebar merata di seluruh wilayah Polewali Mandar dan Mamasa — tidak ada yang terlalu jauh dari layanan BRI.',
+    desc: '13+ unit kerja yang tersebar merata di wilayah layanan kami — selalu ada kantor BRI terdekat yang siap melayani Anda.',
     badge: '13+ Kantor'
   },
   {
@@ -52,7 +52,7 @@ const whyItems = [
   {
     icon: 'trending-up',
     title: 'KUR Terbaik untuk UMKM',
-    desc: 'Program KUR BRI dengan plafon hingga Rp 500 juta, bunga terjangkau, dan proses cepat. Mitra tumbuh ribuan UMKM Polewali Mandar.',
+    desc: 'Program KUR BRI dengan plafon hingga Rp 500 juta, bunga terjangkau, dan proses cepat — mitra tumbuh ribuan pelaku UMKM di seluruh Indonesia.',
     badge: 'KUR 6% p.a.'
   },
   {

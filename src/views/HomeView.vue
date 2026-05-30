@@ -4,7 +4,6 @@
     <HeroSection />
     <ServicesSection />
     <KeunggulanSection />
-    <StockBar />
     <KursSection />
     <LoanCalculatorSection />
     <GallerySection />
@@ -21,7 +20,6 @@
 import { ref } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import HeroSection from '@/components/HeroSection.vue'
-import StockBar from '@/components/StockBar.vue'
 import ServicesSection from '@/components/ServicesSection.vue'
 import KeunggulanSection from '@/components/KeunggulanSection.vue'
 import KursSection from '@/components/KursSection.vue'

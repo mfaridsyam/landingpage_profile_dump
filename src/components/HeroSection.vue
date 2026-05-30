@@ -1,6 +1,5 @@
 <template>
-  <section class="hero" ref="heroRef">
-    <canvas ref="canvasRef" class="hero-canvas" aria-hidden="true"></canvas>
+  <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
 
     <!-- ── CENTERED HERO BODY ── -->
@@ -31,11 +30,6 @@
 
     <!-- ── BOTTOM STATS BAR ── -->
     <div class="hero-stats-bar">
-      <div class="hero-stat">
-        <span class="hero-stat-n">128<sup>+</sup></span>
-        <span class="hero-stat-l">Tahun Melayani</span>
-      </div>
-      <div class="hero-stat-vline"></div>
       <div class="hero-stat">
         <span class="hero-stat-n">13</span>
         <span class="hero-stat-l">Unit Kerja</span>
@@ -82,114 +76,9 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useBranchStatus } from '@/composables/useBranchStatus.js'
 
-const heroRef        = ref(null)
-const canvasRef      = ref(null)
 const showHours      = ref(false)
 const statusFloatRef = ref(null)
 
-// ── CANVAS PARTICLE NETWORK ──
-let animId = null
-let ctx    = null
-let nodes  = []
-let mouseX = -9999
-let mouseY = -9999
-
-const LINE_DIST      = 200
-const REPEL_RADIUS   = 160
-const REPEL_STRENGTH = 3.5
-const ANGLE_DRIFT    = 0.018
-
-function initCanvas() {
-  const canvas  = canvasRef.value
-  const section = heroRef.value
-  canvas.width  = section.offsetWidth
-  canvas.height = section.offsetHeight
-  ctx = canvas.getContext('2d')
-
-  const count = canvas.width < 700 ? 55 : 100
-  nodes = Array.from({ length: count }, () => {
-    const angle = Math.random() * Math.PI * 2
-    const speed = 0.12 + Math.random() * 0.18
-    return {
-      x:      Math.random() * canvas.width,
-      y:      Math.random() * canvas.height,
-      angle,
-      speed,
-      vx:     Math.cos(angle) * speed,
-      vy:     Math.sin(angle) * speed,
-      r:      Math.random() * 1.1 + 0.65,
-      repelX: 0,
-      repelY: 0,
-    }
-  })
-}
-
-function tick() {
-  const canvas = canvasRef.value
-  if (!canvas || !ctx) return
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-  for (const n of nodes) {
-    n.angle += (Math.random() - 0.5) * ANGLE_DRIFT
-    n.vx = Math.cos(n.angle) * n.speed
-    n.vy = Math.sin(n.angle) * n.speed
-
-    const dx   = n.x - mouseX
-    const dy   = n.y - mouseY
-    const dist = Math.hypot(dx, dy)
-    if (dist < REPEL_RADIUS && dist > 1) {
-      const f = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH / dist
-      n.repelX += dx * f
-      n.repelY += dy * f
-    }
-    n.repelX *= 0.82
-    n.repelY *= 0.82
-
-    n.x += n.vx + n.repelX
-    n.y += n.vy + n.repelY
-
-    if (n.x < 0)             { n.x = 0;             n.angle = Math.PI - n.angle }
-    if (n.x > canvas.width)  { n.x = canvas.width;  n.angle = Math.PI - n.angle }
-    if (n.y < 0)             { n.y = 0;             n.angle = -n.angle }
-    if (n.y > canvas.height) { n.y = canvas.height; n.angle = -n.angle }
-  }
-
-  ctx.lineWidth = 1.2
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const dx = nodes[i].x - nodes[j].x
-      const dy = nodes[i].y - nodes[j].y
-      const d  = dx * dx + dy * dy
-      if (d < LINE_DIST * LINE_DIST) {
-        const alpha = (1 - Math.sqrt(d) / LINE_DIST) * 0.22
-        ctx.strokeStyle = `rgba(255,255,255,${alpha.toFixed(3)})`
-        ctx.beginPath()
-        ctx.moveTo(nodes[i].x, nodes[i].y)
-        ctx.lineTo(nodes[j].x, nodes[j].y)
-        ctx.stroke()
-      }
-    }
-  }
-
-  for (const n of nodes) {
-    ctx.beginPath()
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-    ctx.fillStyle = 'rgba(255,255,255,0.30)'
-    ctx.fill()
-  }
-
-  animId = requestAnimationFrame(tick)
-}
-
-function onCanvasMouseMove(e) {
-  if (!heroRef.value) return
-  const rect = heroRef.value.getBoundingClientRect()
-  mouseX = e.clientX - rect.left
-  mouseY = e.clientY - rect.top
-}
-function onCanvasMouseLeave() { mouseX = -9999; mouseY = -9999 }
-function onResize() { if (canvasRef.value && heroRef.value) initCanvas() }
 function onKeydown(e) { if (e.key === 'Escape') showHours.value = false }
 function onClickOutside(e) {
   if (statusFloatRef.value && !statusFloatRef.value.contains(e.target))
@@ -197,21 +86,12 @@ function onClickOutside(e) {
 }
 
 onMounted(() => {
-  initCanvas()
-  tick()
-  heroRef.value?.addEventListener('mousemove',  onCanvasMouseMove)
-  heroRef.value?.addEventListener('mouseleave', onCanvasMouseLeave)
-  window.addEventListener('resize',    onResize)
-  window.addEventListener('keydown',   onKeydown)
+  window.addEventListener('keydown',    onKeydown)
   document.addEventListener('mousedown', onClickOutside)
 })
 
 onUnmounted(() => {
-  cancelAnimationFrame(animId)
-  heroRef.value?.removeEventListener('mousemove',  onCanvasMouseMove)
-  heroRef.value?.removeEventListener('mouseleave', onCanvasMouseLeave)
-  window.removeEventListener('resize',   onResize)
-  window.removeEventListener('keydown',  onKeydown)
+  window.removeEventListener('keydown',    onKeydown)
   document.removeEventListener('mousedown', onClickOutside)
 })
 
@@ -237,13 +117,6 @@ const hoursData = computed(() => {
 </script>
 
 <style scoped>
-/* ── CANVAS ── */
-.hero-canvas {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; z-index: 0;
-}
-
 /* ── CENTRAL AMBIENT GLOW ── */
 .hero-glow {
   position: absolute;

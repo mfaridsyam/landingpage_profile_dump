@@ -62,6 +62,9 @@ body::after {
 /* All content must sit above the fixed bg */
 body > * { position: relative; z-index: 1; }
 
+/* Ensure all sections render above the global canvas (z-index: 0) */
+section, footer { position: relative; z-index: 1; }
+
 .dark-section {
   background: transparent;
   position: relative;

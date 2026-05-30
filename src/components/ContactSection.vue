@@ -286,14 +286,18 @@ async function handleSubmit() {
 .btn-submit {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 13px 32px; min-width: 180px;
-  background: var(--bri-gold, #F5A623);
-  color: #0A1628;
+  background: var(--bri-blue, #0057B8);
+  color: #fff;
   border: none; border-radius: 12px;
   font-family: inherit; font-size: 14.5px; font-weight: 800;
   cursor: pointer; flex-shrink: 0;
-  transition: background 0.2s, transform 0.2s, opacity 0.2s;
+  transition: background 0.2s, transform 0.2s, opacity 0.2s, box-shadow 0.2s;
 }
-.btn-submit:hover:not(:disabled) { background: #f8b83c; transform: translateY(-1px); }
+.btn-submit:hover:not(:disabled) {
+  background: #0066d6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,87,184,0.35);
+}
 .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .spin-icon { animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

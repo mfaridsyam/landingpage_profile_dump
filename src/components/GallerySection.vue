@@ -25,6 +25,8 @@
       <!-- ─── ARTIKEL ─── -->
       <div v-show="tab === 'artikel'">
         <div class="artikel-layout">
+
+          <!-- Featured (kiri) -->
           <div class="artikel-featured reveal" @click="openArtikel(0)">
             <div class="artikel-featured-img-wrap">
               <img :src="articles[0].img" :alt="articles[0].label" />
@@ -37,35 +39,21 @@
               <p class="artikel-featured-excerpt">{{ articles[0].excerpt }}</p>
             </div>
           </div>
-          <div class="artikel-side-col">
-            <div v-for="(art, i) in articles.slice(1, 3)" :key="art.label"
-              class="artikel-side-item reveal" :class="`reveal-delay-${i+1}`"
-              @click="openArtikel(i+1)">
-              <div class="artikel-side-img-wrap"><img :src="art.img" :alt="art.label" /></div>
-              <div class="artikel-side-body">
+
+          <!-- Stack teks-only (kanan) -->
+          <div class="artikel-stack-col">
+            <div v-for="(art, i) in articles.slice(1, 5)" :key="art.label"
+              class="artikel-stack-item"
+              @click="openArtikel(i + 1)">
+              <div class="artikel-stack-top">
                 <div class="artikel-cat-badge artikel-cat-badge--sm">{{ art.category }}</div>
-                <p class="artikel-side-title">{{ art.label }}</p>
                 <span class="artikel-time">{{ art.time }}</span>
               </div>
+              <p class="artikel-stack-title">{{ art.label }}</p>
+              <svg class="artikel-stack-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
           </div>
-        </div>
-        <div class="artikel-list-rows reveal">
-          <div v-for="(art, i) in articles.slice(3, 6)" :key="art.label"
-            class="artikel-row-item"
-            @click="openArtikel(i+3)">
-            <div class="artikel-row-thumb">
-              <img :src="art.img" :alt="art.label" />
-            </div>
-            <div class="artikel-row-body">
-              <div class="artikel-cat-badge artikel-cat-badge--sm">{{ art.category }}</div>
-              <p class="artikel-row-title">{{ art.label }}</p>
-            </div>
-            <div class="artikel-row-meta">
-              <span class="artikel-time">{{ art.time }}</span>
-              <svg class="artikel-row-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
+
         </div>
         <div class="load-more-wrap reveal">
           <button class="btn-load-more" @click="openMoreModal('artikel')">
@@ -77,20 +65,43 @@
 
       <!-- ─── FOTO ─── -->
       <div v-show="tab === 'foto'">
-        <div class="foto-grid">
-          <div v-for="(photo, i) in photos" :key="i"
-            class="foto-grid-item reveal" :class="i > 0 ? `reveal-delay-${i % 3}` : ''"
-            @click="openFoto(i)">
-            <img :src="photo.img" :alt="photo.label" />
-            <div class="foto-grid-overlay">
-              <span class="foto-grid-label">{{ photo.label }}</span>
+        <div class="foto-carousel">
+          <!-- Track -->
+          <div class="foto-carousel-track"
+            :style="{ transform: `translateX(-${fotoSlide * (100 / FOTO_PER)}%)` }">
+            <div v-for="(photo, i) in photos" :key="i"
+              class="foto-carousel-slide"
+              @click="openFoto(i)">
+              <div class="foto-carousel-item">
+                <img :src="photo.img" :alt="photo.label" loading="lazy" />
+                <div class="foto-grid-overlay">
+                  <span class="foto-grid-label">{{ photo.label }}</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Arrows -->
+          <button class="foto-carr-arrow foto-carr-prev" @click="fotoPrev" :disabled="fotoSlide === 0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="foto-carr-arrow foto-carr-next" @click="fotoNext" :disabled="fotoSlide >= photos.length - FOTO_PER">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
-        <div class="load-more-wrap reveal">
+
+        <!-- Dots + load more row -->
+        <div class="foto-carr-footer">
+          <div class="foto-carr-dots">
+            <button v-for="p in fotoPages" :key="p"
+              class="foto-carr-dot"
+              :class="{ active: Math.floor(fotoSlide / FOTO_PER) === p - 1 }"
+              @click="fotoSlide = (p - 1) * FOTO_PER">
+            </button>
+          </div>
           <button class="btn-load-more" @click="openMoreModal('foto')">
             <span>Lihat Semua Foto</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
       </div>
@@ -153,6 +164,7 @@
     <!-- ═══════════════════════════════════
          ARTIKEL MODAL (full-screen reader)
          ═══════════════════════════════════ -->
+    <Teleport to="body">
     <Transition name="modal-fade">
       <div v-if="artikelModal.open" class="artikel-modal-overlay" data-lenis-prevent>
         <button class="screen-close-btn" @click="closeArtikel" title="Tutup">
@@ -204,10 +216,12 @@
         </div>
       </div>
     </Transition>
+    </Teleport>
 
     <!-- ═══════════════════════════════════
          FOTO LIGHTBOX (modern)
          ═══════════════════════════════════ -->
+    <Teleport to="body">
     <Transition name="modal-fade">
       <div v-if="fotoModal.open" class="foto-modal-overlay" @keydown.left="prevFoto" @keydown.right="nextFoto" @keydown.escape="closeFoto" tabindex="0" ref="fotoOverlayRef">
         <button class="foto-close-btn" @click="closeFoto">
@@ -263,10 +277,12 @@
         </div>
       </div>
     </Transition>
+    </Teleport>
 
     <!-- ═══════════════════════════════════
          VIDEO MODAL (YouTube-like fullscreen)
          ═══════════════════════════════════ -->
+    <Teleport to="body">
     <Transition name="modal-fade">
       <div v-if="videoModal.open" class="video-modal-overlay">
         <!-- Top bar -->
@@ -337,10 +353,12 @@
         </div>
       </div>
     </Transition>
+    </Teleport>
 
     <!-- ═══════════════════════════════════
          TAMPILKAN LAINNYA MODAL
          ═══════════════════════════════════ -->
+    <Teleport to="body">
     <Transition name="modal-fade">
       <div v-if="showModal" class="more-modal-overlay" :class="{'more-fullscreen': modalType==='foto'}" @click.self="closeMoreModal()">
         <div class="more-modal-box" :class="{'more-fullscreen-box': modalType==='foto'}" data-lenis-prevent>
@@ -406,17 +424,24 @@
         </div>
       </div>
     </Transition>
+    </Teleport>
   </section>
 </template>
 
 <script setup>
-import { ref, reactive, nextTick } from 'vue'
+import { ref, reactive, nextTick, computed } from 'vue'
 import { lenis } from '@/lenis.js'
 
 const tab = ref('artikel')
 const showModal = ref(false)
 const modalType = ref('artikel')
 const videoHover = ref(false)
+
+const FOTO_PER = 3
+const fotoSlide = ref(0)
+const fotoPages = computed(() => Math.ceil(photos.length / FOTO_PER))
+function fotoPrev() { fotoSlide.value = Math.max(0, fotoSlide.value - 1) }
+function fotoNext() { fotoSlide.value = Math.min(photos.length - FOTO_PER, fotoSlide.value + 1) }
 const fotoOverlayRef = ref(null)
 
 const artikelModal = reactive({ open: false, idx: 0 })
@@ -713,35 +738,47 @@ const videos = [
 /* ── ARTIKEL LAYOUT ── */
 .artikel-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 300px;
   gap: 16px;
   margin-bottom: 16px;
 }
 .artikel-featured {
-  background: rgba(255,255,255,0.08);
+  background: #0a1628;
   border: 1.5px solid rgba(255,255,255,0.13);
   border-radius: 16px;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  position: relative;
+  min-height: 480px;
   transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
   cursor: pointer;
 }
 .artikel-featured:hover { border-color: rgba(0,87,184,0.40); transform: translateY(-3px); }
 .artikel-featured-img-wrap {
-  position: relative;
-  aspect-ratio: 16/9;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 .artikel-featured-img-wrap img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
-.artikel-featured:hover .artikel-featured-img-wrap img { transform: scale(1.03); }
+.artikel-featured:hover .artikel-featured-img-wrap img { transform: scale(1.04); }
 .artikel-featured-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  background: linear-gradient(
+    to top,
+    rgba(5,14,30,0.92) 0%,
+    rgba(5,14,30,0.55) 40%,
+    rgba(5,14,30,0.10) 75%,
+    transparent 100%
+  );
 }
-.artikel-featured-body { padding: 18px 20px 20px; }
+.artikel-featured-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 22px 22px;
+  z-index: 1;
+}
 .artikel-time {
   font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.40);
   letter-spacing: 0.04em; display: block; margin-bottom: 6px;
@@ -755,7 +792,51 @@ const videos = [
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden; margin: 0;
 }
-.artikel-side-col { display: flex; flex-direction: column; gap: 12px; }
+/* ── STACK COL (kanan) ── */
+.artikel-stack-col {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.artikel-stack-item {
+  position: relative;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.18s;
+}
+.artikel-stack-item:last-child { border-bottom: none; }
+.artikel-stack-item:hover { background: rgba(255,255,255,0.05); }
+.artikel-stack-item:hover .artikel-stack-arrow { opacity: 1; transform: translateX(3px); }
+.artikel-stack-top {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 8px;
+}
+.artikel-stack-title {
+  font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.45; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+  flex: 1;
+}
+.artikel-stack-arrow {
+  position: absolute; bottom: 14px; right: 16px;
+  color: rgba(255,255,255,0.25); opacity: 0.4;
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+/* Old side styles kept as stub (no longer rendered) */
 .artikel-side-item {
   background: rgba(255,255,255,0.08);
   border: 1.5px solid rgba(255,255,255,0.13);
@@ -793,9 +874,12 @@ const videos = [
 /* ── BOTTOM LIST ROWS ── */
 .artikel-list-rows {
   display: flex; flex-direction: column;
-  border: 1.5px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 14px; overflow: hidden;
   margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .artikel-row-item {
   display: flex; align-items: center; gap: 16px;
@@ -828,22 +912,76 @@ const videos = [
   transition: opacity 0.2s, transform 0.2s;
 }
 
-/* ── FOTO GRID ── */
-.foto-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 12px; margin-bottom: 24px;
+/* ── FOTO CAROUSEL ── */
+.foto-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 16px;
 }
-.foto-grid-item {
-  aspect-ratio: 1; border-radius: 12px; overflow: hidden; position: relative;
-  border: 1.5px solid rgba(255,255,255,0.08); cursor: pointer;
+.foto-carousel-track {
+  display: flex;
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.foto-carousel-slide {
+  flex: 0 0 33.333%;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+.foto-carousel-slide:first-child { padding-left: 0; }
+.foto-carousel-slide:last-child  { padding-right: 0; }
+.foto-carousel-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.09);
+  cursor: pointer;
   transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
 }
-.foto-grid-item:hover { border-color: rgba(0,87,184,0.40); transform: scale(1.02); }
-.foto-grid-item img {
+.foto-carousel-item:hover { border-color: rgba(0,87,184,0.45); transform: scale(1.015); }
+.foto-carousel-item img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
-.foto-grid-item:hover img { transform: scale(1.08); }
+.foto-carousel-item:hover img { transform: scale(1.07); }
+
+/* Arrows */
+.foto-carr-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 10;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(5,14,30,0.72);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(8px);
+  transition: background 0.2s, opacity 0.2s, transform 0.2s;
+}
+.foto-carr-arrow:hover:not(:disabled) { background: rgba(0,87,184,0.55); transform: translateY(-50%) scale(1.06); }
+.foto-carr-arrow:disabled { opacity: 0.22; cursor: default; }
+.foto-carr-prev { left: 12px; }
+.foto-carr-next { right: 12px; }
+
+/* Dots + footer row */
+.foto-carr-footer {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
+  padding: 0 4px;
+}
+.foto-carr-dots { display: flex; align-items: center; gap: 6px; }
+.foto-carr-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: none; cursor: pointer; padding: 0;
+  transition: background 0.2s, width 0.25s, border-radius 0.25s;
+}
+.foto-carr-dot.active {
+  background: var(--bri-blue, #0057B8);
+  width: 22px; border-radius: 4px;
+}
+
 .foto-grid-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%);
@@ -861,8 +999,8 @@ const videos = [
   gap: 16px; margin-bottom: 24px;
 }
 .video-featured {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.12);
   border-radius: 16px; overflow: hidden; backdrop-filter: blur(8px);
   transition: border-color 0.25s; cursor: pointer;
 }
@@ -911,8 +1049,8 @@ const videos = [
 
 .video-side-list { display: flex; flex-direction: column; gap: 10px; }
 .video-side-item {
-  display: flex; gap: 0; background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.10); border-radius: 12px;
+  display: flex; gap: 0; background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px;
   overflow: hidden; backdrop-filter: blur(8px);
   transition: border-color 0.25s, background 0.2s; cursor: pointer;
   align-items: center;
@@ -957,7 +1095,7 @@ const videos = [
 
 /* ── TAMPILKAN LAINNYA MODAL ── */
 .more-modal-overlay {
-  position: fixed; inset: 0; background: rgba(5,14,30,0.88);
+  position: fixed; inset: 0; background: rgba(5,14,30,0.96);
   backdrop-filter: blur(14px); z-index: 9998;
   display: flex; align-items: center; justify-content: center; padding: 40px 24px;
 }
@@ -1039,7 +1177,7 @@ const videos = [
 .more-video-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .more-video-item {
   display: flex; flex-direction: column; align-items: stretch;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
   border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s;
 }
 .more-video-item:hover { border-color: rgba(0,87,184,0.35); }
@@ -1306,8 +1444,9 @@ const videos = [
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .artikel-layout { grid-template-columns: 1fr; }
-  .artikel-side-col { flex-direction: row; }
-  .foto-grid { grid-template-columns: repeat(3, 1fr); }
+  .artikel-stack-col { flex-direction: row; flex-wrap: wrap; }
+  .artikel-stack-item { flex: 1 1 45%; }
+  .foto-carousel-slide { flex: 0 0 50%; }
   .video-layout { grid-template-columns: 1fr; }
   .video-side-list { flex-direction: row; flex-wrap: wrap; }
   .video-side-item { flex: 1; min-width: 200px; }
@@ -1320,7 +1459,7 @@ const videos = [
   .video-suggestion-thumb { width: 120px; height: 68px; }
 }
 @media (max-width: 600px) {
-  .foto-grid { grid-template-columns: repeat(2, 1fr); }
+  .foto-carousel-slide { flex: 0 0 100%; }
   .more-foto-grid { grid-template-columns: repeat(2, 1fr); }
   .related-grid { grid-template-columns: 1fr; }
   .foto-modal-stage { padding: 56px 56px 0; }

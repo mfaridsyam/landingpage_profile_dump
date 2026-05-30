@@ -122,10 +122,29 @@ const whyItems = [
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  transition: border-color 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1),
+              background 0.28s, box-shadow 0.32s;
   position: relative;
+  overflow: hidden;
 }
-.why-card:hover { border-color: rgba(0,87,184,0.40); transform: translateY(-3px); }
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #0057B8, #60a5fa, #0057B8);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1);
+  z-index: 1;
+}
+.why-card:hover {
+  border-color: rgba(0,87,184,0.50);
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.11);
+  box-shadow: 0 0 0 1px rgba(0,87,184,0.18), 0 12px 40px rgba(0,0,0,0.30);
+}
+.why-card:hover::before { transform: scaleX(1); }
 .why-card-header {
   display: flex;
   align-items: center;

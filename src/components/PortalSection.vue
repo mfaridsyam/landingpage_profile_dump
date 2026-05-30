@@ -58,24 +58,27 @@
           </div>
         </button>
 
-        <!-- AgenBRI -->
-        <a href="https://agen.bri.co.id/" target="_blank" rel="noopener"
-          class="portal-card reveal reveal-delay-2" style="--accent: #10b981;">
+        <!-- BRImo -->
+        <a href="https://brimo.bri.co.id/" target="_blank" rel="noopener"
+          class="portal-card reveal reveal-delay-2" style="--accent: #6366f1;">
           <div class="portal-card-accent"></div>
           <div class="portal-card-body">
             <div class="portal-card-head">
-              <div class="portal-logo-wrap">
-                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342902/Logo_Info_lelang_kbvebb.png" alt="AgenBRI" style="filter:hue-rotate(140deg) saturate(0.8)" />
+              <div class="portal-logo-wrap" style="background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.22);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="3"/>
+                  <path d="M9 7h6"/><path d="M9 11h6"/><path d="M11 19h2"/>
+                </svg>
               </div>
               <div class="portal-card-meta">
-                <div class="portal-card-tag">Agen Laku Pandai</div>
-                <div class="portal-card-name">AgenBRI</div>
+                <div class="portal-card-tag">Mobile Banking</div>
+                <div class="portal-card-name">BRImo</div>
               </div>
             </div>
-            <div class="portal-card-desc">Daftarkan diri sebagai AgenBRI dan hadirkan layanan perbankan BRI langsung di komunitas Anda — mudah, cepat, dan menguntungkan.</div>
+            <div class="portal-card-desc">Transaksi perbankan kapan saja dan di mana saja — transfer, bayar tagihan, top up, investasi, dan QRIS dalam satu aplikasi.</div>
           </div>
           <div class="portal-card-foot">
-            <span class="portal-card-url">agen.bri.co.id</span>
+            <span class="portal-card-url">brimo.bri.co.id</span>
             <span class="portal-card-cta">
               Kunjungi
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -108,10 +111,12 @@ defineEmits(['openCareer'])
   position: relative;
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.11);
   border-radius: 18px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   text-decoration: none;
   text-align: left;
   font-family: inherit;

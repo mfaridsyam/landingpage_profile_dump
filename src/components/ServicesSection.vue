@@ -9,15 +9,8 @@
           <p class="section-sub">Dari simpanan hingga kredit — BRI Polewali hadir dengan produk lengkap yang dirancang untuk kehidupan finansial Anda.</p>
         </div>
         <div class="services-header-right reveal reveal-delay-1">
-          <div class="services-stat">
-            <div class="services-stat-num">6</div>
-            <div class="services-stat-lbl">Produk &amp;<br>Layanan Unggulan</div>
-          </div>
-          <div class="services-stat-sep"></div>
-          <div class="services-stat">
-            <div class="services-stat-num">128<span>+</span></div>
-            <div class="services-stat-lbl">Tahun<br>Melayani</div>
-          </div>
+          <div class="services-stat-num">6</div>
+          <div class="services-stat-lbl">Produk &amp;<br>Layanan</div>
         </div>
       </div>
 
@@ -116,26 +109,20 @@ const allServices = [
   gap: 32px; margin-bottom: 56px; flex-wrap: wrap;
 }
 .services-header-right {
-  display: flex; align-items: center; gap: 24px;
+  display: flex; align-items: center; gap: 14px;
   background: rgba(255,255,255,0.04);
   border: 1.5px solid rgba(255,255,255,0.16);
-  border-radius: 14px; padding: 18px 28px; flex-shrink: 0;
+  border-radius: 14px; padding: 16px 24px; flex-shrink: 0;
 }
-.services-stat { text-align: center; }
 .services-stat-num {
-  font-size: 28px; font-weight: 800;
-  color: #fff; letter-spacing: -0.03em; line-height: 1;
+  font-size: 40px; font-weight: 800;
+  color: #fff; letter-spacing: -0.04em; line-height: 1;
 }
-.services-stat-num span { font-size: 18px; color: var(--bri-gold, #F5A623); }
 .services-stat-lbl {
-  font-size: 11px; font-weight: 600;
-  color: rgba(255,255,255,0.35);
-  margin-top: 5px; line-height: 1.35;
-  text-transform: uppercase; letter-spacing: 0.04em;
-}
-.services-stat-sep {
-  width: 1px; height: 36px;
-  background: rgba(255,255,255,0.10); flex-shrink: 0;
+  font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.45;
+  text-transform: uppercase; letter-spacing: 0.06em;
 }
 
 /* ── GRID ── */
@@ -155,16 +142,34 @@ const allServices = [
   overflow: hidden;
   backdrop-filter: blur(8px);
   position: relative;
-  transition: border-color 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  transition: border-color 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1),
+              background 0.28s, box-shadow 0.32s;
 }
 .svc-card::before {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(0,87,184,0.07) 0%, transparent 55%);
+  background: linear-gradient(135deg, rgba(0,87,184,0.10) 0%, transparent 55%);
   opacity: 0; transition: opacity 0.28s; pointer-events: none;
 }
-.svc-card:hover { border-color: rgba(0,87,184,0.38); transform: translateY(-4px); }
+.svc-card:hover {
+  border-color: rgba(0,87,184,0.50);
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.11);
+  box-shadow: 0 0 0 1px rgba(0,87,184,0.18), 0 12px 40px rgba(0,0,0,0.30);
+}
 .svc-card:hover::before { opacity: 1; }
+.svc-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #0057B8, #60a5fa, #0057B8);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1);
+  z-index: 1;
+}
+.svc-card:hover::after { transform: scaleX(1); }
 
 .svc-card-inner {
   padding: 26px 24px;

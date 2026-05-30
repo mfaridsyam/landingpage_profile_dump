@@ -20,191 +20,195 @@
 
       <!-- Calculator card -->
       <div class="loan-card reveal">
+        <div class="loan-body">
 
-        <!-- KPR -->
-        <div v-if="activeTab === 'kpr'" class="loan-form">
-          <div class="loan-form-head">
-            <div class="loan-form-title">Cicilan KPR</div>
-            <div class="loan-badge">Bunga {{ kprRate }}% p.a.</div>
-          </div>
+          <!-- LEFT: form panel -->
+          <div class="loan-panel-form">
 
-          <div class="loan-grid">
-            <div class="loan-field loan-field-wide">
-              <label class="loan-label">Jumlah Pinjaman</label>
-              <div class="loan-input-wrap">
-                <span class="loan-prefix">Rp</span>
-                <input type="text" inputmode="numeric" :value="formatInput(kpr.loan)"
-                  @input="e => kpr.loan = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
+            <!-- KPR -->
+            <div v-if="activeTab === 'kpr'" class="loan-form">
+              <div class="loan-form-head">
+                <div class="loan-form-title">Cicilan KPR</div>
+                <div class="loan-badge">Bunga {{ kprRate }}% p.a.</div>
               </div>
-              <input type="range" v-model.number="kpr.loan" min="0" max="5000000000" step="10000000" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Jangka Waktu</label>
-              <div class="loan-input-wrap">
-                <input type="number" v-model.number="kpr.tenor" min="1" max="30" class="loan-input" placeholder="1" />
-                <span class="loan-suffix">Tahun</span>
-              </div>
-              <input type="range" v-model.number="kpr.tenor" min="1" max="30" step="1" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Suku Bunga</label>
-              <div class="loan-input-wrap loan-readonly">
-                <input type="number" :value="kprRate" class="loan-input" readonly />
-                <span class="loan-suffix">%</span>
-              </div>
-            </div>
-          </div>
-
-          <button class="loan-btn" @click="calcKPR">Hitung Cicilan</button>
-
-          <Transition name="result-in">
-            <div v-if="kpr.result" class="loan-result">
-              <div class="loan-result-main">
-                <div class="loan-result-lbl">Estimasi Angsuran / Bulan</div>
-                <div class="loan-result-val">Rp {{ formatRp(kpr.result.monthly) }}</div>
-              </div>
-              <div class="loan-result-subs">
-                <div class="loan-result-sub">
-                  <span>Total Pembayaran</span>
-                  <span>Rp {{ formatRp(kpr.result.total) }}</span>
+              <div class="loan-grid">
+                <div class="loan-field loan-field-wide">
+                  <label class="loan-label">Jumlah Pinjaman</label>
+                  <div class="loan-input-wrap">
+                    <span class="loan-prefix">Rp</span>
+                    <input type="text" inputmode="numeric" :value="formatInput(kpr.loan)"
+                      @input="e => kpr.loan = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
+                  </div>
+                  <input type="range" v-model.number="kpr.loan" min="0" max="5000000000" step="10000000" class="loan-slider" />
                 </div>
-                <div class="loan-result-sub">
-                  <span>Total Bunga</span>
-                  <span>Rp {{ formatRp(kpr.result.interest) }}</span>
+                <div class="loan-field">
+                  <label class="loan-label">Jangka Waktu</label>
+                  <div class="loan-input-wrap">
+                    <input type="number" v-model.number="kpr.tenor" min="1" max="30" class="loan-input" placeholder="1" />
+                    <span class="loan-suffix">Tahun</span>
+                  </div>
+                  <input type="range" v-model.number="kpr.tenor" min="1" max="30" step="1" class="loan-slider" />
+                </div>
+                <div class="loan-field">
+                  <label class="loan-label">Suku Bunga</label>
+                  <div class="loan-input-wrap loan-readonly">
+                    <input type="number" :value="kprRate" class="loan-input" readonly />
+                    <span class="loan-suffix">%</span>
+                  </div>
                 </div>
               </div>
+              <button class="loan-btn" @click="calcKPR">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+                Hitung Cicilan
+              </button>
             </div>
-          </Transition>
-        </div>
 
-        <!-- KENDARAAN -->
-        <div v-else-if="activeTab === 'kendaraan'" class="loan-form">
-          <div class="loan-form-head">
-            <div class="loan-form-title">Cicilan Kendaraan</div>
-            <div class="loan-badge">Baru {{ kendaraanRate }}% · Bekas 8%</div>
-          </div>
-
-          <div class="loan-grid">
-            <div class="loan-field">
-              <label class="loan-label">Status Kendaraan</label>
-              <div class="loan-select-wrap">
-                <select v-model="kendaraan.status" class="loan-select">
-                  <option value="baru">Baru</option>
-                  <option value="bekas">Bekas</option>
-                </select>
-                <svg class="loan-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            <!-- KENDARAAN -->
+            <div v-else-if="activeTab === 'kendaraan'" class="loan-form">
+              <div class="loan-form-head">
+                <div class="loan-form-title">Cicilan Kendaraan</div>
+                <div class="loan-badge">Baru {{ kendaraanRate }}% · Bekas 8%</div>
               </div>
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Uang Muka</label>
-              <div class="loan-input-wrap">
-                <input type="number" v-model.number="kendaraan.dpPct" min="0" max="90" class="loan-input" style="max-width:52px" />
-                <span class="loan-suffix">%</span>
-                <span class="loan-eq">≈ Rp {{ formatInput(kendaraanDP) || '0' }}</span>
-              </div>
-            </div>
-            <div class="loan-field loan-field-wide">
-              <label class="loan-label">Harga OTR</label>
-              <div class="loan-input-wrap">
-                <span class="loan-prefix">Rp</span>
-                <input type="text" inputmode="numeric" :value="formatInput(kendaraan.otr)"
-                  @input="e => kendaraan.otr = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
-              </div>
-              <input type="range" v-model.number="kendaraan.otr" min="0" max="2000000000" step="5000000" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Jangka Waktu</label>
-              <div class="loan-input-wrap">
-                <input type="number" v-model.number="kendaraan.tenor" min="1" max="7" class="loan-input" placeholder="1" />
-                <span class="loan-suffix">Tahun</span>
-              </div>
-              <input type="range" v-model.number="kendaraan.tenor" min="1" max="7" step="1" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Pokok Hutang</label>
-              <div class="loan-input-wrap loan-readonly">
-                <span class="loan-prefix">Rp</span>
-                <input type="text" :value="formatInput(kendaraanPrincipal)" readonly class="loan-input" />
-              </div>
-            </div>
-          </div>
-
-          <button class="loan-btn" @click="calcKendaraan">Hitung Cicilan</button>
-
-          <Transition name="result-in">
-            <div v-if="kendaraan.result" class="loan-result">
-              <div class="loan-result-main">
-                <div class="loan-result-lbl">Estimasi Angsuran / Bulan</div>
-                <div class="loan-result-val">Rp {{ formatRp(kendaraan.result.monthly) }}</div>
-              </div>
-              <div class="loan-result-subs">
-                <div class="loan-result-sub">
-                  <span>Total Pembayaran</span>
-                  <span>Rp {{ formatRp(kendaraan.result.total) }}</span>
+              <div class="loan-grid">
+                <div class="loan-field">
+                  <label class="loan-label">Status Kendaraan</label>
+                  <div class="loan-select-wrap">
+                    <select v-model="kendaraan.status" class="loan-select">
+                      <option value="baru">Baru</option>
+                      <option value="bekas">Bekas</option>
+                    </select>
+                    <svg class="loan-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+                <div class="loan-field">
+                  <label class="loan-label">Uang Muka</label>
+                  <div class="loan-input-wrap">
+                    <input type="number" v-model.number="kendaraan.dpPct" min="0" max="90" class="loan-input" style="max-width:52px" />
+                    <span class="loan-suffix">%</span>
+                    <span class="loan-eq">≈ Rp {{ formatInput(kendaraanDP) || '0' }}</span>
+                  </div>
+                </div>
+                <div class="loan-field loan-field-wide">
+                  <label class="loan-label">Harga OTR</label>
+                  <div class="loan-input-wrap">
+                    <span class="loan-prefix">Rp</span>
+                    <input type="text" inputmode="numeric" :value="formatInput(kendaraan.otr)"
+                      @input="e => kendaraan.otr = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
+                  </div>
+                  <input type="range" v-model.number="kendaraan.otr" min="0" max="2000000000" step="5000000" class="loan-slider" />
+                </div>
+                <div class="loan-field">
+                  <label class="loan-label">Jangka Waktu</label>
+                  <div class="loan-input-wrap">
+                    <input type="number" v-model.number="kendaraan.tenor" min="1" max="7" class="loan-input" placeholder="1" />
+                    <span class="loan-suffix">Tahun</span>
+                  </div>
+                  <input type="range" v-model.number="kendaraan.tenor" min="1" max="7" step="1" class="loan-slider" />
+                </div>
+                <div class="loan-field">
+                  <label class="loan-label">Pokok Hutang</label>
+                  <div class="loan-input-wrap loan-readonly">
+                    <span class="loan-prefix">Rp</span>
+                    <input type="text" :value="formatInput(kendaraanPrincipal)" readonly class="loan-input" />
+                  </div>
                 </div>
               </div>
+              <button class="loan-btn" @click="calcKendaraan">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+                Hitung Cicilan
+              </button>
             </div>
-          </Transition>
-        </div>
 
-        <!-- BRIGUNA -->
-        <div v-else class="loan-form">
-          <div class="loan-form-head">
-            <div class="loan-form-title">Cicilan BRIGuna</div>
-            <div class="loan-badge">Kredit Multiguna</div>
-          </div>
-
-          <div class="loan-grid">
-            <div class="loan-field loan-field-wide">
-              <label class="loan-label">Plafond</label>
-              <div class="loan-input-wrap">
-                <span class="loan-prefix">Rp</span>
-                <input type="text" inputmode="numeric" :value="formatInput(briguna.loan)"
-                  @input="e => briguna.loan = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
+            <!-- BRIGUNA -->
+            <div v-else class="loan-form">
+              <div class="loan-form-head">
+                <div class="loan-form-title">Cicilan BRIGuna</div>
+                <div class="loan-badge">Kredit Multiguna</div>
               </div>
-              <input type="range" v-model.number="briguna.loan" min="0" max="500000000" step="1000000" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Jangka Waktu</label>
-              <div class="loan-input-wrap">
-                <input type="number" v-model.number="briguna.tenor" min="1" max="15" class="loan-input" placeholder="1" />
-                <span class="loan-suffix">Tahun</span>
-              </div>
-              <input type="range" v-model.number="briguna.tenor" min="1" max="15" step="1" class="loan-slider" />
-            </div>
-            <div class="loan-field">
-              <label class="loan-label">Suku Bunga Efektif</label>
-              <div class="loan-input-wrap">
-                <input type="number" v-model.number="briguna.rate" min="0" max="30" step="0.1" class="loan-input" placeholder="0" />
-                <span class="loan-suffix">%</span>
-              </div>
-              <input type="range" v-model.number="briguna.rate" min="0" max="30" step="0.1" class="loan-slider" />
-            </div>
-          </div>
-
-          <button class="loan-btn" @click="calcBriguna">Hitung Cicilan</button>
-
-          <Transition name="result-in">
-            <div v-if="briguna.result" class="loan-result">
-              <div class="loan-result-main">
-                <div class="loan-result-lbl">Estimasi Angsuran / Bulan</div>
-                <div class="loan-result-val">Rp {{ formatRp(briguna.result.monthly) }}</div>
-              </div>
-              <div class="loan-result-subs">
-                <div class="loan-result-sub">
-                  <span>Total Pembayaran</span>
-                  <span>Rp {{ formatRp(briguna.result.total) }}</span>
+              <div class="loan-grid">
+                <div class="loan-field loan-field-wide">
+                  <label class="loan-label">Plafond</label>
+                  <div class="loan-input-wrap">
+                    <span class="loan-prefix">Rp</span>
+                    <input type="text" inputmode="numeric" :value="formatInput(briguna.loan)"
+                      @input="e => briguna.loan = parseInputNum(e.target.value)" class="loan-input" placeholder="0" />
+                  </div>
+                  <input type="range" v-model.number="briguna.loan" min="0" max="500000000" step="1000000" class="loan-slider" />
                 </div>
-                <div class="loan-result-sub">
-                  <span>Total Bunga</span>
-                  <span>Rp {{ formatRp(briguna.result.interest) }}</span>
+                <div class="loan-field">
+                  <label class="loan-label">Jangka Waktu</label>
+                  <div class="loan-input-wrap">
+                    <input type="number" v-model.number="briguna.tenor" min="1" max="15" class="loan-input" placeholder="1" />
+                    <span class="loan-suffix">Tahun</span>
+                  </div>
+                  <input type="range" v-model.number="briguna.tenor" min="1" max="15" step="1" class="loan-slider" />
+                </div>
+                <div class="loan-field">
+                  <label class="loan-label">Suku Bunga Efektif</label>
+                  <div class="loan-input-wrap">
+                    <input type="number" v-model.number="briguna.rate" min="0" max="30" step="0.1" class="loan-input" placeholder="0" />
+                    <span class="loan-suffix">%</span>
+                  </div>
+                  <input type="range" v-model.number="briguna.rate" min="0" max="30" step="0.1" class="loan-slider" />
                 </div>
               </div>
+              <button class="loan-btn" @click="calcBriguna">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+                Hitung Cicilan
+              </button>
             </div>
-          </Transition>
-        </div>
 
-        <!-- Disclaimer + CTA -->
+          </div><!-- /loan-panel-form -->
+
+          <!-- RIGHT: result panel -->
+          <div class="loan-panel-result">
+            <Transition name="result-fade" mode="out-in">
+
+              <!-- Result -->
+              <div v-if="currentResult" key="result" class="loan-result-display">
+                <div class="loan-result-eyebrow">Estimasi Angsuran</div>
+                <div class="loan-result-monthly">
+                  <div class="loan-result-unit">Rp</div>
+                  <div class="loan-result-val">{{ formatRp(currentResult.monthly) }}</div>
+                </div>
+                <div class="loan-result-per">per bulan</div>
+
+                <div class="loan-result-divider"></div>
+
+                <div class="loan-result-rows">
+                  <div class="loan-result-row">
+                    <span>Total Pembayaran</span>
+                    <span class="loan-result-row-val">Rp {{ formatRp(currentResult.total) }}</span>
+                  </div>
+                  <div v-if="currentResult.interest" class="loan-result-row">
+                    <span>Total Bunga</span>
+                    <span class="loan-result-row-val">Rp {{ formatRp(currentResult.interest) }}</span>
+                  </div>
+                </div>
+
+                <p class="loan-result-note">* Nilai bersifat estimasi</p>
+              </div>
+
+              <!-- Empty state -->
+              <div v-else key="empty" class="loan-empty">
+                <div class="loan-empty-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+                </div>
+                <p class="loan-empty-hint">{{ currentTabInfo.hint }}</p>
+                <div class="loan-empty-stats">
+                  <div v-for="s in currentTabInfo.stats" :key="s.label" class="loan-empty-stat">
+                    <div class="loan-empty-stat-val">{{ s.val }}</div>
+                    <div class="loan-empty-stat-lbl">{{ s.label }}</div>
+                  </div>
+                </div>
+              </div>
+
+            </Transition>
+          </div><!-- /loan-panel-result -->
+
+        </div><!-- /loan-body -->
+
+        <!-- Footer -->
         <div class="loan-footer">
           <p class="loan-disclaimer">* Simulasi bersifat estimasi. Perhitungan aktual mengikuti ketentuan sistem BRI.</p>
           <a href="#jaringan" class="loan-cta-link" @click.prevent="scrollTo('jaringan')">
@@ -213,7 +217,7 @@
           </a>
         </div>
 
-      </div>
+      </div><!-- /loan-card -->
     </div>
   </section>
 </template>
@@ -248,6 +252,39 @@ const briguna   = reactive({ loan: 0, tenor: 1, rate: 0, result: null })
 
 const kendaraanDP        = computed(() => Math.round(kendaraan.otr * kendaraan.dpPct / 100))
 const kendaraanPrincipal = computed(() => Math.round(kendaraan.otr - kendaraanDP.value))
+
+const currentResult = computed(() => {
+  if (activeTab.value === 'kpr') return kpr.result
+  if (activeTab.value === 'kendaraan') return kendaraan.result
+  return briguna.result
+})
+
+const currentTabInfo = computed(() => ({
+  kpr: {
+    hint: 'Isi formulir untuk melihat estimasi cicilan KPR Anda.',
+    stats: [
+      { val: '7.25%', label: 'Bunga p.a.' },
+      { val: '30 Thn', label: 'Maks. Tenor' },
+      { val: 'Rp 5 M', label: 'Maks. Plafon' },
+    ]
+  },
+  kendaraan: {
+    hint: 'Hitung cicilan kendaraan baru atau bekas Anda.',
+    stats: [
+      { val: '6.5%', label: 'Bunga Baru' },
+      { val: '8%', label: 'Bunga Bekas' },
+      { val: '7 Thn', label: 'Maks. Tenor' },
+    ]
+  },
+  briguna: {
+    hint: 'Simulasikan kredit multiguna BRIGuna Anda.',
+    stats: [
+      { val: 'Rp 500 M', label: 'Maks. Plafon' },
+      { val: '15 Thn', label: 'Maks. Tenor' },
+      { val: 'Multiguna', label: 'Peruntukan' },
+    ]
+  },
+}[activeTab.value]))
 
 function calcMonthly(principal, annualRate, years) {
   if (principal <= 0 || years <= 0 || annualRate <= 0) return principal / (years * 12)
@@ -298,12 +335,12 @@ function scrollTo(id) {
 /* Tab pills */
 .loan-tabs {
   display: flex; gap: 10px;
-  margin-bottom: 28px; flex-wrap: wrap;
+  margin-bottom: 24px; flex-wrap: wrap;
 }
 .loan-tab-pill {
   display: flex; align-items: center; gap: 10px;
-  padding: 12px 22px; border-radius: 14px;
-  background: rgba(255,255,255,0.08);
+  padding: 11px 20px; border-radius: 14px;
+  background: rgba(255,255,255,0.07);
   border: 1.5px solid rgba(255,255,255,0.08);
   color: rgba(255,255,255,0.45);
   font-size: 13px; font-weight: 700;
@@ -319,78 +356,89 @@ function scrollTo(id) {
 .loan-tab-icon { display: flex; }
 .loan-tab-pill.active .loan-tab-icon { color: #60a5fa; }
 
-/* Card */
+/* Card — full container width */
 .loan-card {
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.11);
   border-radius: 24px;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-/* Form */
-.loan-form { padding: 32px 32px 24px; }
+/* 2-column body */
+.loan-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+}
+
+/* Left: form */
+.loan-panel-form {
+  padding: 0;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.loan-form { padding: 28px 28px 24px; }
 .loan-form-head {
   display: flex; align-items: center;
   justify-content: space-between; gap: 12px;
-  margin-bottom: 28px; flex-wrap: wrap;
+  margin-bottom: 24px; flex-wrap: wrap;
 }
 .loan-form-title {
-  font-size: 20px; font-weight: 800;
+  font-size: 18px; font-weight: 800;
   color: rgba(255,255,255,0.92); letter-spacing: -0.02em;
 }
 .loan-badge {
-  font-size: 10.5px; font-weight: 800;
+  font-size: 10px; font-weight: 800;
   letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--bri-gold, #F5A623);
-  background: rgba(245,166,35,0.10);
-  border: 1px solid rgba(245,166,35,0.22);
+  color: #60a5fa;
+  background: rgba(0,87,184,0.14);
+  border: 1px solid rgba(0,87,184,0.28);
   padding: 4px 12px; border-radius: 100px;
 }
 
-/* Field grid */
+/* Field grid — 2 columns */
 .loan-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px 24px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+  margin-bottom: 20px;
 }
 .loan-field-wide { grid-column: 1 / -1; }
-.loan-field { display: flex; flex-direction: column; gap: 8px; }
+.loan-field { display: flex; flex-direction: column; gap: 7px; }
 .loan-label {
-  font-size: 12px; font-weight: 700;
-  color: rgba(255,255,255,0.45); letter-spacing: 0.01em;
+  font-size: 11.5px; font-weight: 700;
+  color: rgba(255,255,255,0.40); letter-spacing: 0.01em;
 }
 
 .loan-input-wrap {
   display: flex; align-items: center;
-  border: 1.5px solid rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 10px; overflow: hidden;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.07);
   transition: border-color 0.2s;
 }
-.loan-input-wrap:focus-within { border-color: rgba(0,87,184,0.50); }
-.loan-input-wrap.loan-readonly { opacity: 0.55; }
+.loan-input-wrap:focus-within { border-color: rgba(0,87,184,0.48); }
+.loan-input-wrap.loan-readonly { opacity: 0.50; }
 
 .loan-prefix {
-  padding: 0 10px; font-size: 12.5px; font-weight: 600;
-  color: rgba(255,255,255,0.40);
+  padding: 0 10px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.38);
   border-right: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
 }
 .loan-suffix {
-  padding: 0 12px; font-size: 12.5px; font-weight: 600;
-  color: rgba(255,255,255,0.40);
+  padding: 0 11px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.38);
   border-left: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
 }
 .loan-eq {
-  padding: 0 10px; font-size: 11.5px;
-  color: rgba(255,255,255,0.28); flex-shrink: 0; white-space: nowrap;
+  padding: 0 9px; font-size: 11px;
+  color: rgba(255,255,255,0.25); flex-shrink: 0; white-space: nowrap;
 }
 .loan-input {
   flex: 1; min-width: 0;
   background: none; border: none;
   color: rgba(255,255,255,0.88); font-family: inherit;
-  font-size: 14px; font-weight: 600;
+  font-size: 13.5px; font-weight: 600;
   padding: 11px 12px; outline: none;
 }
 .loan-input::-webkit-outer-spin-button,
@@ -401,86 +449,156 @@ function scrollTo(id) {
   -webkit-appearance: none;
   width: 100%; height: 3px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.10);
   outline: none; cursor: pointer;
   accent-color: var(--bri-blue);
 }
 .loan-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--bri-blue);
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--bri-blue, #0057B8);
   cursor: pointer; box-shadow: 0 2px 8px rgba(0,87,184,0.40);
 }
 
 .loan-select-wrap { position: relative; }
 .loan-select {
   width: 100%; appearance: none;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 10px;
   color: rgba(255,255,255,0.85);
-  font-family: inherit; font-size: 14px; font-weight: 600;
-  padding: 11px 36px 11px 14px; outline: none; cursor: pointer;
+  font-family: inherit; font-size: 13.5px; font-weight: 600;
+  padding: 11px 36px 11px 12px; outline: none; cursor: pointer;
   transition: border-color 0.2s;
 }
-.loan-select:focus { border-color: rgba(0,87,184,0.50); }
+.loan-select:focus { border-color: rgba(0,87,184,0.48); }
 .loan-select option { background: #0A1628; }
 .loan-chev {
-  position: absolute; right: 12px; top: 50%;
+  position: absolute; right: 11px; top: 50%;
   transform: translateY(-50%);
-  color: rgba(255,255,255,0.35); pointer-events: none;
+  color: rgba(255,255,255,0.32); pointer-events: none;
 }
 
-/* Hitung button */
+/* Hitung button — blue */
 .loan-btn {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
   width: 100%; padding: 13px;
-  background: var(--bri-gold, #F5A623); color: #0A1628;
+  background: var(--bri-blue, #0057B8);
+  color: #fff;
   border: none; border-radius: 12px;
   font-family: inherit; font-size: 14px; font-weight: 800;
   cursor: pointer; letter-spacing: 0.02em;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-.loan-btn:hover { background: #f8b83c; transform: translateY(-1px); }
+.loan-btn:hover {
+  background: #0066d6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,87,184,0.35);
+}
 
-/* Result */
-.loan-result {
-  margin-top: 20px;
-  background: rgba(0,87,184,0.10);
-  border: 1.5px solid rgba(0,87,184,0.28);
-  border-radius: 14px; overflow: hidden;
+/* Right: result panel */
+.loan-panel-result {
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.loan-result-main {
-  padding: 18px 20px;
-  border-bottom: 1px solid rgba(0,87,184,0.18);
+
+/* Result display */
+.loan-result-display {
+  display: flex;
+  flex-direction: column;
 }
-.loan-result-lbl {
-  font-size: 11.5px; font-weight: 600;
-  color: rgba(255,255,255,0.45); margin-bottom: 4px;
+.loan-result-eyebrow {
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.10em;
+  color: rgba(255,255,255,0.30); margin-bottom: 12px;
+}
+.loan-result-monthly {
+  display: flex; align-items: baseline; gap: 6px;
+  line-height: 1;
+}
+.loan-result-unit {
+  font-size: 16px; font-weight: 700;
+  color: rgba(255,255,255,0.55);
 }
 .loan-result-val {
-  font-size: 24px; font-weight: 800;
+  font-size: 28px; font-weight: 800;
   color: #fff; letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
+  word-break: break-all;
 }
-.loan-result-subs { padding: 12px 20px; display: flex; flex-direction: column; gap: 6px; }
-.loan-result-sub {
-  display: flex; justify-content: space-between;
-  font-size: 12.5px; color: rgba(255,255,255,0.48);
+.loan-result-per {
+  font-size: 11.5px; color: rgba(255,255,255,0.35);
+  margin-top: 4px; margin-bottom: 20px;
 }
-.loan-result-sub span:last-child { font-weight: 600; color: rgba(255,255,255,0.65); }
+.loan-result-divider {
+  height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 16px;
+}
+.loan-result-rows {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.loan-result-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 8px;
+  font-size: 12px; color: rgba(255,255,255,0.40);
+}
+.loan-result-row-val {
+  font-weight: 700; color: rgba(255,255,255,0.68);
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+.loan-result-note {
+  font-size: 10.5px; color: rgba(255,255,255,0.20);
+  margin-top: 16px;
+}
+
+/* Empty state */
+.loan-empty {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  gap: 12px;
+}
+.loan-empty-icon {
+  width: 52px; height: 52px; border-radius: 16px;
+  background: rgba(0,87,184,0.12);
+  border: 1px solid rgba(0,87,184,0.22);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(96,165,250,0.60);
+}
+.loan-empty-hint {
+  font-size: 12.5px; color: rgba(255,255,255,0.35);
+  line-height: 1.55; margin: 0;
+}
+.loan-empty-stats {
+  display: flex; flex-direction: column; gap: 0;
+  width: 100%; margin-top: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; overflow: hidden;
+}
+.loan-empty-stat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.loan-empty-stat:last-child { border-bottom: none; }
+.loan-empty-stat-val {
+  font-size: 12.5px; font-weight: 800;
+  color: #60a5fa; letter-spacing: -0.01em;
+}
+.loan-empty-stat-lbl {
+  font-size: 11px; color: rgba(255,255,255,0.30);
+}
 
 /* Footer */
 .loan-footer {
   display: flex; align-items: center;
   justify-content: space-between; gap: 12px;
-  padding: 16px 32px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 28px;
+  border-top: 1px solid rgba(255,255,255,0.07);
   flex-wrap: wrap;
 }
-.loan-disclaimer {
-  font-size: 11px; color: rgba(255,255,255,0.22); flex: 1;
-}
+.loan-disclaimer { font-size: 11px; color: rgba(255,255,255,0.20); flex: 1; }
 .loan-cta-link {
   display: flex; align-items: center; gap: 5px;
   font-size: 12.5px; font-weight: 700; color: #60a5fa;
@@ -490,21 +608,28 @@ function scrollTo(id) {
 .loan-cta-link:hover { gap: 8px; }
 
 /* Transition */
-.result-in-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-.result-in-leave-active { transition: opacity 0.2s ease; }
-.result-in-enter-from { opacity: 0; transform: translateY(-8px); }
-.result-in-leave-to { opacity: 0; }
+.result-fade-enter-active,
+.result-fade-leave-active { transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22,1,0.36,1); }
+.result-fade-enter-from { opacity: 0; transform: translateY(8px); }
+.result-fade-leave-to   { opacity: 0; transform: translateY(-6px); }
 
 /* Responsive */
-@media (max-width: 860px) {
-  .loan-grid { grid-template-columns: repeat(2, 1fr); }
-  .loan-field-wide { grid-column: 1 / -1; }
-  .loan-form { padding: 24px 22px 18px; }
-  .loan-footer { padding: 14px 22px; }
+@media (max-width: 720px) {
+  .loan-body { grid-template-columns: 1fr; }
+  .loan-panel-result {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-left: none;
+    padding: 20px 22px;
+  }
+  .loan-empty { flex-direction: row; text-align: left; align-items: flex-start; flex-wrap: wrap; }
+  .loan-empty-stats { flex-direction: row; }
+  .loan-empty-stat { flex: 1; flex-direction: column; align-items: flex-start; gap: 2px; }
 }
 @media (max-width: 560px) {
   .loan-grid { grid-template-columns: 1fr; }
   .loan-tabs { flex-direction: column; }
   .loan-tab-pill { justify-content: center; }
+  .loan-form { padding: 20px 18px 16px; }
+  .loan-footer { padding: 12px 18px; }
 }
 </style>

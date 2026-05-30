@@ -1,51 +1,34 @@
 <template>
-  <div aria-hidden="true">
-    <div class="cur-dot"   :style="dotStyle"  />
-    <div class="cur-ring"  :style="ringStyle" />
-  </div>
+  <Teleport to="body">
+    <div class="cur-dot"  :style="dotStyle"  aria-hidden="true" />
+    <div class="cur-ring" :style="ringStyle" aria-hidden="true" />
+  </Teleport>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { reactive, onMounted, onUnmounted } from 'vue'
 
-const mx = ref(-200)
-const my = ref(-200)
-const rx = ref(-200)
-const ry = ref(-200)
+let mx = -200, my = -200
+let rx = -200, ry = -200
 let raf = null
-
-function onMove(e) { mx.value = e.clientX; my.value = e.clientY }
-
-function lerp(a, b, t) { return a + (b - a) * t }
-
-function loop() {
-  rx.value = lerp(rx.value, mx.value, 0.14)
-  ry.value = lerp(ry.value, my.value, 0.14)
-  raf = requestAnimationFrame(loop)
-}
 
 const dotStyle  = reactive({})
 const ringStyle = reactive({})
 
+function lerp(a, b, t) { return a + (b - a) * t }
+
+function onMove(e) { mx = e.clientX; my = e.clientY }
+
 function tick() {
-  rx.value = lerp(rx.value, mx.value, 0.14)
-  ry.value = lerp(ry.value, my.value, 0.14)
-  dotStyle.transform  = `translate(${mx.value}px, ${my.value}px)`
-  ringStyle.transform = `translate(${rx.value}px, ${ry.value}px)`
+  rx = lerp(rx, mx, 0.14)
+  ry = lerp(ry, my, 0.14)
+  dotStyle.transform  = `translate(${mx}px, ${my}px)`
+  ringStyle.transform = `translate(${rx}px, ${ry}px)`
   raf = requestAnimationFrame(tick)
 }
 
-const isHovering = ref(false)
-
-function onEnter() { isHovering.value = true }
-function onLeave() { isHovering.value = false }
-
 onMounted(() => {
   window.addEventListener('mousemove', onMove, { passive: true })
-  document.querySelectorAll('a, button, [role="button"], label, input, select, textarea').forEach(el => {
-    el.addEventListener('mouseenter', onEnter)
-    el.addEventListener('mouseleave', onLeave)
-  })
   raf = requestAnimationFrame(tick)
 })
 
@@ -55,13 +38,13 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style>
 .cur-dot,
 .cur-ring {
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 2147483647;
   will-change: transform;
   border-radius: 50%;
 }
@@ -70,7 +53,6 @@ onUnmounted(() => {
   width: 6px; height: 6px;
   background: #fff;
   margin-left: -3px; margin-top: -3px;
-  transition: opacity 0.2s, width 0.2s, height 0.2s;
 }
 
 .cur-ring {

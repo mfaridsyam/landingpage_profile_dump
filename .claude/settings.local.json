@@ -7,7 +7,11 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "WebFetch(domain:app.rekrutmencpns.id)",
-      "WebFetch(domain:www.svz.io)"
+      "WebFetch(domain:www.svz.io)",
+      "Bash(rm \"d:/PROJECT/Website/bri-polewali-vue/src/components/SubsidiarySection.vue\" \"d:/PROJECT/Website/bri-polewali-vue/src/components/AboutSection.vue\" \"d:/PROJECT/Website/bri-polewali-vue/src/components/StockBar.vue\")"
+    ],
+    "additionalDirectories": [
+      "d:\\PROJECT\\Website\\bri-polewali-vue\\src\\components"
     ]
   }
 }

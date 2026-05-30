@@ -148,12 +148,11 @@ const allServices = [
 /* ── CARD ── */
 .svc-card {
   display: block;
-  background: rgba(255,255,255,0.16);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.08);
   border-radius: 20px;
   text-decoration: none;
   overflow: hidden;
-  backdrop-filter: blur(5px);
   position: relative;
   transition: border-color 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1);
 }

@@ -325,7 +325,6 @@ function scrollTo(id) {
   border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 24px;
   overflow: hidden;
-  backdrop-filter: blur(8px);
 }
 
 /* Form */

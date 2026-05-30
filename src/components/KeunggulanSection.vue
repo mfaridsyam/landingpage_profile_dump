@@ -85,7 +85,6 @@ const whyItems = [
   border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 16px;
   padding: 28px 24px;
-  backdrop-filter: blur(8px);
   text-align: center;
 }
 .number-val {
@@ -118,7 +117,6 @@ const whyItems = [
   border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 16px;
   padding: 24px 22px;
-  backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   gap: 14px;

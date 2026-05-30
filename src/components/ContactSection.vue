@@ -219,7 +219,6 @@ async function handleSubmit() {
   border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 24px;
   padding: 36px 36px 32px;
-  backdrop-filter: blur(10px);
 }
 .contact-form { display: flex; flex-direction: column; gap: 22px; }
 

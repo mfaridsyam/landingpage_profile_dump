@@ -300,7 +300,6 @@ function swapCalc() {
   border: 1.5px solid rgba(255,255,255,0.10);
   border-radius: 20px;
   padding: 24px 20px;
-  backdrop-filter: blur(8px);
   display: flex; flex-direction: column; gap: 18px;
   position: sticky; top: 88px;
 }

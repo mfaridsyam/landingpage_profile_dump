@@ -386,14 +386,82 @@ function gMapsUrl(unit) {
 .map-fade-enter-from, .map-fade-leave-to { opacity: 0; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .network-panel { grid-template-columns: 1fr; }
-  .unit-list { max-height: 320px; }
+
+/* Laptop kecil (900–1023px): 2 kolom, list sedikit lebih sempit */
+@media (max-width: 1023px) {
+  .network-panel { grid-template-columns: 280px 1fr; gap: 16px; }
+  .unit-list { max-height: 460px; }
+}
+
+/* Tablet landscape (768–899px): 2 kolom compact */
+@media (max-width: 899px) {
+  .network-panel { grid-template-columns: 260px 1fr; gap: 14px; }
+  .unit-list { max-height: 420px; }
   .network-header { align-items: flex-start; }
 }
-@media (max-width: 600px) {
-  .network-stats { padding: 12px 18px; gap: 16px; }
+
+/* Tablet portrait & HP (≤767px): 1 kolom, MAP dulu baru list */
+@media (max-width: 767px) {
+  .network-section { padding: 64px 0; }
+
+  .network-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Map naik ke atas */
+  .network-map-col { order: -1; }
+
+  /* Map lebih tinggi agar proporsional di portrait */
+  .map-wrap { aspect-ratio: 16/9; }
+
+  /* Accordion compact: sembunyikan detail, tampil hanya saat active */
+  .unit-list-addr,
+  .unit-list-footer { display: none; }
+  .unit-list-item.active .unit-list-addr { display: block; }
+  .unit-list-item.active .unit-list-footer { display: flex; }
+
+  /* Padding lebih ramping untuk baris yang terlipat */
+  .unit-list-item { padding: 10px 14px; }
+  .unit-list-item.active { padding: 13px 14px; }
+
+  /* Hilangkan scroll panjang — tampilkan semua item */
+  .unit-list { max-height: 380px; }
+
+  /* Tambah chevron hint agar user tahu bisa diklik */
+  .unit-list-item-top::after {
+    content: '';
+    display: block;
+    width: 7px; height: 7px;
+    border-right: 2px solid rgba(255,255,255,0.22);
+    border-bottom: 2px solid rgba(255,255,255,0.22);
+    transform: rotate(45deg);
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .unit-list-item.active .unit-list-item-top::after {
+    transform: rotate(-135deg);
+    border-color: #60a5fa;
+  }
+}
+
+/* HP sedang & kecil (≤599px) */
+@media (max-width: 599px) {
+  .network-section { padding: 56px 0; }
+  .network-header { flex-direction: column; gap: 16px; }
+  .network-stats { padding: 12px 18px; gap: 16px; width: 100%; justify-content: space-around; }
   .network-stat-val { font-size: 22px; }
+  .map-wrap { aspect-ratio: 4/3; }
   .map-selected-info { flex-wrap: wrap; }
+  .map-open-btn { width: 100%; justify-content: center; }
+}
+
+/* HP sangat kecil (≤389px) */
+@media (max-width: 389px) {
+  .network-section { padding: 48px 0; }
+  .network-stat-val { font-size: 20px; }
+  .unit-list-name { font-size: 12.5px; }
 }
 </style>

@@ -7,6 +7,7 @@
       <ul class="nav-links">
         <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
         <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
+        <li><a href="#simulasi" :class="{ active: activeSection === 'simulasi' }" @click.prevent="scrollTo('simulasi')">Simulasi</a></li>
         <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Media</a></li>
         <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Lokasi</a></li>
         <li><a href="#kontak" :class="{ active: activeSection === 'kontak' }" @click.prevent="scrollTo('kontak')">Kontak</a></li>
@@ -61,12 +62,13 @@ const mobileOpen = ref(false)
 const navItems = [
   { id: 'hero', label: 'Beranda' },
   { id: 'layanan', label: 'Layanan' },
+  { id: 'simulasi', label: 'Simulasi' },
   { id: 'galeri', label: 'Media' },
   { id: 'jaringan', label: 'Lokasi' },
   { id: 'kontak', label: 'Kontak' },
 ]
 
-const sections = ['kontak', 'jaringan', 'galeri', 'layanan', 'hero']
+const sections = ['kontak', 'jaringan', 'galeri', 'simulasi', 'layanan', 'hero']
 
 const navStyle = computed(() => {
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)

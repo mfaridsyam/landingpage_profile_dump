@@ -4,12 +4,13 @@
     <HeroSection />
     <ServicesSection />
     <KeunggulanSection />
-    <KursSection />
     <LoanCalculatorSection />
+    <KursSection />
+    <BrimoSection />
     <GallerySection />
+    <NetworkSection />
     <PortalSection @open-career="careerOpen = true" />
     <CareerModal v-model="careerOpen" />
-    <NetworkSection />
     <ContactSection />
     <TheFooter />
     <TheFab />
@@ -25,6 +26,7 @@ import KeunggulanSection from '@/components/KeunggulanSection.vue'
 import KursSection from '@/components/KursSection.vue'
 import LoanCalculatorSection from '@/components/LoanCalculatorSection.vue'
 import GallerySection from '@/components/GallerySection.vue'
+import BrimoSection from '@/components/BrimoSection.vue'
 import PortalSection from '@/components/PortalSection.vue'
 import CareerModal from '@/components/CareerModal.vue'
 import NetworkSection from '@/components/NetworkSection.vue'

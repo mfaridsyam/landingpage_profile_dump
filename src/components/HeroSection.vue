@@ -396,8 +396,24 @@ const hoursData = computed(() => {
 
 @media (max-width: 480px) {
   .hero-h1 { font-size: clamp(32px, 8vw, 52px); }
-  .hero-ctas { flex-direction: column; align-items: center; bottom: 100px; }
-  .hero-status-float { bottom: 188px; right: 16px; }
+  /* Tombol lebih ramping agar tidak terlalu makan ruang */
+  .hero-btn-primary, .hero-btn-ghost {
+    padding: 12px 24px;
+    font-size: 13.5px;
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    bottom: 92px;
+    gap: 8px;
+    width: calc(100% - 32px);
+    left: 16px;
+    transform: none;
+  }
+  /* Status pill naik supaya tidak overlap tombol stacked */
+  .hero-status-float { bottom: 222px; right: 16px; }
   .hero-stat { padding: 0 16px; }
 }
 </style>

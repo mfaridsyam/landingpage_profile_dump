@@ -1,5 +1,5 @@
 <template>
-  <section class="loan-section" id="kalkulator">
+  <section class="loan-section" id="simulasi">
     <div class="container">
 
       <div class="loan-header reveal">

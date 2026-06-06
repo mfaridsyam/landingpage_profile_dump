@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="brimo-section" id="brimo">
     <div class="container">
       <div class="brimo-inner">
@@ -88,7 +88,7 @@
 /* ── LEFT INFO ── */
 .brimo-desc {
   font-size: 15px;
-  color: rgba(255,255,255,0.48);
+  color: rgba(10,22,40,0.72);
   line-height: 1.8;
   margin: 0 0 28px;
 }
@@ -105,18 +105,18 @@
   gap: 8px;
   font-size: 13.5px;
   font-weight: 600;
-  color: rgba(255,255,255,0.58);
+  color: rgba(10,22,40,0.60);
 }
 
 .brimo-feat svg {
   flex-shrink: 0;
-  color: #60a5fa;
+  color: #0057b8;
 }
 
 /* ── RIGHT CARD ── */
 .brimo-dl-card {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 28px;
   padding: 44px 40px;
   display: flex;
@@ -124,19 +124,20 @@
   align-items: center;
   text-align: center;
   gap: 14px;
+ 
 }
 
 .brimo-dl-heading {
   font-size: 22px;
   font-weight: 800;
-  color: #fff;
+  color: var(--ink, #0A1628);
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 .brimo-dl-sub {
   font-size: 13.5px;
-  color: rgba(255,255,255,0.38);
+  color: rgba(10,22,40,0.65);
   margin-bottom: 6px;
 }
 
@@ -175,14 +176,14 @@
 .brimo-divider {
   width: 100%;
   height: 1px;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,63,136,0.10);
   margin: 2px 0;
 }
 
 .brimo-hashtags {
   font-size: 12px;
   font-weight: 700;
-  color: rgba(255,255,255,0.22);
+  color: rgba(10,22,40,0.75);
   letter-spacing: 0.04em;
 }
 

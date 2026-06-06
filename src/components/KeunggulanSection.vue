@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="keunggulan-section" id="keunggulan">
     <div class="container">
       <div class="keunggulan-header reveal">
@@ -11,7 +11,11 @@
         <div v-for="(item, i) in whyItems" :key="i"
           class="why-card reveal" :class="i > 0 ? `reveal-delay-${Math.min(i, 4)}` : ''">
           <div class="why-card-header">
-            <div class="why-icon">
+            <!-- Custom image icon -->
+            <div v-if="item.iconImg" class="why-icon-img">
+              <img :src="item.iconImg" :alt="item.title" />
+            </div>
+            <div v-else class="why-icon">
               <svg v-if="item.icon === 'shield'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               <svg v-else-if="item.icon === 'map'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
               <svg v-else-if="item.icon === 'smartphone'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2.5"/></svg>
@@ -32,37 +36,43 @@
 <script setup>
 const whyItems = [
   {
-    icon: 'shield',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Terpercaya_dan_Terjamin_bbpzut.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Terpercaya_dan_Terjamin_bbpzut.png',
     title: 'Terpercaya & Terjamin',
     desc: 'Bank BUMN milik pemerintah Indonesia, terpercaya dan diawasi langsung oleh OJK. Dana Anda dijamin LPS hingga Rp 2 miliar.',
     badge: 'Bank BUMN'
   },
   {
-    icon: 'map',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770577/Jaringan_Paling_Luas_zfsot2.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770577/Jaringan_Paling_Luas_zfsot2.png',
     title: 'Jaringan Paling Luas',
     desc: '13+ unit kerja yang tersebar merata di wilayah layanan kami — selalu ada kantor BRI terdekat yang siap melayani Anda.',
     badge: '13+ Kantor'
   },
   {
-    icon: 'smartphone',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770576/Digital_Terdepan_cif52c.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770576/Digital_Terdepan_cif52c.png',
     title: 'Digital Terdepan',
     desc: 'BRImo super app dengan 200+ fitur lengkap. Transaksi, investasi, asuransi, dan pinjaman — semua dalam satu genggaman 24/7.',
     badge: 'BRImo'
   },
   {
-    icon: 'trending-up',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770577/KUR_Terbaik_untuk_UMKM_wvhner.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770577/KUR_Terbaik_untuk_UMKM_wvhner.png',
     title: 'KUR Terbaik untuk UMKM',
     desc: 'Program KUR BRI dengan plafon hingga Rp 500 juta, bunga terjangkau, dan proses cepat — mitra tumbuh ribuan pelaku UMKM di seluruh Indonesia.',
     badge: 'KUR 6% p.a.'
   },
   {
-    icon: 'users',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770575/Agen_BRILink_ooi9ey.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770575/Agen_BRILink_ooi9ey.png',
     title: 'AgenBRI di Pelosok Desa',
     desc: '3.800+ titik AgenBRI memastikan layanan perbankan hadir di depan pintu Anda — termasuk di desa-desa paling terpencil sekalipun.',
     badge: '3.800+ Agen'
   },
   {
-    icon: 'clock',
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Layanan_Tanpa_Henti_ysucps.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Layanan_Tanpa_Henti_ysucps.png',
     title: 'Layanan Tanpa Henti',
     desc: 'ATM BRI tersedia 24 jam di berbagai titik strategis. Call center 14017 siap membantu Anda kapan pun Anda membutuhkan.',
     badge: '24/7 Aktif'
@@ -114,8 +124,8 @@ const whyItems = [
   gap: 16px;
 }
 .why-card {
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 16px;
   padding: 24px 22px;
   backdrop-filter: blur(8px);
@@ -126,6 +136,7 @@ const whyItems = [
               background 0.28s, box-shadow 0.32s;
   position: relative;
   overflow: hidden;
+ 
 }
 .why-card::before {
   content: '';
@@ -139,10 +150,10 @@ const whyItems = [
   z-index: 1;
 }
 .why-card:hover {
-  border-color: rgba(0,87,184,0.50);
+  border-color: rgba(0,87,184,0.35);
   transform: translateY(-4px);
-  background: rgba(255,255,255,0.11);
-  box-shadow: 0 0 0 1px rgba(0,87,184,0.18), 0 12px 40px rgba(0,0,0,0.30);
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 0 0 1px rgba(0,87,184,0.14), 0 12px 40px rgba(0,63,136,0.12);
 }
 .why-card:hover::before { transform: scaleX(1); }
 .why-card-header {
@@ -153,28 +164,38 @@ const whyItems = [
 .why-icon {
   width: 48px; height: 48px;
   border-radius: 14px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,87,184,0.18);
+  border: 1px solid rgba(0,87,184,0.26);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.78);
+  color: #0057b8;
   flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .why-card:hover .why-icon {
-  background: rgba(0,87,184,0.20);
-  border-color: rgba(0,87,184,0.38);
-  color: #60a5fa;
+  background: #0057b8;
+  border-color: #0057b8;
+  color: #fff;
 }
+.why-icon-img {
+  width: 52px; height: 52px;
+  flex-shrink: 0;
+}
+.why-icon-img img {
+  width: 52px; height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
 .why-title {
   font-size: 15px;
   font-weight: 700;
-  color: rgba(255,255,255,0.92);
+  color: rgba(10,22,40,0.92);
   letter-spacing: -0.01em;
   line-height: 1.3;
 }
 .why-desc {
   font-size: 13px;
-  color: rgba(255,255,255,0.50);
+  color: rgba(10,22,40,0.72);
   line-height: 1.65;
 }
 .why-badge {

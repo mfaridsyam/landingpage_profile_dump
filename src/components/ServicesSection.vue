@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="services-section" id="layanan">
     <div class="container">
 
@@ -24,7 +24,12 @@
             <div class="svc-top">
               <!-- Icon + category + name kiri -->
               <div class="svc-head">
-                <div class="svc-icon" v-html="svc.icon"></div>
+                <!-- Custom image icon -->
+                <div v-if="svc.iconImg" class="svc-icon-img">
+                  <img :src="svc.iconImg" :alt="svc.name" />
+                </div>
+                <!-- SVG icon dengan kotak -->
+                <div v-else class="svc-icon" v-html="svc.icon"></div>
                 <div class="svc-head-meta">
                   <span class="svc-cat">{{ svc.category }}</span>
                   <div class="svc-name">{{ svc.name }}</div>
@@ -59,42 +64,48 @@ const allServices = [
     category: 'Kredit',
     desc: 'Kredit Usaha Rakyat dengan bunga rendah untuk mendorong pertumbuhan usaha mikro, kecil, dan menengah di Polewali Mandar.',
     tags: ['KUR Mikro', 'KUR Kecil', 'KUR TKI'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/KUR_dan_Kredit_UMKM_dmftty.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/KUR_dan_Kredit_UMKM_dmftty.png',
   },
   {
     name: 'BRImo Mobile Banking',
     category: 'Digital',
     desc: 'Transaksi kapan saja, di mana saja lewat aplikasi BRImo — transfer, pembayaran tagihan, investasi, dan lebih banyak lagi.',
     tags: ['Transfer', 'Pembayaran', 'QRIS'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M11 19h2"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770586/BRImo_Mobile_Banking_zsjbjr.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770586/BRImo_Mobile_Banking_zsjbjr.png',
   },
   {
     name: 'Simpanan & Deposito',
     category: 'Simpanan',
     desc: 'Tabungan BritAma, Simpedes, Deposito BRI, dan Giro BRI — pilihan produk simpanan dengan bunga kompetitif dan aman.',
     tags: ['BritAma', 'Simpedes', 'Deposito'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M10 15h6"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Simpanan_dan_Deposito_hwl54o.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Simpanan_dan_Deposito_hwl54o.png',
   },
   {
     name: 'Kredit Pemilikan Rumah',
     category: 'Kredit',
     desc: 'KPR BRI dengan cicilan ringan dan proses mudah untuk mewujudkan impian memiliki hunian idaman bersama keluarga.',
     tags: ['KPR Subsidi', 'KPR Non-Subsidi'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V10.5z"/><path d="M9 21V12h6v9"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770578/Kredit_Pemilikan_Rumah_cj0spd.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770578/Kredit_Pemilikan_Rumah_cj0spd.png',
   },
   {
     name: 'Layanan Digital 24/7',
     category: 'Infrastruktur',
     desc: 'ATM, CDM, dan AgenBRI tersebar luas di wilayah Polewali Mandar — layanan perbankan tanpa batas waktu untuk Anda.',
     tags: ['ATM', 'CDM', 'AgenBRI'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h2v4H7z"/><path d="M11 10h6"/><path d="M11 13h4"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770579/Layanan_24_per_7_nb3srl.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770579/Layanan_24_per_7_nb3srl.png',
   },
   {
     name: 'Valuta Asing & Remitansi',
     category: 'Internasional',
     desc: 'Penukaran valuta asing dan layanan pengiriman uang internasional dengan kurs kompetitif dan proses cepat.',
     tags: ['Forex', 'Remittance', 'SWIFT'],
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v12"/><path d="M15 8.5H10.5a2.5 2.5 0 000 5h3a2.5 2.5 0 010 5H9"/></svg>`,
+    iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Valuta_Asing_dan_Remitasi_jb7fsm.png',
+    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Valuta_Asing_dan_Remitasi_jb7fsm.png',
   },
 ]
 </script>
@@ -110,17 +121,18 @@ const allServices = [
 }
 .services-header-right {
   display: flex; align-items: center; gap: 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 14px; padding: 16px 24px; flex-shrink: 0;
+ 
 }
 .services-stat-num {
   font-size: 40px; font-weight: 800;
-  color: #fff; letter-spacing: -0.04em; line-height: 1;
+  color: var(--ink, #0A1628); letter-spacing: -0.04em; line-height: 1;
 }
 .services-stat-lbl {
   font-size: 11px; font-weight: 700;
-  color: rgba(255,255,255,0.38);
+  color: rgba(10,22,40,0.65);
   line-height: 1.45;
   text-transform: uppercase; letter-spacing: 0.06em;
 }
@@ -135,8 +147,8 @@ const allServices = [
 /* ── CARD ── */
 .svc-card {
   display: block;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 20px;
   text-decoration: none;
   overflow: hidden;
@@ -144,18 +156,19 @@ const allServices = [
   position: relative;
   transition: border-color 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1),
               background 0.28s, box-shadow 0.32s;
+ 
 }
 .svc-card::before {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(0,87,184,0.10) 0%, transparent 55%);
+  background: linear-gradient(135deg, rgba(0,87,184,0.06) 0%, transparent 55%);
   opacity: 0; transition: opacity 0.28s; pointer-events: none;
 }
 .svc-card:hover {
-  border-color: rgba(0,87,184,0.50);
+  border-color: rgba(0,87,184,0.38);
   transform: translateY(-4px);
-  background: rgba(255,255,255,0.11);
-  box-shadow: 0 0 0 1px rgba(0,87,184,0.18), 0 12px 40px rgba(0,0,0,0.30);
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 0 0 1px rgba(0,87,184,0.14), 0 12px 40px rgba(0,63,136,0.12);
 }
 .svc-card:hover::before { opacity: 1; }
 .svc-card::after {
@@ -192,17 +205,28 @@ const allServices = [
 .svc-icon {
   width: 48px; height: 48px;
   border-radius: 14px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,87,184,0.18);
+  border: 1px solid rgba(0,87,184,0.26);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.78);
+  color: #0057b8;
   flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .svc-card:hover .svc-icon {
-  background: rgba(0,87,184,0.20);
-  border-color: rgba(0,87,184,0.38);
-  color: #60a5fa;
+  background: #0057b8;
+  border-color: #0057b8;
+  color: #fff;
+}
+
+/* ── IMAGE ICON ── */
+.svc-icon-img {
+  width: 52px; height: 52px;
+  flex-shrink: 0;
+}
+.svc-icon-img img {
+  width: 52px; height: 52px;
+  object-fit: contain;
+  display: block;
 }
 
 .svc-head-meta {
@@ -220,15 +244,15 @@ const allServices = [
 }
 .svc-name {
   font-size: 17px; font-weight: 700;
-  color: rgba(255,255,255,0.90);
+  color: rgba(10,22,40,0.90);
   letter-spacing: -0.025em; line-height: 1.25;
   transition: color 0.22s;
 }
-.svc-card:hover .svc-name { color: #fff; }
+.svc-card:hover .svc-name { color: var(--ink, #0A1628); }
 
 .svc-num {
   font-size: 11px; font-weight: 700;
-  color: rgba(255,255,255,0.12);
+  color: rgba(10,22,40,0.16);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.08em;
   user-select: none;
@@ -239,7 +263,7 @@ const allServices = [
 /* Description */
 .svc-desc {
   font-size: 13px;
-  color: rgba(255,255,255,0.42);
+  color: rgba(10,22,40,0.70);
   line-height: 1.68; margin: 0;
   flex: 1;
 }
@@ -255,9 +279,9 @@ const allServices = [
 .svc-tags { display: flex; flex-wrap: wrap; gap: 5px; }
 .svc-tag {
   font-size: 10px; font-weight: 600;
-  color: rgba(255,255,255,0.28);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(10,22,40,0.62);
+  background: rgba(0,63,136,0.06);
+  border: 1px solid rgba(0,63,136,0.10);
   padding: 2px 8px; border-radius: 100px;
 }
 
@@ -265,17 +289,17 @@ const allServices = [
 .svc-arrow {
   width: 30px; height: 30px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,63,136,0.12);
+  background: rgba(0,63,136,0.05);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.22);
+  color: rgba(10,22,40,0.75);
   flex-shrink: 0;
   transition: color 0.22s, border-color 0.22s, background 0.22s, transform 0.22s;
 }
 .svc-card:hover .svc-arrow {
-  color: #60a5fa;
-  border-color: rgba(96,165,250,0.32);
-  background: rgba(0,87,184,0.18);
+  color: #0057b8;
+  border-color: rgba(0,87,184,0.28);
+  background: rgba(0,87,184,0.12);
   transform: translateX(3px);
 }
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <Transition name="modal-fade">
     <div v-if="modelValue" class="career-overlay" @click.self="close">
       <div class="career-modal">
@@ -116,13 +116,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 
 /* ── MODAL ── */
 .career-modal {
-  background: #0B1A30;
-  border: 1px solid rgba(255,255,255,0.10);
+  background: #FFFFFF;
+  border: 1px solid rgba(0,63,136,0.14);
   border-radius: 20px;
   width: 100%; max-width: 520px;
   max-height: 90vh;
   display: flex; flex-direction: column;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.60), 0 0 0 1px rgba(0,87,184,0.15);
+  box-shadow: 0 40px 100px rgba(0,63,136,0.16), 0 0 0 1px rgba(0,87,184,0.10);
   overflow: hidden;
 }
 
@@ -132,7 +132,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   padding: 24px 24px 16px;
   gap: 16px;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(0,63,136,0.10);
 }
 .career-eyebrow {
   font-size: 10px; font-weight: 800;
@@ -142,23 +142,23 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 }
 .career-title {
   font-size: 18px; font-weight: 800;
-  color: rgba(255,255,255,0.95);
+  color: rgba(10,22,40,0.92);
   letter-spacing: -0.02em; line-height: 1.2;
   margin: 0;
 }
 .career-close {
   width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.50);
+  background: rgba(0,63,136,0.06);
+  border: 1px solid rgba(0,63,136,0.12);
+  color: rgba(10,22,40,0.72);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: background 0.2s, color 0.2s;
 }
-.career-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.career-close:hover { background: rgba(0,63,136,0.12); color: var(--ink, #0A1628); }
 
 /* ── INTRO ── */
 .career-intro {
-  font-size: 13px; color: rgba(255,255,255,0.38);
+  font-size: 13px; color: rgba(10,22,40,0.68);
   line-height: 1.6; padding: 14px 24px 0;
   flex-shrink: 0;
 }
@@ -172,7 +172,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 }
 .career-list::-webkit-scrollbar { width: 4px; }
 .career-list::-webkit-scrollbar-track { background: transparent; }
-.career-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+.career-list::-webkit-scrollbar-thumb { background: rgba(0,63,136,0.15); border-radius: 4px; }
 
 .career-item {
   display: flex; align-items: center; gap: 14px;
@@ -188,16 +188,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   position: absolute;
   bottom: 0; left: 24px; right: 24px;
   height: 1px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0,63,136,0.07);
 }
 .career-item:last-child::after { display: none; }
-.career-item:hover { background: rgba(255,255,255,0.04); }
+.career-item:hover { background: rgba(0,63,136,0.04); }
 .career-item:hover .career-item-arrow { opacity: 1; transform: translate(2px, -2px); }
 
 .career-item-logo {
   width: 44px; height: 44px; border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.90);
+  border: 1px solid rgba(0,63,136,0.10);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; flex-shrink: 0;
 }
@@ -208,35 +208,35 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 .career-item-body { flex: 1; min-width: 0; }
 .career-item-name {
   font-size: 13.5px; font-weight: 700;
-  color: rgba(255,255,255,0.88);
+  color: rgba(10,22,40,0.88);
   margin-bottom: 2px;
 }
 .career-item-desc {
-  font-size: 12px; color: rgba(255,255,255,0.35);
+  font-size: 12px; color: rgba(10,22,40,0.65);
   line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .career-item-badge {
   font-size: 9.5px; font-weight: 700;
   letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.30);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(10,22,40,0.62);
+  background: rgba(0,63,136,0.07);
+  border: 1px solid rgba(0,63,136,0.12);
   padding: 3px 9px; border-radius: 100px;
   white-space: nowrap; flex-shrink: 0;
 }
 
 .career-item-arrow {
-  color: rgba(255,255,255,0.22); flex-shrink: 0;
+  color: rgba(10,22,40,0.72); flex-shrink: 0;
   transition: opacity 0.2s, transform 0.2s;
 }
 
 /* ── FOOTER ── */
 .career-footer {
   padding: 14px 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,63,136,0.08);
   font-size: 11.5px;
-  color: rgba(255,255,255,0.22);
+  color: rgba(10,22,40,0.75);
   text-align: center;
   flex-shrink: 0;
 }

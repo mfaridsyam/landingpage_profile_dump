@@ -57,7 +57,7 @@ onUnmounted(() => {
 
 .cur-ring {
   width: 32px; height: 32px;
-  border: 1.5px solid rgba(255,255,255,0.40);
+  border: 1.5px solid rgba(0,63,136,0.35);
   background: rgba(0,87,184,0.08);
   margin-left: -16px; margin-top: -16px;
   backdrop-filter: blur(2px);

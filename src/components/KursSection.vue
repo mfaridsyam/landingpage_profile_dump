@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="kurs-section" id="kurs">
     <div class="container">
 
@@ -236,7 +236,7 @@ function swapCalc() {
 }
 .kurs-note {
   display: flex; align-items: center; gap: 5px;
-  font-size: 12px; color: rgba(255,255,255,0.32); margin-top: 6px;
+  font-size: 12px; color: rgba(10,22,40,0.62); margin-top: 6px;
 }
 
 /* Tabs */
@@ -247,22 +247,22 @@ function swapCalc() {
   display: flex; align-items: center; gap: 8px;
   padding: 9px 20px; border-radius: 100px;
   font-size: 12.5px; font-weight: 700;
-  color: rgba(255,255,255,0.38);
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.08);
+  color: rgba(10,22,40,0.68);
+  background: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(0,63,136,0.12);
   cursor: pointer; font-family: inherit;
   transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
 .kurs-tab.active {
-  color: #fff;
-  background: rgba(0,87,184,0.18);
-  border-color: rgba(0,87,184,0.38);
+  color: var(--ink, #0A1628);
+  background: rgba(0,87,184,0.12);
+  border-color: rgba(0,87,184,0.35);
 }
 .tab-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: currentColor; opacity: 0.5; flex-shrink: 0;
 }
-.kurs-tab.active .tab-dot { opacity: 1; background: #60a5fa; }
+.kurs-tab.active .tab-dot { opacity: 1; background: #0057b8; }
 
 /* Body: stacked flex layout */
 .kurs-body {
@@ -278,23 +278,24 @@ function swapCalc() {
   gap: 12px;
 }
 .kurs-card {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 18px;
   padding: 20px 18px 16px;
   cursor: pointer;
   transition: border-color 0.22s, background 0.22s, transform 0.22s, box-shadow 0.22s;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+ 
 }
 .kurs-card:hover {
-  background: rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.95);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+  box-shadow: 0 12px 32px rgba(0,63,136,0.12);
 }
 .kurs-card.selected {
-  background: rgba(0,87,184,0.15);
-  border-color: rgba(0,87,184,0.45);
+  background: rgba(232,241,251,0.85);
+  border-color: rgba(0,87,184,0.40);
 }
 .kurs-card-top {
   display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
@@ -304,8 +305,8 @@ function swapCalc() {
   border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.20);
+  border: 1px solid rgba(0,63,136,0.12);
 }
 .kurs-flag-img {
   width: 100%; height: 100%;
@@ -313,34 +314,34 @@ function swapCalc() {
 }
 .kurs-code {
   font-size: 14px; font-weight: 800;
-  color: rgba(255,255,255,0.90);
+  color: rgba(10,22,40,0.90);
   flex: 1; letter-spacing: 0.03em;
 }
-.kurs-check { color: #60a5fa; flex-shrink: 0; }
+.kurs-check { color: #0057b8; flex-shrink: 0; }
 .kurs-rates { display: flex; align-items: stretch; gap: 0; }
 .kurs-rate-item {
   flex: 1;
   display: flex; flex-direction: column; gap: 4px;
 }
 .kurs-rate-sep {
-  width: 1px; background: rgba(255,255,255,0.08);
+  width: 1px; background: rgba(0,63,136,0.10);
   margin: 0 12px; flex-shrink: 0;
 }
 .kurs-rate-lbl {
   font-size: 9px; font-weight: 700;
-  color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.07em;
+  color: rgba(10,22,40,0.75); text-transform: uppercase; letter-spacing: 0.07em;
 }
 .kurs-rate-val {
   font-size: 12.5px; font-weight: 700;
-  color: rgba(255,255,255,0.78);
+  color: rgba(10,22,40,0.78);
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
-.kurs-card.selected .kurs-rate-val { color: #93c5fd; }
+.kurs-card.selected .kurs-rate-val { color: #0057b8; }
 
 /* Calculator — centered horizontal strip */
 .kurs-calc {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 20px;
   padding: 22px 28px;
   backdrop-filter: blur(10px);
@@ -349,7 +350,7 @@ function swapCalc() {
   flex-direction: column;
   gap: 18px;
   margin-top: 8px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.16);
+ 
 }
 
 /* Top row: label + mode toggle */
@@ -360,19 +361,19 @@ function swapCalc() {
 .kurs-calc-header {
   display: flex; align-items: center; gap: 8px;
   font-size: 11px; font-weight: 800;
-  color: rgba(255,255,255,0.35);
+  color: rgba(10,22,40,0.62);
   letter-spacing: 0.10em; text-transform: uppercase;
 }
 .kurs-mode-row {
   display: flex;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.11);
+  background: rgba(0,63,136,0.06);
+  border: 1px solid rgba(0,63,136,0.14);
   border-radius: 10px; overflow: hidden;
 }
 .kurs-mode-btn {
   padding: 8px 22px; font-size: 12px; font-weight: 800;
   letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.35);
+  color: rgba(10,22,40,0.65);
   background: none; border: none; cursor: pointer;
   font-family: inherit;
   transition: background 0.2s, color 0.2s;
@@ -390,14 +391,14 @@ function swapCalc() {
 .kurs-field-group { display: flex; flex-direction: column; gap: 6px; }
 .kurs-field-label {
   font-size: 10px; font-weight: 700;
-  color: rgba(255,255,255,0.28);
+  color: rgba(10,22,40,0.60);
   text-transform: uppercase; letter-spacing: 0.08em;
 }
 .kurs-field-row {
   display: flex;
-  border: 1.5px solid rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 12px; overflow: visible;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.88);
   transition: border-color 0.2s;
   position: relative;
 }
@@ -411,7 +412,7 @@ function swapCalc() {
   position: relative; flex-shrink: 0;
   display: flex; align-items: center; gap: 7px;
   padding: 0 10px 0 12px;
-  border-right: 1px solid rgba(255,255,255,0.08);
+  border-right: 1px solid rgba(0,63,136,0.10);
   cursor: pointer; min-width: 96px;
   user-select: none;
 }
@@ -419,15 +420,15 @@ function swapCalc() {
   width: 22px; height: 15px;
   border-radius: 3px; object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
-  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  border: 1px solid rgba(0,63,136,0.10);
 }
 .kurs-csel-code {
   font-size: 12px; font-weight: 700;
-  color: rgba(255,255,255,0.85); flex: 1;
+  color: rgba(10,22,40,0.85); flex: 1;
 }
 .kurs-csel-chev {
-  color: rgba(255,255,255,0.35);
+  color: rgba(10,22,40,0.62);
   transition: transform 0.2s;
   flex-shrink: 0;
 }
@@ -438,58 +439,58 @@ function swapCalc() {
   position: absolute;
   top: calc(100% + 6px); left: 0;
   min-width: 130px;
-  background: rgba(10,22,40,0.97);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(248,251,255,0.98);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 12px; overflow: hidden;
   z-index: 99;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  box-shadow: 0 12px 40px rgba(0,63,136,0.14);
   max-height: 280px; overflow-y: auto;
 }
 .kurs-csel-opt {
   display: flex; align-items: center; gap: 9px;
   padding: 9px 14px;
   cursor: pointer; font-size: 12.5px; font-weight: 600;
-  color: rgba(255,255,255,0.75);
+  color: rgba(10,22,40,0.75);
   transition: background 0.15s;
 }
-.kurs-csel-opt:hover { background: rgba(255,255,255,0.06); }
+.kurs-csel-opt:hover { background: rgba(0,63,136,0.06); }
 .kurs-csel-opt.active {
-  background: rgba(0,87,184,0.18);
-  color: #fff;
+  background: rgba(0,87,184,0.12);
+  color: var(--ink, #0A1628);
 }
 .kurs-csel-opt img {
   width: 22px; height: 15px; border-radius: 3px;
   object-fit: cover; flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(0,63,136,0.10);
 }
 .kurs-input {
   flex: 1; background: none; border: none;
-  color: rgba(255,255,255,0.85); font-family: inherit;
+  color: rgba(10,22,40,0.88); font-family: inherit;
   font-size: 15px; font-weight: 600;
   padding: 13px 14px; outline: none; text-align: right; min-width: 0;
 }
 .kurs-result {
   flex: 1; display: flex; align-items: center; justify-content: flex-end;
   padding: 13px 14px; font-size: 15px; font-weight: 700;
-  color: #60a5fa; font-variant-numeric: tabular-nums;
+  color: #0057b8; font-variant-numeric: tabular-nums;
 }
 
 /* Swap button aligned with field rows */
 .kurs-swap-btn {
   width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(0,87,184,0.18);
-  border: 1.5px solid rgba(0,87,184,0.32);
-  color: #60a5fa; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,87,184,0.12);
+  border: 1.5px solid rgba(0,87,184,0.28);
+  color: #0057b8; display: flex; align-items: center; justify-content: center;
   cursor: pointer; flex-shrink: 0;
   margin-bottom: 2px;
   transition: background 0.2s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
 }
-.kurs-swap-btn:hover { background: rgba(0,87,184,0.30); transform: rotate(180deg); }
+.kurs-swap-btn:hover { background: rgba(0,87,184,0.22); transform: rotate(180deg); }
 
 .kurs-disclaimer {
-  font-size: 11px; color: rgba(255,255,255,0.20); line-height: 1.5;
+  font-size: 11px; color: rgba(10,22,40,0.75); line-height: 1.5;
   text-align: center;
 }
 

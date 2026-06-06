@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="loan-section" id="simulasi">
     <div class="container">
 
@@ -340,30 +340,31 @@ function scrollTo(id) {
 .loan-tab-pill {
   display: flex; align-items: center; gap: 10px;
   padding: 11px 20px; border-radius: 14px;
-  background: rgba(255,255,255,0.07);
-  border: 1.5px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(0,63,136,0.12);
+  color: rgba(10,22,40,0.72);
   font-size: 13px; font-weight: 700;
   font-family: inherit; cursor: pointer;
   transition: all 0.22s cubic-bezier(0.22,1,0.36,1);
 }
-.loan-tab-pill:hover { border-color: rgba(255,255,255,0.18); color: rgba(255,255,255,0.75); }
+.loan-tab-pill:hover { border-color: rgba(0,63,136,0.24); color: rgba(10,22,40,0.80); }
 .loan-tab-pill.active {
-  background: rgba(0,87,184,0.18);
-  border-color: rgba(0,87,184,0.42);
-  color: #fff;
+  background: rgba(0,87,184,0.12);
+  border-color: rgba(0,87,184,0.38);
+  color: var(--ink, #0A1628);
 }
 .loan-tab-icon { display: flex; }
-.loan-tab-pill.active .loan-tab-icon { color: #60a5fa; }
+.loan-tab-pill.active .loan-tab-icon { color: #0057b8; }
 
 /* Card — full container width */
 .loan-card {
-  background: rgba(255,255,255,0.07);
-  border: 1.5px solid rgba(255,255,255,0.11);
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 24px;
   overflow: hidden;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+ 
 }
 
 /* 2-column body */
@@ -375,7 +376,7 @@ function scrollTo(id) {
 /* Left: form */
 .loan-panel-form {
   padding: 0;
-  border-right: 1px solid rgba(255,255,255,0.07);
+  border-right: 1px solid rgba(0,63,136,0.10);
 }
 .loan-form { padding: 28px 28px 24px; }
 .loan-form-head {
@@ -385,14 +386,14 @@ function scrollTo(id) {
 }
 .loan-form-title {
   font-size: 18px; font-weight: 800;
-  color: rgba(255,255,255,0.92); letter-spacing: -0.02em;
+  color: rgba(10,22,40,0.92); letter-spacing: -0.02em;
 }
 .loan-badge {
   font-size: 10px; font-weight: 800;
   letter-spacing: 0.06em; text-transform: uppercase;
-  color: #60a5fa;
-  background: rgba(0,87,184,0.14);
-  border: 1px solid rgba(0,87,184,0.28);
+  color: #0057b8;
+  background: rgba(0,87,184,0.10);
+  border: 1px solid rgba(0,87,184,0.22);
   padding: 4px 12px; border-radius: 100px;
 }
 
@@ -407,37 +408,37 @@ function scrollTo(id) {
 .loan-field { display: flex; flex-direction: column; gap: 7px; }
 .loan-label {
   font-size: 11.5px; font-weight: 700;
-  color: rgba(255,255,255,0.40); letter-spacing: 0.01em;
+  color: rgba(10,22,40,0.68); letter-spacing: 0.01em;
 }
 
 .loan-input-wrap {
   display: flex; align-items: center;
-  border: 1.5px solid rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 10px; overflow: hidden;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.85);
   transition: border-color 0.2s;
 }
 .loan-input-wrap:focus-within { border-color: rgba(0,87,184,0.48); }
-.loan-input-wrap.loan-readonly { opacity: 0.50; }
+.loan-input-wrap.loan-readonly { opacity: 0.60; }
 
 .loan-prefix {
   padding: 0 10px; font-size: 12px; font-weight: 600;
-  color: rgba(255,255,255,0.38);
-  border-right: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+  color: rgba(10,22,40,0.65);
+  border-right: 1px solid rgba(0,63,136,0.10); flex-shrink: 0;
 }
 .loan-suffix {
   padding: 0 11px; font-size: 12px; font-weight: 600;
-  color: rgba(255,255,255,0.38);
-  border-left: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+  color: rgba(10,22,40,0.65);
+  border-left: 1px solid rgba(0,63,136,0.10); flex-shrink: 0;
 }
 .loan-eq {
   padding: 0 9px; font-size: 11px;
-  color: rgba(255,255,255,0.25); flex-shrink: 0; white-space: nowrap;
+  color: rgba(10,22,40,0.75); flex-shrink: 0; white-space: nowrap;
 }
 .loan-input {
   flex: 1; min-width: 0;
   background: none; border: none;
-  color: rgba(255,255,255,0.88); font-family: inherit;
+  color: rgba(10,22,40,0.88); font-family: inherit;
   font-size: 13.5px; font-weight: 600;
   padding: 11px 12px; outline: none;
 }
@@ -449,7 +450,7 @@ function scrollTo(id) {
   -webkit-appearance: none;
   width: 100%; height: 3px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.10);
+  background: rgba(0,63,136,0.14);
   outline: none; cursor: pointer;
   accent-color: var(--bri-blue);
 }
@@ -463,20 +464,20 @@ function scrollTo(id) {
 .loan-select-wrap { position: relative; }
 .loan-select {
   width: 100%; appearance: none;
-  background: rgba(255,255,255,0.07);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 10px;
-  color: rgba(255,255,255,0.85);
+  color: rgba(10,22,40,0.88);
   font-family: inherit; font-size: 13.5px; font-weight: 600;
   padding: 11px 36px 11px 12px; outline: none; cursor: pointer;
   transition: border-color 0.2s;
 }
 .loan-select:focus { border-color: rgba(0,87,184,0.48); }
-.loan-select option { background: #0A1628; }
+.loan-select option { background: #f0f4fc; color: #0A1628; }
 .loan-chev {
   position: absolute; right: 11px; top: 50%;
   transform: translateY(-50%);
-  color: rgba(255,255,255,0.32); pointer-events: none;
+  color: rgba(10,22,40,0.60); pointer-events: none;
 }
 
 /* Hitung button — blue */
@@ -512,7 +513,7 @@ function scrollTo(id) {
 .loan-result-eyebrow {
   font-size: 10px; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.10em;
-  color: rgba(255,255,255,0.30); margin-bottom: 12px;
+  color: rgba(10,22,40,0.58); margin-bottom: 12px;
 }
 .loan-result-monthly {
   display: flex; align-items: baseline; gap: 6px;
@@ -520,20 +521,20 @@ function scrollTo(id) {
 }
 .loan-result-unit {
   font-size: 16px; font-weight: 700;
-  color: rgba(255,255,255,0.55);
+  color: rgba(10,22,40,0.72);
 }
 .loan-result-val {
   font-size: 28px; font-weight: 800;
-  color: #fff; letter-spacing: -0.03em;
+  color: var(--ink, #0A1628); letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
   word-break: break-all;
 }
 .loan-result-per {
-  font-size: 11.5px; color: rgba(255,255,255,0.35);
+  font-size: 11.5px; color: rgba(10,22,40,0.62);
   margin-top: 4px; margin-bottom: 20px;
 }
 .loan-result-divider {
-  height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 16px;
+  height: 1px; background: rgba(0,63,136,0.10); margin-bottom: 16px;
 }
 .loan-result-rows {
   display: flex; flex-direction: column; gap: 10px;
@@ -541,14 +542,14 @@ function scrollTo(id) {
 .loan-result-row {
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: 8px;
-  font-size: 12px; color: rgba(255,255,255,0.40);
+  font-size: 12px; color: rgba(10,22,40,0.65);
 }
 .loan-result-row-val {
-  font-weight: 700; color: rgba(255,255,255,0.68);
+  font-weight: 700; color: rgba(10,22,40,0.68);
   text-align: right; font-variant-numeric: tabular-nums;
 }
 .loan-result-note {
-  font-size: 10.5px; color: rgba(255,255,255,0.20);
+  font-size: 10.5px; color: rgba(10,22,40,0.72);
   margin-top: 16px;
 }
 
@@ -560,34 +561,34 @@ function scrollTo(id) {
 }
 .loan-empty-icon {
   width: 52px; height: 52px; border-radius: 16px;
-  background: rgba(0,87,184,0.12);
-  border: 1px solid rgba(0,87,184,0.22);
+  background: rgba(0,87,184,0.10);
+  border: 1px solid rgba(0,87,184,0.20);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(96,165,250,0.60);
+  color: rgba(0,87,184,0.55);
 }
 .loan-empty-hint {
-  font-size: 12.5px; color: rgba(255,255,255,0.35);
+  font-size: 12.5px; color: rgba(10,22,40,0.65);
   line-height: 1.55; margin: 0;
 }
 .loan-empty-stats {
   display: flex; flex-direction: column; gap: 0;
   width: 100%; margin-top: 4px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(0,63,136,0.04);
+  border: 1px solid rgba(0,63,136,0.10);
   border-radius: 12px; overflow: hidden;
 }
 .loan-empty-stat {
   display: flex; justify-content: space-between; align-items: center;
   padding: 9px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(0,63,136,0.07);
 }
 .loan-empty-stat:last-child { border-bottom: none; }
 .loan-empty-stat-val {
   font-size: 12.5px; font-weight: 800;
-  color: #60a5fa; letter-spacing: -0.01em;
+  color: #0057b8; letter-spacing: -0.01em;
 }
 .loan-empty-stat-lbl {
-  font-size: 11px; color: rgba(255,255,255,0.30);
+  font-size: 11px; color: rgba(10,22,40,0.60);
 }
 
 /* Footer */
@@ -595,13 +596,13 @@ function scrollTo(id) {
   display: flex; align-items: center;
   justify-content: space-between; gap: 12px;
   padding: 14px 28px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(0,63,136,0.10);
   flex-wrap: wrap;
 }
-.loan-disclaimer { font-size: 11px; color: rgba(255,255,255,0.20); flex: 1; }
+.loan-disclaimer { font-size: 11px; color: rgba(10,22,40,0.72); flex: 1; }
 .loan-cta-link {
   display: flex; align-items: center; gap: 5px;
-  font-size: 12.5px; font-weight: 700; color: #60a5fa;
+  font-size: 12.5px; font-weight: 700; color: #0057b8;
   text-decoration: none; white-space: nowrap;
   transition: gap 0.2s;
 }
@@ -617,7 +618,7 @@ function scrollTo(id) {
 @media (max-width: 720px) {
   .loan-body { grid-template-columns: 1fr; }
   .loan-panel-result {
-    border-top: 1px solid rgba(255,255,255,0.07);
+    border-top: 1px solid rgba(0,63,136,0.10);
     border-left: none;
     padding: 20px 22px;
   }

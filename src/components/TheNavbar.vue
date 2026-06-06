@@ -2,7 +2,7 @@
   <nav :class="{ scrolled: scrolled }" :style="navStyle">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342906/Logo_header_mini_ihzdof.png" alt="BRI Cabang Polewali" />
+        <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1780721401/Logo_header_mini_blue_lengkap_wblfyh.png" alt="BRI Cabang Polewali" />
       </a>
       <ul class="nav-links">
         <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
@@ -73,9 +73,9 @@ const sections = ['kontak', 'jaringan', 'galeri', 'simulasi', 'layanan', 'hero']
 const navStyle = computed(() => {
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)
   return {
-    background: `rgba(10,22,40,${ratio * 0.92})`,
+    background: `rgba(238,243,252,${ratio * 0.95})`,
     backdropFilter: `blur(${ratio * 20}px)`,
-    borderBottomColor: `rgba(255,255,255,${ratio * 0.10})`,
+    borderBottomColor: `rgba(0,63,136,${ratio * 0.12})`,
     borderBottomStyle: 'solid',
     borderBottomWidth: '1px'
   }
@@ -125,8 +125,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   gap: 5px;
   width: 36px;
   height: 36px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,63,136,0.07);
+  border: 1px solid rgba(0,63,136,0.16);
   border-radius: 8px;
   cursor: pointer;
   padding: 0;
@@ -135,7 +135,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   display: block;
   width: 18px;
   height: 2px;
-  background: rgba(255,255,255,0.80);
+  background: rgba(10,22,40,0.70);
   border-radius: 2px;
   transition: transform 0.25s, opacity 0.2s;
   transform-origin: center;
@@ -152,7 +152,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5,14,30,0.60);
+  background: rgba(0,20,60,0.35);
   backdrop-filter: blur(6px);
   z-index: 9000;
   display: flex;
@@ -161,13 +161,13 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .mobile-nav-panel {
   width: min(320px, 85vw);
   height: 100%;
-  background: rgba(10,22,44,0.97);
-  border-left: 1px solid rgba(255,255,255,0.10);
+  background: rgba(238,243,252,0.98);
+  border-left: 1px solid rgba(0,63,136,0.14);
   display: flex;
   flex-direction: column;
   padding: 72px 28px 40px;
   gap: 8px;
-  box-shadow: -16px 0 64px rgba(0,0,0,0.5);
+  box-shadow: -16px 0 64px rgba(0,63,136,0.12);
 }
 .mobile-nav-close {
   position: absolute;
@@ -176,9 +176,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.70);
+  background: rgba(0,63,136,0.08);
+  border: 1px solid rgba(0,63,136,0.16);
+  color: rgba(10,22,40,0.60);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,15 +197,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
-  color: rgba(255,255,255,0.65);
+  color: rgba(10,22,40,0.65);
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
   position: relative;
 }
 .mobile-nav-links li a:hover,
 .mobile-nav-links li a.active {
-  background: rgba(0,87,184,0.18);
-  color: white;
+  background: rgba(0,87,184,0.10);
+  color: var(--ink, #0A1628);
 }
 .mobile-nav-links li a.active::before {
   content: '';
@@ -216,7 +216,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   width: 3px;
   height: 60%;
   border-radius: 0 3px 3px 0;
-  background: linear-gradient(180deg, #60a5fa, #0057b8);
+  background: linear-gradient(180deg, #0057b8, #003f88);
 }
 .mobile-nav-cta {
   display: flex;

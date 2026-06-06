@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
 
@@ -124,7 +124,7 @@ const hoursData = computed(() => {
   transform: translate(-50%, -50%);
   width: 800px; height: 600px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(0,87,184,0.13) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(0,87,184,0.07) 0%, transparent 65%);
   pointer-events: none; z-index: 0;
 }
 
@@ -162,7 +162,7 @@ const hoursData = computed(() => {
 /* ── KICKER ── */
 .hero-kicker {
   font-size: 13px; font-weight: 600;
-  color: rgba(255,255,255,0.40);
+  color: rgba(10,22,40,0.65);
   letter-spacing: 0.05em;
   margin: 0;
 }
@@ -173,7 +173,7 @@ const hoursData = computed(() => {
   font-weight: 800;
   line-height: 1.0;
   letter-spacing: -0.035em;
-  color: #fff;
+  color: var(--ink, #0A1628);
   margin: 0;
   white-space: nowrap;
 }
@@ -181,7 +181,7 @@ const hoursData = computed(() => {
 /* ── DESCRIPTION ── */
 .hero-desc {
   font-size: clamp(14px, 1.4vw, 17px);
-  color: rgba(255,255,255,0.65);
+  color: rgba(10,22,40,0.75);
   line-height: 1.78;
   width: 100%;
   text-align: center;
@@ -209,7 +209,6 @@ const hoursData = computed(() => {
   border-radius: 100px;
   font-size: 14px; font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 4px 32px rgba(0,87,184,0.45);
   transition: transform 0.22s, box-shadow 0.22s, background 0.22s;
 }
 
@@ -222,19 +221,20 @@ const hoursData = computed(() => {
 .hero-btn-ghost {
   display: inline-flex; align-items: center;
   padding: 15px 34px;
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.16);
-  color: rgba(255,255,255,0.80);
+  background: rgba(255,255,255,0.65);
+  border: 1.5px solid rgba(0,63,136,0.18);
+  color: rgba(10,22,40,0.75);
   border-radius: 100px;
   font-size: 14px; font-weight: 700;
   text-decoration: none;
   backdrop-filter: blur(8px);
-  transition: background 0.22s, border-color 0.22s, transform 0.22s;
+  transition: background 0.22s, border-color 0.22s, transform 0.22s, color 0.22s;
 }
 
 .hero-btn-ghost:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.26);
+  background: rgba(255,255,255,0.90);
+  border-color: rgba(0,63,136,0.32);
+  color: var(--ink, #0A1628);
   transform: translateY(-2px);
 }
 
@@ -249,9 +249,9 @@ const hoursData = computed(() => {
   gap: 0;
   padding: 0 var(--px, 40px);
   height: 78px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  background: rgba(4,10,24,0.30);
-  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(0,63,136,0.10);
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(8px);
 }
 
 .hero-stat {
@@ -268,7 +268,7 @@ const hoursData = computed(() => {
 
 .hero-stat-n {
   font-size: 21px; font-weight: 800;
-  color: rgba(255,255,255,0.90);
+  color: rgba(10,22,40,0.90);
   letter-spacing: -0.04em; line-height: 1;
 }
 
@@ -280,14 +280,14 @@ const hoursData = computed(() => {
 
 .hero-stat-l {
   font-size: 9px; font-weight: 700;
-  color: rgba(255,255,255,0.22);
+  color: rgba(10,22,40,0.60);
   text-transform: uppercase; letter-spacing: 0.09em;
   white-space: nowrap;
 }
 
 .hero-stat-vline {
   width: 1px; height: 28px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(0,63,136,0.10);
   flex-shrink: 0;
 }
 
@@ -300,29 +300,30 @@ const hoursData = computed(() => {
 
 .hero-status-pill {
   display: inline-flex; align-items: center; gap: 9px;
-  padding: 10px 16px; border-radius: 100px;
-  border: 1.5px solid rgba(255,255,255,0.12);
-  background: rgba(6,12,28,0.72);
+  padding: 10px 18px; border-radius: 100px;
+  border: 2px solid rgba(0,63,136,0.18);
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
   cursor: pointer; font-size: 12.5px; font-weight: 700;
-  font-family: inherit; color: rgba(255,255,255,0.80);
+  font-family: inherit; color: rgba(10,22,40,0.82);
   white-space: nowrap;
   transition: border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.22s;
 }
 
 .is-open .hero-status-pill {
-  border-color: rgba(74,222,128,0.40);
-  background: rgba(16,185,129,0.14);
-  box-shadow: 0 4px 20px rgba(22,163,74,0.18);
+  border-color: rgba(34,197,94,0.70);
+  background: #f0fdf4;
+  box-shadow: 0 2px 14px rgba(34,197,94,0.18);
 }
 
 .is-closed .hero-status-pill {
-  border-color: rgba(248,113,113,0.38);
-  background: rgba(220,38,38,0.12);
-  box-shadow: 0 4px 20px rgba(220,38,38,0.14);
+  border-color: rgba(239,68,68,0.65);
+  background: #fff5f5;
+  box-shadow: 0 2px 14px rgba(239,68,68,0.14);
 }
 
-.hero-status-pill:hover { transform: translateY(-1px); }
+.hero-status-pill:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
 
 .status-pulse-dot {
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
@@ -337,18 +338,18 @@ const hoursData = computed(() => {
 }
 
 .status-chevron {
-  color: rgba(255,255,255,0.38); flex-shrink: 0;
+  color: rgba(10,22,40,0.62); flex-shrink: 0;
   transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
 }
 .status-chevron.rotated { transform: rotate(180deg); }
 
 /* ── HOURS DROPDOWN ── */
 .hero-hours-card {
-  background: rgba(6,12,28,0.92);
+  background: rgba(255,255,255,0.97);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 14px; width: 234px;
-  box-shadow: 0 20px 56px rgba(0,0,0,0.55), inset 0 0 0 0.5px rgba(255,255,255,0.04);
+  box-shadow: 0 20px 56px rgba(0,63,136,0.14), inset 0 0 0 0.5px rgba(255,255,255,0.80);
   overflow: hidden;
 }
 
@@ -357,8 +358,8 @@ const hoursData = computed(() => {
   padding: 11px 14px;
   font-size: 10px; font-weight: 800;
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(255,255,255,0.32);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  color: rgba(10,22,40,0.60);
+  border-bottom: 1px solid rgba(0,63,136,0.08);
 }
 
 .hero-hours-list { padding: 4px 0; }
@@ -369,13 +370,13 @@ const hoursData = computed(() => {
   transition: background 0.14s;
 }
 
-.hero-hours-row:hover { background: rgba(255,255,255,0.025); }
-.hero-hours-row.is-today { background: rgba(255,255,255,0.04); }
-.hours-day { font-size: 12.5px; color: rgba(255,255,255,0.52); }
-.hero-hours-row.is-today .hours-day { font-weight: 700; color: rgba(255,255,255,0.94); }
-.hours-time { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.72); }
-.hours-time.closed { color: rgba(255,255,255,0.20); font-weight: 400; }
-.hero-hours-row.is-today .hours-time:not(.closed) { color: #86efac; }
+.hero-hours-row:hover { background: rgba(0,63,136,0.04); }
+.hero-hours-row.is-today { background: rgba(0,63,136,0.05); }
+.hours-day { font-size: 12.5px; color: rgba(10,22,40,0.72); }
+.hero-hours-row.is-today .hours-day { font-weight: 700; color: rgba(10,22,40,0.92); }
+.hours-time { font-size: 12px; font-weight: 600; color: rgba(10,22,40,0.70); }
+.hours-time.closed { color: rgba(10,22,40,0.72); font-weight: 400; }
+.hero-hours-row.is-today .hours-time:not(.closed) { color: #15803d; }
 
 .hours-drop-enter-active { transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.22,1,0.36,1); }
 .hours-drop-leave-active { transition: opacity 0.16s ease, transform 0.18s ease; }

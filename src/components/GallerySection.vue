@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="gallery-section" id="galeri">
     <div class="container">
       <div class="gallery-header">
@@ -65,98 +65,126 @@
 
       <!-- ─── FOTO ─── -->
       <div v-show="tab === 'foto'">
-        <div class="foto-carousel">
-          <!-- Track -->
-          <div class="foto-carousel-track"
-            :style="{ transform: `translateX(-${fotoSlide * (100 / FOTO_PER)}%)` }">
-            <div v-for="(photo, i) in photos" :key="i"
-              class="foto-carousel-slide"
-              @click="openFoto(i)">
-              <div class="foto-carousel-item">
-                <img :src="photo.img" :alt="photo.label" loading="lazy" />
-                <div class="foto-grid-overlay">
-                  <span class="foto-grid-label">{{ photo.label }}</span>
-                </div>
+        <div class="foto-gallery">
+
+          <!-- Hero photo -->
+          <div class="foto-hero" @click="openFoto(fotoActive)">
+            <Transition name="foto-hero-fade" mode="out-in">
+              <img :key="fotoActive"
+                :src="photos[fotoActive].img"
+                :alt="photos[fotoActive].label"
+                class="foto-hero-img" />
+            </Transition>
+            <div class="foto-hero-overlay">
+              <div class="foto-hero-info">
+                <span class="foto-hero-label">{{ photos[fotoActive].label }}</span>
+                <span class="foto-hero-count">{{ fotoActive + 1 }} / {{ photos.length }}</span>
               </div>
+              <div class="foto-hero-expand">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              </div>
+            </div>
+            <button class="foto-hero-arrow foto-hero-prev" @click.stop="fotoActivePrev" :disabled="fotoActive === 0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="foto-hero-arrow foto-hero-next" @click.stop="fotoActiveNext" :disabled="fotoActive === photos.length - 1">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <!-- Thumbnails strip -->
+          <div class="foto-thumbs">
+            <div v-for="(photo, i) in photos" :key="i"
+              class="foto-thumb"
+              :class="{ active: i === fotoActive }"
+              @click="fotoActive = i">
+              <img :src="photo.img" :alt="photo.label" loading="lazy" />
+              <div class="foto-thumb-bar"></div>
             </div>
           </div>
 
-          <!-- Arrows -->
-          <button class="foto-carr-arrow foto-carr-prev" @click="fotoPrev" :disabled="fotoSlide === 0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="foto-carr-arrow foto-carr-next" @click="fotoNext" :disabled="fotoSlide >= photos.length - FOTO_PER">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-
-        <!-- Dots + load more row -->
-        <div class="foto-carr-footer">
-          <div class="foto-carr-dots">
-            <button v-for="p in fotoPages" :key="p"
-              class="foto-carr-dot"
-              :class="{ active: Math.floor(fotoSlide / FOTO_PER) === p - 1 }"
-              @click="fotoSlide = (p - 1) * FOTO_PER">
+          <!-- Footer -->
+          <div class="foto-gallery-footer">
+            <div class="foto-progress">
+              <div class="foto-progress-track">
+                <div class="foto-progress-fill"
+                  :style="{ width: `${((fotoActive + 1) / photos.length) * 100}%` }">
+                </div>
+              </div>
+              <span class="foto-progress-label">{{ fotoActive + 1 }} dari {{ photos.length }} foto</span>
+            </div>
+            <button class="btn-load-more" @click="openMoreModal('foto')">
+              <span>Lihat Semua Foto</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </div>
-          <button class="btn-load-more" @click="openMoreModal('foto')">
-            <span>Lihat Semua Foto</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
+
         </div>
       </div>
 
       <!-- ─── VIDEO ─── -->
       <div v-show="tab === 'video'">
-        <div class="video-layout">
-          <!-- Featured video (large) -->
-          <div class="video-featured reveal"
+        <div class="vid-gallery">
+
+          <!-- Hero cinematic -->
+          <div class="vid-hero"
             @mouseenter="videoHover = true"
             @mouseleave="videoHover = false"
             @click="openVideoModal()">
-            <div class="video-thumb-wrap">
+            <div class="vid-hero-thumb">
               <img :src="`https://img.youtube.com/vi/${videos[videoOrder[0]].ytId.trim()}/maxresdefault.jpg`"
                 :alt="videos[videoOrder[0]].title"
                 @error="onThumbError($event, videoOrder[0])" />
-              <div class="video-featured-overlay"></div>
-              <div class="video-play-center" :class="{ visible: videoHover }">
-                <div class="video-play-circle">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                </div>
+              <div class="vid-hero-overlay"></div>
+              <div class="vid-hero-play" :class="{ hovered: videoHover }">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
               </div>
-            </div>
-            <div class="video-featured-info">
-              <div class="video-badge">Video Terbaru</div>
-              <div class="video-featured-title">{{ videos[videoOrder[0]].title }}</div>
-              <div class="video-meta">{{ videos[videoOrder[0]].meta }}</div>
+              <div class="vid-hero-info">
+                <span class="vid-hero-badge">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  Video Terbaru
+                </span>
+                <div class="vid-hero-title">{{ videos[videoOrder[0]].title }}</div>
+                <div class="vid-hero-meta">{{ videos[videoOrder[0]].meta }}</div>
+              </div>
+              <div class="vid-hero-watch" :class="{ visible: videoHover }">
+                Tonton Sekarang
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
             </div>
           </div>
 
-          <!-- Sidebar videos -->
-          <div class="video-side-list">
+          <!-- Video grid -->
+          <div class="vid-grid">
             <div v-for="(orderIdx, pos) in videoOrder.slice(1)" :key="orderIdx"
-              class="video-side-item"
-              @click="swapToFeatured(pos + 1)">
-              <div class="video-side-thumb">
+              class="vid-card"
+              @click="openVideoModalDirect(orderIdx)">
+              <div class="vid-card-thumb">
                 <img :src="`https://img.youtube.com/vi/${videos[orderIdx].ytId.trim()}/mqdefault.jpg`"
                   :alt="videos[orderIdx].title"
                   @error="onThumbError($event, orderIdx)" />
-                <div class="video-side-play-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <div class="vid-card-overlay">
+                  <div class="vid-card-play">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                  </div>
                 </div>
               </div>
-              <div class="video-side-info">
-                <div class="video-side-title">{{ videos[orderIdx].title }}</div>
-                <div class="video-meta">{{ videos[orderIdx].meta }}</div>
+              <div class="vid-card-info">
+                <div class="vid-card-num">{{ String(pos + 2).padStart(2, '0') }}</div>
+                <div class="vid-card-title">{{ videos[orderIdx].title }}</div>
+                <div class="vid-card-meta">{{ videos[orderIdx].meta }}</div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="load-more-wrap reveal">
-          <button class="btn-load-more" @click="openMoreModal('video')">
-            <span>Lihat Semua Video</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
+
+          <!-- Footer -->
+          <div class="load-more-wrap reveal">
+            <button class="btn-load-more" @click="openMoreModal('video')">
+              <span>Lihat Semua Video</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -284,68 +312,69 @@
          ═══════════════════════════════════ -->
     <Teleport to="body">
     <Transition name="modal-fade">
-      <div v-if="videoModal.open" class="video-modal-overlay">
+      <div v-if="videoModal.open" class="vmod-overlay">
         <!-- Top bar -->
-        <div class="video-modal-topbar">
-          <div class="video-modal-channel-mini">
-            <div class="video-modal-channel-avatar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        <div class="vmod-topbar">
+          <div class="vmod-brand">
+            <div class="vmod-brand-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
             </div>
-            <span class="video-modal-topbar-title">BRI Official</span>
+            <span>BRI Official</span>
           </div>
-          <button class="video-modal-close" @click="closeVideoModal">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <button class="vmod-close" @click="closeVideoModal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
 
-        <!-- Body: player left + sidebar right -->
-        <div class="video-modal-body">
-          <div class="video-modal-left" data-lenis-prevent>
-            <div class="video-modal-player-wrap">
+        <!-- Body -->
+        <div class="vmod-body">
+          <!-- Left: player + info -->
+          <div class="vmod-main" data-lenis-prevent>
+            <div class="vmod-player">
               <iframe
                 :src="`https://www.youtube.com/embed/${videos[videoModal.idx].ytId.trim()}?autoplay=1&rel=0&modestbranding=1`"
                 :title="videos[videoModal.idx].title"
-                allowfullscreen
-                allow="autoplay; encrypted-media"
+                allowfullscreen allow="autoplay; encrypted-media"
                 referrerpolicy="strict-origin-when-cross-origin"
               ></iframe>
             </div>
-            <div class="video-modal-info">
-              <div class="video-modal-channel">
-                <div class="video-modal-channel-avatar">
+
+            <div class="vmod-info">
+              <div class="vmod-channel-row">
+                <div class="vmod-avatar">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
                 </div>
                 <div>
-                  <div class="video-modal-channel-name">BRI Official</div>
-                  <div class="video-modal-channel-sub">Kanal Resmi Bank BRI</div>
+                  <div class="vmod-channel-name">BRI Official</div>
+                  <div class="vmod-channel-sub">Kanal Resmi Bank BRI</div>
                 </div>
-                <button class="video-modal-subscribe">Subscribe</button>
+                <button class="vmod-subscribe">Subscribe</button>
               </div>
-              <h3 class="video-modal-title">{{ videos[videoModal.idx].title }}</h3>
-              <div class="video-modal-tags">
-                <span v-for="tag in videos[videoModal.idx].tags" :key="tag" class="video-tag">#{{ tag }}</span>
+              <h2 class="vmod-title">{{ videos[videoModal.idx].title }}</h2>
+              <div class="vmod-tags">
+                <span v-for="tag in videos[videoModal.idx].tags" :key="tag" class="vmod-tag">#{{ tag }}</span>
               </div>
-              <div class="video-modal-desc-box">
-                <p class="video-modal-desc">{{ videos[videoModal.idx].description }}</p>
+              <div class="vmod-desc">
+                <p>{{ videos[videoModal.idx].description }}</p>
               </div>
             </div>
           </div>
 
-          <!-- Sidebar suggestions -->
-          <div class="video-modal-sidebar" data-lenis-prevent>
-            <div class="video-sidebar-label">Video Lainnya</div>
+          <!-- Right: sidebar -->
+          <div class="vmod-sidebar" data-lenis-prevent>
+            <div class="vmod-sidebar-label">Video Lainnya</div>
             <template v-for="(vid, i) in videos" :key="i">
-              <div v-if="i !== videoModal.idx" class="video-suggestion" @click="videoModal.idx = i">
-                <div class="video-suggestion-thumb">
+              <div v-if="i !== videoModal.idx" class="vmod-suggestion" @click="videoModal.idx = i">
+                <div class="vmod-sug-thumb">
                   <img :src="`https://img.youtube.com/vi/${vid.ytId.trim()}/mqdefault.jpg`" :alt="vid.title"
                     @error="onThumbError($event, i)" />
-                  <div class="video-suggestion-play">
+                  <div class="vmod-sug-play">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
                   </div>
                 </div>
-                <div class="video-suggestion-info">
-                  <p class="video-suggestion-title">{{ vid.title }}</p>
-                  <span class="video-suggestion-meta">{{ vid.meta }}</span>
+                <div class="vmod-sug-info">
+                  <p class="vmod-sug-title">{{ vid.title }}</p>
+                  <span class="vmod-sug-meta">{{ vid.meta }}</span>
                 </div>
               </div>
             </template>
@@ -429,7 +458,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, nextTick, computed } from 'vue'
+import { ref, reactive, nextTick } from 'vue'
 import { lenis } from '@/lenis.js'
 
 const tab = ref('artikel')
@@ -437,11 +466,9 @@ const showModal = ref(false)
 const modalType = ref('artikel')
 const videoHover = ref(false)
 
-const FOTO_PER = 3
-const fotoSlide = ref(0)
-const fotoPages = computed(() => Math.ceil(photos.length / FOTO_PER))
-function fotoPrev() { fotoSlide.value = Math.max(0, fotoSlide.value - 1) }
-function fotoNext() { fotoSlide.value = Math.min(photos.length - FOTO_PER, fotoSlide.value + 1) }
+const fotoActive = ref(0)
+function fotoActivePrev() { if (fotoActive.value > 0) fotoActive.value-- }
+function fotoActiveNext() { if (fotoActive.value < photos.length - 1) fotoActive.value++ }
 const fotoOverlayRef = ref(null)
 
 const artikelModal = reactive({ open: false, idx: 0 })
@@ -743,8 +770,8 @@ const videos = [
   margin-bottom: 16px;
 }
 .artikel-featured {
-  background: #0a1628;
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(0,20,60,0.06);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 16px;
   overflow: hidden;
   position: relative;
@@ -780,24 +807,30 @@ const videos = [
   z-index: 1;
 }
 .artikel-time {
-  font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.40);
+  font-size: 11px; font-weight: 600; color: rgba(10,22,40,0.65);
   letter-spacing: 0.04em; display: block; margin-bottom: 6px;
 }
+.artikel-featured-body .artikel-time { color: rgba(255,255,255,0.72); }
 .artikel-featured-title {
-  font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92);
+  font-size: 18px; font-weight: 700; color: rgba(10,22,40,0.92);
   line-height: 1.35; letter-spacing: -0.02em; margin-bottom: 10px;
 }
+.artikel-featured-body .artikel-featured-title {
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.30);
+}
 .artikel-featured-excerpt {
-  font-size: 13.5px; color: rgba(255,255,255,0.50); line-height: 1.65;
+  font-size: 13.5px; color: rgba(10,22,40,0.72); line-height: 1.65;
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;
   overflow: hidden; margin: 0;
 }
+.artikel-featured-body .artikel-featured-excerpt { color: rgba(255,255,255,0.82); }
 /* ── STACK COL (kanan) ── */
 .artikel-stack-col {
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.72);
+  border: 1.5px solid rgba(0,63,136,0.10);
   border-radius: 18px;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -806,7 +839,7 @@ const videos = [
 .artikel-stack-item {
   position: relative;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(0,63,136,0.08);
   cursor: pointer;
   flex: 1;
   display: flex;
@@ -815,7 +848,7 @@ const videos = [
   transition: background 0.18s;
 }
 .artikel-stack-item:last-child { border-bottom: none; }
-.artikel-stack-item:hover { background: rgba(255,255,255,0.05); }
+.artikel-stack-item:hover { background: rgba(255,255,255,0.65); }
 .artikel-stack-item:hover .artikel-stack-arrow { opacity: 1; transform: translateX(3px); }
 .artikel-stack-top {
   display: flex; align-items: center;
@@ -823,7 +856,7 @@ const videos = [
 }
 .artikel-stack-title {
   font-size: 13px; font-weight: 600;
-  color: rgba(255,255,255,0.85);
+  color: rgba(10,22,40,0.85);
   line-height: 1.45; margin: 0;
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
   -webkit-box-orient: vertical; overflow: hidden;
@@ -831,15 +864,15 @@ const videos = [
 }
 .artikel-stack-arrow {
   position: absolute; bottom: 14px; right: 16px;
-  color: rgba(255,255,255,0.25); opacity: 0.4;
+  color: rgba(10,22,40,0.72); opacity: 0.4;
   transition: opacity 0.2s, transform 0.2s;
   flex-shrink: 0;
 }
 
 /* Old side styles kept as stub (no longer rendered) */
 .artikel-side-item {
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 12px; overflow: hidden; backdrop-filter: blur(8px);
   transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
   flex: 1; display: flex; flex-direction: column; cursor: pointer;
@@ -856,7 +889,7 @@ const videos = [
   display: flex; flex-direction: column; justify-content: flex-start;
 }
 .artikel-side-title {
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85);
+  font-size: 13px; font-weight: 600; color: rgba(10,22,40,0.85);
   line-height: 1.45; margin: 0;
 }
 /* category badge */
@@ -874,8 +907,8 @@ const videos = [
 /* ── BOTTOM LIST ROWS ── */
 .artikel-list-rows {
   display: flex; flex-direction: column;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.60);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 14px; overflow: hidden;
   margin-bottom: 24px;
   backdrop-filter: blur(10px);
@@ -885,21 +918,21 @@ const videos = [
   display: flex; align-items: center; gap: 16px;
   padding: 14px 18px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(0,63,136,0.07);
   transition: background 0.18s;
 }
 .artikel-row-item:last-child { border-bottom: none; }
-.artikel-row-item:hover { background: rgba(255,255,255,0.04); }
+.artikel-row-item:hover { background: rgba(255,255,255,0.60); }
 .artikel-row-item:hover .artikel-row-arrow { opacity: 1; transform: translateX(3px); }
 .artikel-row-thumb {
   width: 110px; height: 70px; border-radius: 8px;
   overflow: hidden; flex-shrink: 0;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.65);
 }
 .artikel-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .artikel-row-body { flex: 1; min-width: 0; }
 .artikel-row-title {
-  font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.85);
+  font-size: 13.5px; font-weight: 600; color: rgba(10,22,40,0.85);
   line-height: 1.45; margin: 0;
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
@@ -908,178 +941,301 @@ const videos = [
   flex-shrink: 0;
 }
 .artikel-row-arrow {
-  color: rgba(255,255,255,0.25); opacity: 0.5;
+  color: rgba(10,22,40,0.72); opacity: 0.5;
   transition: opacity 0.2s, transform 0.2s;
 }
 
-/* ── FOTO CAROUSEL ── */
-.foto-carousel {
+/* ── FOTO GALLERY (redesign) ── */
+.foto-gallery { display: flex; flex-direction: column; gap: 10px; }
+
+/* Hero */
+.foto-hero {
   position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 18px;
   overflow: hidden;
-  border-radius: 16px;
-  margin-bottom: 16px;
-}
-.foto-carousel-track {
-  display: flex;
-  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-.foto-carousel-slide {
-  flex: 0 0 33.333%;
-  padding: 0 6px;
-  box-sizing: border-box;
-}
-.foto-carousel-slide:first-child { padding-left: 0; }
-.foto-carousel-slide:last-child  { padding-right: 0; }
-.foto-carousel-item {
-  position: relative;
-  aspect-ratio: 4/3;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1.5px solid rgba(255,255,255,0.09);
   cursor: pointer;
-  transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  background: rgba(0,20,60,0.05);
+  border: 1.5px solid rgba(0,63,136,0.10);
 }
-.foto-carousel-item:hover { border-color: rgba(0,87,184,0.45); transform: scale(1.015); }
-.foto-carousel-item img {
+.foto-hero-img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.55s ease;
 }
-.foto-carousel-item:hover img { transform: scale(1.07); }
+.foto-hero:hover .foto-hero-img { transform: scale(1.03); }
+
+/* Fade transition for hero image */
+.foto-hero-fade-enter-active, .foto-hero-fade-leave-active {
+  transition: opacity 0.30s ease;
+  position: absolute; inset: 0;
+}
+.foto-hero-fade-enter-from, .foto-hero-fade-leave-to { opacity: 0; }
+
+/* Overlay */
+.foto-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,10,30,0.82) 0%, rgba(0,10,30,0.18) 40%, transparent 65%);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 22px 24px;
+}
+.foto-hero-info { display: flex; flex-direction: column; gap: 3px; }
+.foto-hero-label {
+  font-size: 17px; font-weight: 700; color: #fff;
+  letter-spacing: -0.02em; line-height: 1.3;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+}
+.foto-hero-count {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.60);
+  letter-spacing: 0.05em;
+}
+.foto-hero-expand {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; flex-shrink: 0;
+  transition: background 0.22s, transform 0.22s;
+}
+.foto-hero:hover .foto-hero-expand {
+  background: rgba(255,255,255,0.26);
+  transform: scale(1.08);
+}
 
 /* Arrows */
-.foto-carr-arrow {
+.foto-hero-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
-  z-index: 10;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(5,14,30,0.72);
-  border: 1.5px solid rgba(255,255,255,0.18);
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(10,22,40,0.40);
+  border: 1.5px solid rgba(255,255,255,0.20);
+  backdrop-filter: blur(12px);
   color: #fff;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; backdrop-filter: blur(8px);
-  transition: background 0.2s, opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.22s, background 0.22s, transform 0.22s;
 }
-.foto-carr-arrow:hover:not(:disabled) { background: rgba(0,87,184,0.55); transform: translateY(-50%) scale(1.06); }
-.foto-carr-arrow:disabled { opacity: 0.22; cursor: default; }
-.foto-carr-prev { left: 12px; }
-.foto-carr-next { right: 12px; }
+.foto-hero:hover .foto-hero-arrow:not(:disabled) { opacity: 1; }
+.foto-hero-prev { left: 16px; }
+.foto-hero-next { right: 16px; }
+.foto-hero-arrow:hover:not(:disabled) {
+  background: rgba(0,87,184,0.80);
+  transform: translateY(-50%) scale(1.06);
+}
+.foto-hero-arrow:disabled { opacity: 0 !important; cursor: default; }
 
-/* Dots + footer row */
-.foto-carr-footer {
+/* Thumbnails */
+.foto-thumbs {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}
+.foto-thumb {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.55;
+  border: 2px solid transparent;
+  transition: opacity 0.22s, transform 0.22s, border-color 0.22s;
+}
+.foto-thumb:hover { opacity: 0.85; transform: translateY(-2px); }
+.foto-thumb.active {
+  opacity: 1;
+  border-color: #0057b8;
+  box-shadow: 0 0 0 3px rgba(0,87,184,0.22);
+}
+.foto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto-thumb-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: #0057b8;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+.foto-thumb.active .foto-thumb-bar { transform: scaleX(1); }
+
+/* Footer */
+.foto-gallery-footer {
   display: flex; align-items: center;
-  justify-content: space-between; gap: 16px;
-  padding: 0 4px;
+  justify-content: space-between; gap: 20px;
+  padding: 4px 2px;
 }
-.foto-carr-dots { display: flex; align-items: center; gap: 6px; }
-.foto-carr-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  border: none; cursor: pointer; padding: 0;
-  transition: background 0.2s, width 0.25s, border-radius 0.25s;
+.foto-progress { display: flex; align-items: center; gap: 12px; flex: 1; max-width: 260px; }
+.foto-progress-track {
+  flex: 1; height: 3px; border-radius: 2px;
+  background: rgba(0,63,136,0.12);
+  overflow: hidden;
 }
-.foto-carr-dot.active {
-  background: var(--bri-blue, #0057B8);
-  width: 22px; border-radius: 4px;
+.foto-progress-fill {
+  height: 100%; background: #0057b8; border-radius: 2px;
+  transition: width 0.35s cubic-bezier(0.22,1,0.36,1);
 }
-
-.foto-grid-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%);
-  display: flex; align-items: flex-end; padding: 10px 12px;
-  opacity: 0; transition: opacity 0.2s;
-}
-.foto-grid-item:hover .foto-grid-overlay { opacity: 1; }
-.foto-grid-label {
-  font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.92); line-height: 1.3;
+.foto-progress-label {
+  font-size: 12px; font-weight: 600;
+  color: rgba(10,22,40,0.55);
+  white-space: nowrap;
 }
 
-/* ── VIDEO LAYOUT ── */
-.video-layout {
-  display: grid; grid-template-columns: 1fr 300px;
-  gap: 16px; margin-bottom: 24px;
+/* ── VIDEO GALLERY (redesign) ── */
+.vid-gallery { display: flex; flex-direction: column; gap: 12px; }
+
+/* Hero cinematic */
+.vid-hero {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1.5px solid rgba(0,63,136,0.10);
 }
-.video-featured {
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.12);
-  border-radius: 16px; overflow: hidden; backdrop-filter: blur(8px);
-  transition: border-color 0.25s; cursor: pointer;
+.vid-hero-thumb {
+  position: relative;
+  aspect-ratio: 21/9;
+  overflow: hidden;
 }
-.video-featured:hover { border-color: rgba(0,87,184,0.40); }
-.video-thumb-wrap {
-  position: relative; aspect-ratio: 16/9; overflow: hidden;
-}
-.video-thumb-wrap img {
+.vid-hero-thumb img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.55s ease;
 }
-.video-featured:hover .video-thumb-wrap img { transform: scale(1.03); }
-.video-featured-overlay {
+.vid-hero:hover .vid-hero-thumb img { transform: scale(1.03); }
+.vid-hero-overlay {
   position: absolute; inset: 0;
-  background: rgba(0,0,0,0.20);
-  transition: background 0.2s;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    transparent 28%,
+    rgba(0,10,30,0.60) 65%,
+    rgba(0,10,30,0.90) 100%
+  );
 }
-.video-featured:hover .video-featured-overlay { background: rgba(0,0,0,0.35); }
-.video-play-center {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.12s ease;
-}
-.video-play-center.visible { opacity: 1; }
-.video-play-circle {
-  width: 68px; height: 68px; border-radius: 50%;
-  background: rgba(255,0,0,0.90);
+
+/* Play button */
+.vid-hero-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px; height: 76px; border-radius: 50%;
+  background: rgba(204,0,0,0.90);
   display: flex; align-items: center; justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 24px rgba(255,0,0,0.45);
-  transition: transform 0.15s, background 0.15s;
+  box-shadow: 0 4px 36px rgba(204,0,0,0.55);
+  transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), background 0.22s, box-shadow 0.28s;
 }
-.video-play-center.visible .video-play-circle { transform: scale(1.05); }
-.video-featured-info { padding: 16px 20px 20px; }
-.video-badge {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase; color: #60a5fa;
-  background: rgba(0,87,184,0.20); border: 1px solid rgba(0,87,184,0.35);
-  border-radius: 100px; padding: 3px 10px; margin-bottom: 8px;
+.vid-hero-play.hovered {
+  transform: translate(-50%, -50%) scale(1.14);
+  background: #cc0000;
+  box-shadow: 0 8px 56px rgba(204,0,0,0.70);
 }
-.video-featured-title {
-  font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.92);
-  line-height: 1.4; margin-bottom: 4px;
-}
-.video-meta { font-size: 12px; color: rgba(255,255,255,0.40); }
 
-.video-side-list { display: flex; flex-direction: column; gap: 10px; }
-.video-side-item {
-  display: flex; gap: 0; background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px;
-  overflow: hidden; backdrop-filter: blur(8px);
-  transition: border-color 0.25s, background 0.2s; cursor: pointer;
-  align-items: center;
+/* Info at bottom */
+.vid-hero-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 22px 28px 68px;
+  display: flex; flex-direction: column; gap: 5px;
 }
-.video-side-item:hover { border-color: rgba(0,87,184,0.40); background: rgba(0,87,184,0.08); }
-.video-side-thumb {
-  width: 110px; height: 70px; flex-shrink: 0; position: relative; overflow: hidden;
+.vid-hero-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: rgba(204,0,0,0.88);
+  border-radius: 100px; padding: 3px 10px;
+  align-self: flex-start; margin-bottom: 2px;
 }
-.video-side-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.video-side-play-icon {
+.vid-hero-title {
+  font-size: 20px; font-weight: 800; color: #fff;
+  line-height: 1.3; letter-spacing: -0.02em;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.40);
+}
+.vid-hero-meta { font-size: 12.5px; color: rgba(255,255,255,0.60); font-weight: 500; }
+
+/* "Tonton Sekarang" CTA slide-up */
+.vid-hero-watch {
+  position: absolute; bottom: 24px; right: 28px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; color: #fff;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(10px);
+  border-radius: 100px; padding: 8px 18px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.vid-hero-watch.visible { opacity: 1; transform: translateY(0); }
+
+/* Video grid */
+.vid-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.vid-card {
+  background: rgba(255,255,255,0.84);
+  border: 1.5px solid rgba(0,63,136,0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.25s, transform 0.32s cubic-bezier(0.22,1,0.36,1), box-shadow 0.32s;
+}
+.vid-card:hover {
+  border-color: rgba(0,87,184,0.36);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 36px rgba(0,63,136,0.12);
+}
+.vid-card-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.vid-card-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.45s ease;
+}
+.vid-card:hover .vid-card-thumb img { transform: scale(1.06); }
+.vid-card-overlay {
   position: absolute; inset: 0;
+  background: rgba(0,0,0,0.32);
   display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.45); color: #fff;
+  opacity: 0; transition: opacity 0.22s;
 }
-.video-side-info { padding: 8px 12px; flex: 1; min-width: 0; }
-.video-side-title {
-  font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.85);
-  line-height: 1.4; margin-bottom: 3px;
-  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+.vid-card:hover .vid-card-overlay { opacity: 1; }
+.vid-card-play {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(204,0,0,0.92);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 2px 20px rgba(204,0,0,0.60);
+  transform: scale(0.80);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
 }
+.vid-card:hover .vid-card-play { transform: scale(1); }
+.vid-card-info {
+  padding: 12px 14px 16px;
+  display: flex; flex-direction: column; gap: 3px;
+  position: relative;
+}
+.vid-card-num {
+  position: absolute; top: 12px; right: 14px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.06em;
+  color: rgba(10,22,40,0.18); font-variant-numeric: tabular-nums;
+}
+.vid-card-title {
+  font-size: 13.5px; font-weight: 700;
+  color: rgba(10,22,40,0.88); line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+  padding-right: 24px;
+}
+.vid-card-meta { font-size: 11.5px; color: rgba(10,22,40,0.50); margin-top: 1px; }
 
 /* ── TAMPILKAN LAINNYA BUTTON ── */
 .load-more-wrap { display: flex; justify-content: center; margin-top: 8px; margin-bottom: 4px; }
 .btn-load-more {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 12px 28px; border-radius: 8px;
-  background: transparent;
-  border: 1.5px solid rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.70);
+  background: rgba(255,255,255,0.70);
+  border: 1.5px solid rgba(0,63,136,0.18);
+  color: rgba(10,22,40,0.70);
   font-size: 13.5px; font-weight: 600; cursor: pointer;
   font-family: inherit; letter-spacing: 0.01em;
   transition: background 0.2s, border-color 0.2s, color 0.2s, gap 0.2s;
@@ -1087,7 +1243,7 @@ const videos = [
 .btn-load-more:hover {
   background: rgba(0,87,184,0.12);
   border-color: rgba(59,130,246,0.55);
-  color: #93c5fd;
+  color: #0057b8;
   gap: 14px;
 }
 .btn-load-more svg { transition: transform 0.2s; flex-shrink: 0; }
@@ -1095,31 +1251,31 @@ const videos = [
 
 /* ── TAMPILKAN LAINNYA MODAL ── */
 .more-modal-overlay {
-  position: fixed; inset: 0; background: rgba(5,14,30,0.96);
+  position: fixed; inset: 0; background: rgba(0,10,30,0.55);
   backdrop-filter: blur(14px); z-index: 9998;
   display: flex; align-items: center; justify-content: center; padding: 40px 24px;
 }
 .more-modal-box {
-  background: rgba(10,20,44,0.98); border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(248,251,255,0.98); border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 20px; width: 100%; max-width: 680px; max-height: 85vh;
   display: flex; flex-direction: column; overflow: hidden;
   box-shadow: 0 24px 80px rgba(0,0,0,0.60);
 }
 .more-modal-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+  padding: 18px 24px; border-bottom: 1px solid rgba(0,63,136,0.10); flex-shrink: 0;
 }
 .more-modal-title {
   display: flex; align-items: center; gap: 8px;
-  font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.90);
+  font-size: 15px; font-weight: 700; color: rgba(10,22,40,0.90);
 }
 .more-modal-close {
   width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.70); display: flex; align-items: center;
+  background: rgba(0,63,136,0.07); border: 1px solid rgba(0,63,136,0.14);
+  color: rgba(10,22,40,0.75); display: flex; align-items: center;
   justify-content: center; cursor: pointer; transition: background 0.2s;
 }
-.more-modal-close:hover { background: rgba(255,255,255,0.18); }
+.more-modal-close:hover { background: rgba(0,63,136,0.12); }
 .more-modal-scroll { overflow-y: auto; padding: 8px 0 8px; flex: 1; }
 
 /* ── artikel / video list rows in modal ── */
@@ -1128,21 +1284,21 @@ const videos = [
   display: flex; align-items: center; gap: 14px;
   padding: 12px 24px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(0,63,136,0.07);
   transition: background 0.18s;
 }
 .more-artikel-row:last-child { border-bottom: none; }
-.more-artikel-row:hover { background: rgba(255,255,255,0.04); }
+.more-artikel-row:hover { background: rgba(255,255,255,0.60); }
 .more-artikel-row:hover .more-artikel-row-arrow { opacity: 1; transform: translateX(3px); }
 .more-artikel-row-thumb {
   width: 100px; height: 64px; border-radius: 8px;
   overflow: hidden; flex-shrink: 0;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.65);
 }
 .more-artikel-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .more-artikel-row-body { flex: 1; min-width: 0; }
 .more-artikel-row-title {
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85);
+  font-size: 13px; font-weight: 600; color: rgba(10,22,40,0.85);
   line-height: 1.45; margin: 0;
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
@@ -1151,13 +1307,13 @@ const videos = [
   flex-shrink: 0;
 }
 .more-artikel-row-arrow {
-  color: rgba(255,255,255,0.25); opacity: 0.4;
+  color: rgba(10,22,40,0.72); opacity: 0.4;
   transition: opacity 0.2s, transform 0.2s;
 }
 .more-video-row-thumb { position: relative; }
 .more-video-row-play {
   position: absolute; inset: 0; display: flex; align-items: center;
-  justify-content: center; background: rgba(0,0,0,0.40); color: #fff;
+  justify-content: center; background: rgba(0,0,0,0.40); color: white;
 }
 .more-foto-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .more-foto-item {
@@ -1173,11 +1329,11 @@ const videos = [
   opacity: 0; transition: opacity 0.2s;
 }
 .more-foto-item:hover .more-foto-overlay { opacity: 1; }
-.more-foto-overlay span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.88); }
+.more-foto-overlay span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.92); }
 .more-video-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .more-video-item {
   display: flex; flex-direction: column; align-items: stretch;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.80); border: 1px solid rgba(0,63,136,0.12);
   border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s;
 }
 .more-video-item:hover { border-color: rgba(0,87,184,0.35); }
@@ -1185,10 +1341,10 @@ const videos = [
 .more-video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .more-video-play {
   position: absolute; inset: 0; display: flex; align-items: center;
-  justify-content: center; background: rgba(0,0,0,0.40); color: #fff;
+  justify-content: center; background: rgba(0,0,0,0.40); color: white;
 }
 .more-video-info { padding: 10px 12px 12px; flex: 1; }
-.more-video-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); margin: 0 0 4px; line-height: 1.4; }
+.more-video-title { font-size: 13px; font-weight: 600; color: rgba(10,22,40,0.85); margin: 0 0 4px; line-height: 1.4; }
 
 /* Fullscreen foto modal */
 .more-modal-overlay.more-fullscreen { padding: 0; align-items: stretch; }
@@ -1209,7 +1365,7 @@ const videos = [
 }
 .artikel-modal-scroll { max-width: 760px; margin: 0 auto; padding: 72px 24px 80px; }
 .news-category-badge {
-  display: inline-block; background: #003f8a; color: #fff;
+  display: inline-block; background: #003f8a; color: white;
   font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
   text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 16px;
 }
@@ -1276,8 +1432,8 @@ const videos = [
 .foto-close-btn:hover { background: rgba(255,255,255,0.22); }
 .foto-counter {
   position: absolute; top: 24px; left: 50%; transform: translateX(-50%);
-  font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500;
-  background: rgba(255,255,255,0.08); padding: 5px 14px; border-radius: 100px;
+  font-size: 13px; color: rgba(10,22,40,0.75); font-weight: 500;
+  background: rgba(255,255,255,0.80); padding: 5px 14px; border-radius: 100px;
 }
 .foto-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -1311,12 +1467,12 @@ const videos = [
   width: 40px; height: 40px; border-radius: 10px;
   background: rgba(0,87,184,0.25); border: 1px solid rgba(0,87,184,0.35);
   display: flex; align-items: center; justify-content: center;
-  color: #60a5fa; flex-shrink: 0;
+  color: #0057b8; flex-shrink: 0;
 }
 .foto-info-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.90); margin-bottom: 3px; }
 .foto-info-desc { font-size: 12.5px; color: rgba(255,255,255,0.50); line-height: 1.5; }
 .foto-social-links { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.foto-social-label { font-size: 12px; color: rgba(255,255,255,0.40); font-weight: 500; }
+.foto-social-label { font-size: 12px; color: rgba(255,255,255,0.42); font-weight: 500; }
 .foto-social-btn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 14px; border-radius: 8px;
@@ -1336,106 +1492,121 @@ const videos = [
 .foto-slide-enter-from { opacity: 0; transform: scale(0.97); }
 .foto-slide-leave-to { opacity: 0; transform: scale(1.02); }
 
-/* ── VIDEO MODAL (YouTube-like fullscreen) ── */
-.video-modal-overlay {
-  position: fixed; inset: 0; background: #0f0f0f;
+/* ── VIDEO MODAL ── */
+.vmod-overlay {
+  position: fixed; inset: 0;
+  background: #0c1219;
   z-index: 9999; display: flex; flex-direction: column; overflow: hidden;
 }
-.video-modal-topbar {
-  height: 56px; flex-shrink: 0; padding: 0 20px;
+.vmod-topbar {
+  height: 52px; flex-shrink: 0; padding: 0 24px;
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.08); background: #0f0f0f;
+  background: rgba(255,255,255,0.025);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
-.video-modal-channel-mini { display: flex; align-items: center; gap: 10px; }
-.video-modal-topbar-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.80); }
-.video-modal-body {
-  flex: 1; overflow: hidden;
-  display: grid; grid-template-columns: 1fr 380px;
-}
-.video-modal-left {
-  overflow-y: auto; padding: 20px 24px;
-  border-right: 1px solid rgba(255,255,255,0.08);
-}
-.video-modal-player-wrap {
-  aspect-ratio: 16/9; width: 100%; background: #000;
-  border-radius: 8px; overflow: hidden; margin-bottom: 16px;
-}
-.video-modal-player-wrap iframe {
-  width: 100%; height: 100%; border: none; display: block;
-}
-.video-modal-channel {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
-}
-.video-modal-channel-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
+.vmod-brand { display: flex; align-items: center; gap: 10px; }
+.vmod-brand-icon {
+  width: 34px; height: 34px; border-radius: 50%;
   background: linear-gradient(135deg, #003f8a, #0057b8);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; color: #fff;
 }
-.video-modal-channel-name { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.video-modal-channel-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 1px; }
-.video-modal-subscribe {
-  margin-left: auto; padding: 8px 16px; border-radius: 100px;
-  background: rgba(255,255,255,0.92); border: none;
-  color: #0f0f0f; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: background 0.2s;
+.vmod-brand span {
+  font-size: 14px; font-weight: 700;
+  color: rgba(255,255,255,0.80); letter-spacing: -0.01em;
 }
-.video-modal-subscribe:hover { background: #fff; }
-.video-modal-close {
-  width: 40px; height: 40px; border-radius: 50%;
+.vmod-close {
+  width: 38px; height: 38px; border-radius: 50%;
   background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
   color: rgba(255,255,255,0.70); display: flex; align-items: center;
-  justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+  justify-content: center; cursor: pointer; transition: background 0.2s, color 0.2s;
 }
-.video-modal-close:hover { background: rgba(255,255,255,0.18); color: #fff; }
-.video-modal-title {
-  font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.95);
-  line-height: 1.4; margin: 0 0 10px;
+.vmod-close:hover { background: rgba(255,255,255,0.16); color: #fff; }
+.vmod-body {
+  flex: 1; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 340px;
 }
-.video-modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.video-tag { font-size: 12.5px; color: #3b82f6; font-weight: 500; cursor: pointer; }
-.video-tag:hover { text-decoration: underline; }
-.video-modal-desc-box {
-  background: rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 16px;
+/* Left */
+.vmod-main {
+  overflow-y: auto; padding: 24px 28px;
+  border-right: 1px solid rgba(255,255,255,0.06);
 }
-.video-modal-desc {
-  font-size: 13.5px; color: rgba(255,255,255,0.62); line-height: 1.65; margin: 0;
+.vmod-player {
+  aspect-ratio: 16/9; width: 100%; background: #000;
+  border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.55);
 }
+.vmod-player iframe { width: 100%; height: 100%; border: none; display: block; }
+.vmod-info { display: flex; flex-direction: column; gap: 14px; }
+.vmod-channel-row {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.vmod-avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #003f8a, #0057b8);
+  display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.vmod-channel-name { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.90); }
+.vmod-channel-sub { font-size: 12px; color: rgba(255,255,255,0.42); margin-top: 2px; }
+.vmod-subscribe {
+  margin-left: auto; padding: 8px 20px; border-radius: 100px;
+  background: rgba(255,255,255,0.94); border: none;
+  color: #0c1219; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+}
+.vmod-subscribe:hover { background: #fff; }
+.vmod-title {
+  font-size: 19px; font-weight: 800; color: #fff;
+  line-height: 1.35; letter-spacing: -0.02em; margin: 0;
+}
+.vmod-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.vmod-tag {
+  font-size: 12.5px; color: #60a5fa; font-weight: 500;
+  cursor: pointer; transition: color 0.18s;
+}
+.vmod-tag:hover { color: #93c5fd; text-decoration: underline; }
+.vmod-desc {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; padding: 14px 16px;
+}
+.vmod-desc p { font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.70; margin: 0; }
 /* Sidebar */
-.video-modal-sidebar {
-  overflow-y: auto; padding: 14px 12px;
-  display: flex; flex-direction: column; gap: 4px;
-  background: #0f0f0f;
+.vmod-sidebar {
+  overflow-y: auto; padding: 16px 14px;
+  background: rgba(0,0,0,0.20);
+  display: flex; flex-direction: column; gap: 2px;
 }
-.video-sidebar-label {
-  font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.40);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 6px;
+.vmod-sidebar-label {
+  font-size: 10.5px; font-weight: 800; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  padding: 4px 6px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 4px;
 }
-.video-suggestion {
-  display: flex; gap: 10px; cursor: pointer;
-  border-radius: 8px; padding: 8px;
-  transition: background 0.2s;
+.vmod-suggestion {
+  display: flex; gap: 10px; border-radius: 10px; padding: 10px 8px;
+  cursor: pointer; transition: background 0.18s;
 }
-.video-suggestion:hover { background: rgba(255,255,255,0.06); }
-.video-suggestion-thumb {
-  width: 160px; height: 90px; flex-shrink: 0;
-  border-radius: 6px; overflow: hidden; background: #1a1a1a; position: relative;
+.vmod-suggestion:hover { background: rgba(255,255,255,0.07); }
+.vmod-sug-thumb {
+  width: 140px; height: 80px; border-radius: 8px; flex-shrink: 0;
+  overflow: hidden; background: #1a2235; position: relative;
 }
-.video-suggestion-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.video-suggestion-play {
+.vmod-sug-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vmod-sug-play {
   position: absolute; inset: 0; display: flex; align-items: center;
-  justify-content: center; background: rgba(0,0,0,0.35); color: #fff;
+  justify-content: center; background: rgba(0,0,0,0.40); color: #fff;
+  opacity: 0; transition: opacity 0.18s;
 }
-.video-suggestion-info { flex: 1; min-width: 0; padding-top: 2px; }
-.video-suggestion-title {
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85);
-  line-height: 1.4; margin: 0 0 5px;
+.vmod-suggestion:hover .vmod-sug-play { opacity: 1; }
+.vmod-sug-info { flex: 1; min-width: 0; padding-top: 2px; }
+.vmod-sug-title {
+  font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.82);
+  line-height: 1.40; margin: 0 0 5px;
   display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
   -webkit-box-orient: vertical; overflow: hidden;
 }
-.video-suggestion-meta { font-size: 11.5px; color: rgba(255,255,255,0.40); }
+.vmod-sug-meta { font-size: 11px; color: rgba(255,255,255,0.38); }
 
 /* Shared */
 .modal-fade-enter-active, .modal-fade-leave-active { transition: opacity 0.25s ease; }
@@ -1454,9 +1625,9 @@ const videos = [
   .related-grid { grid-template-columns: 1fr 1fr; }
   .foto-modal-stage { padding: 60px 70px 0; }
   .foto-info-main { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .video-modal-body { grid-template-columns: 1fr; }
-  .video-modal-sidebar { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); max-height: 240px; }
-  .video-suggestion-thumb { width: 120px; height: 68px; }
+  .vmod-body { grid-template-columns: 1fr; }
+  .vmod-sidebar { border-left: none; border-top: 1px solid rgba(255,255,255,0.07); max-height: 240px; }
+  .vmod-sug-thumb { width: 120px; height: 68px; }
 }
 @media (max-width: 600px) {
   .foto-carousel-slide { flex: 0 0 100%; }
@@ -1472,14 +1643,14 @@ const videos = [
 }
 
 /* ── MODAL SCROLLBAR ── */
-.video-modal-left::-webkit-scrollbar,
-.video-modal-sidebar::-webkit-scrollbar,
+.vmod-main::-webkit-scrollbar,
+.vmod-sidebar::-webkit-scrollbar,
 .more-modal-scroll::-webkit-scrollbar { width: 4px; }
-.video-modal-left::-webkit-scrollbar-track,
-.video-modal-sidebar::-webkit-scrollbar-track,
+.vmod-main::-webkit-scrollbar-track,
+.vmod-sidebar::-webkit-scrollbar-track,
 .more-modal-scroll::-webkit-scrollbar-track { background: transparent; }
-.video-modal-left::-webkit-scrollbar-thumb,
-.video-modal-sidebar::-webkit-scrollbar-thumb,
+.vmod-main::-webkit-scrollbar-thumb,
+.vmod-sidebar::-webkit-scrollbar-thumb,
 .more-modal-scroll::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.14);
   border-radius: 100px;

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="portal-section">
     <div class="container">
       <div class="portal-header reveal">
@@ -85,8 +85,8 @@ defineEmits(['openCareer'])
   position: relative;
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.11);
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 18px;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -96,17 +96,18 @@ defineEmits(['openCareer'])
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.28s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+ 
 }
 .portal-card:hover {
-  border-color: rgba(var(--accent-rgb, 255,255,255), 0.30);
+  border-color: rgba(0,87,184,0.30);
   transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+  box-shadow: 0 16px 40px rgba(0,63,136,0.12);
 }
 
 /* top accent line */
 .portal-card-accent {
   height: 3px;
-  background: var(--accent, rgba(255,255,255,0.20));
+  background: var(--accent, rgba(0,87,184,0.50));
   flex-shrink: 0;
   opacity: 0.75;
   transition: opacity 0.25s;
@@ -132,8 +133,8 @@ defineEmits(['openCareer'])
 .portal-logo-wrap {
   width: 56px; height: 56px;
   border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.90);
+  border: 1px solid rgba(0,63,136,0.12);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; flex-shrink: 0;
 }
@@ -150,17 +151,17 @@ defineEmits(['openCareer'])
 .portal-card-tag {
   font-size: 10px; font-weight: 800;
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--accent, rgba(255,255,255,0.35));
-  opacity: 0.80;
+  color: var(--accent, rgba(0,87,184,0.70));
+  opacity: 0.90;
 }
 .portal-card-name {
   font-size: 17px; font-weight: 800;
-  color: rgba(255,255,255,0.92);
+  color: rgba(10,22,40,0.92);
   letter-spacing: -0.02em; line-height: 1.2;
 }
 .portal-card-desc {
   font-size: 13.5px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(10,22,40,0.72);
   line-height: 1.7;
 }
 
@@ -170,19 +171,19 @@ defineEmits(['openCareer'])
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(0,63,136,0.08);
   margin-top: auto;
   gap: 12px;
 }
 .portal-card-url {
   font-size: 12px; font-weight: 600;
-  color: rgba(255,255,255,0.30);
+  color: rgba(10,22,40,0.58);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .portal-card-cta {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 12px; font-weight: 700;
-  color: var(--accent, #93c5fd);
+  color: var(--accent, #0057b8);
   flex-shrink: 0;
   transition: gap 0.2s;
 }

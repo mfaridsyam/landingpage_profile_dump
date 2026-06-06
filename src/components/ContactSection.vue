@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <Teleport to="body">
     <Transition name="toast">
       <div v-if="showToast" class="toast-success">
@@ -161,15 +161,16 @@ async function handleSubmit() {
 /* Info strip */
 .contact-strip {
   display: flex; align-items: center;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.80);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 18px; padding: 22px 32px;
   gap: 0; margin-bottom: 28px; flex-wrap: wrap;
   gap: 24px;
+ 
 }
 .contact-strip-sep {
   width: 1px; height: 48px;
-  background: rgba(255,255,255,0.08); flex-shrink: 0;
+  background: rgba(0,63,136,0.10); flex-shrink: 0;
 }
 .contact-strip-item {
   display: flex; align-items: center; gap: 14px;
@@ -177,19 +178,19 @@ async function handleSubmit() {
 }
 .contact-strip-icon {
   width: 40px; height: 40px; border-radius: 12px;
-  background: rgba(0,87,184,0.18);
-  border: 1px solid rgba(0,87,184,0.28);
+  background: rgba(0,87,184,0.10);
+  border: 1px solid rgba(0,87,184,0.22);
   display: flex; align-items: center; justify-content: center;
-  color: #60a5fa; flex-shrink: 0;
+  color: #0057b8; flex-shrink: 0;
 }
 .contact-strip-lbl {
   font-size: 10px; font-weight: 700;
-  color: rgba(255,255,255,0.30);
+  color: rgba(10,22,40,0.58);
   letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px;
 }
 .contact-strip-val {
   font-size: 13.5px; font-weight: 600;
-  color: rgba(255,255,255,0.82);
+  color: rgba(10,22,40,0.82);
 }
 .contact-strip-item:last-child {
   flex-direction: row; align-items: center; gap: 8px;
@@ -203,9 +204,9 @@ async function handleSubmit() {
 }
 .contact-strip-btn:hover { opacity: 0.82; transform: translateY(-1px); }
 .btn-phone {
-  background: rgba(255,255,255,0.07);
-  border: 1.5px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.80);
+  background: rgba(0,63,136,0.07);
+  border: 1.5px solid rgba(0,63,136,0.16);
+  color: rgba(10,22,40,0.80);
 }
 .btn-wa {
   background: #25d366;
@@ -215,11 +216,12 @@ async function handleSubmit() {
 
 /* Form card */
 .contact-form-card {
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 24px;
   padding: 36px 36px 32px;
   backdrop-filter: blur(8px);
+ 
 }
 .contact-form { display: flex; flex-direction: column; gap: 22px; }
 
@@ -232,43 +234,43 @@ async function handleSubmit() {
 .form-group { display: flex; flex-direction: column; gap: 8px; }
 .form-label {
   font-size: 12.5px; font-weight: 700;
-  color: rgba(255,255,255,0.50); letter-spacing: 0.01em;
+  color: rgba(10,22,40,0.72); letter-spacing: 0.01em;
 }
-.req { color: #f87171; margin-left: 2px; }
-.form-opt { color: rgba(255,255,255,0.25); font-weight: 400; }
+.req { color: #dc2626; margin-left: 2px; }
+.form-opt { color: rgba(10,22,40,0.75); font-weight: 400; }
 
 .form-input {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.88);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 10px;
-  color: rgba(255,255,255,0.88);
+  color: rgba(10,22,40,0.88);
   font-family: inherit; font-size: 14px; font-weight: 500;
   padding: 12px 14px; outline: none; width: 100%;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.form-input::placeholder { color: rgba(255,255,255,0.18); }
+.form-input::placeholder { color: rgba(10,22,40,0.72); }
 .form-input:focus {
-  border-color: rgba(0,87,184,0.55);
+  border-color: rgba(0,87,184,0.50);
   box-shadow: 0 0 0 3px rgba(0,87,184,0.10);
 }
-.form-input.err { border-color: rgba(248,113,113,0.50); box-shadow: 0 0 0 3px rgba(248,113,113,0.08); }
+.form-input.err { border-color: rgba(220,38,38,0.45); box-shadow: 0 0 0 3px rgba(220,38,38,0.08); }
 
 .form-textarea {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.88);
+  border: 1.5px solid rgba(0,63,136,0.14);
   border-radius: 10px;
-  color: rgba(255,255,255,0.88);
+  color: rgba(10,22,40,0.88);
   font-family: inherit; font-size: 14px; font-weight: 500;
   padding: 12px 14px; outline: none; width: 100%;
   resize: vertical; min-height: 120px; line-height: 1.6;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.form-textarea::placeholder { color: rgba(255,255,255,0.18); }
+.form-textarea::placeholder { color: rgba(10,22,40,0.72); }
 .form-textarea:focus {
-  border-color: rgba(0,87,184,0.55);
+  border-color: rgba(0,87,184,0.50);
   box-shadow: 0 0 0 3px rgba(0,87,184,0.10);
 }
-.form-textarea.err { border-color: rgba(248,113,113,0.50); box-shadow: 0 0 0 3px rgba(248,113,113,0.08); }
+.form-textarea.err { border-color: rgba(220,38,38,0.45); box-shadow: 0 0 0 3px rgba(220,38,38,0.08); }
 
 .form-err { font-size: 11.5px; color: #f87171; }
 
@@ -279,9 +281,9 @@ async function handleSubmit() {
 }
 .form-note {
   display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: rgba(255,255,255,0.25);
+  font-size: 12px; color: rgba(10,22,40,0.75);
 }
-.form-note strong { color: rgba(255,255,255,0.42); font-weight: 600; }
+.form-note strong { color: rgba(10,22,40,0.72); font-weight: 600; }
 
 .btn-submit {
   display: flex; align-items: center; justify-content: center; gap: 8px;

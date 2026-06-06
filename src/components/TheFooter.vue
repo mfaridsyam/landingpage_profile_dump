@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <footer class="site-footer">
 
     <!-- ── MAIN BODY ── -->
@@ -8,11 +8,10 @@
         <!-- Col 1: BRI Kantor Pusat -->
         <div class="fcol fcol--brand">
           <img
-            src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778342906/Logo_header_mini_ihzdof.png"
+            src="https://res.cloudinary.com/dnacoymkh/image/upload/v1780721401/Logo_header_mini_blue_lengkap_wblfyh.png"
             alt="BRI Cabang Polewali"
             class="footer-logo"
           />
-          <div class="fcol-title">BRI Cabang Polewali</div>
           <p class="footer-addr">
             PT. Bank Rakyat Indonesia (Persero) Tbk<br>
             Jl. H. Andi Depu No.177, Polewali,<br>
@@ -102,16 +101,15 @@
 
 /* ── BODY ── */
 .footer-body {
-  background: rgba(5, 12, 28, 0.94);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  background: #dce8f5;
+  border-top: 1px solid rgba(0,63,136,0.14);
   padding: 56px 0 48px;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1.1fr 1fr 1.2fr;
-  gap: 48px;
+  grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+  gap: 40px;
   align-items: start;
 }
 
@@ -121,25 +119,31 @@
   flex-direction: column;
   gap: 16px;
 }
+.fcol:not(:first-child) {
+  padding-left: 24px;
+  border-left: 1px solid rgba(0,63,136,0.12);
+}
 
 .footer-logo {
-  height: 30px;
+  height: 48px;
   width: auto;
   object-fit: contain;
+  object-position: left center;
   display: block;
+  margin-bottom: 8px;
 }
 
 .fcol-title {
   font-size: 14px;
   font-weight: 800;
-  color: #fff;
+  color: var(--ink, #0A1628);
   letter-spacing: -0.01em;
   margin-bottom: 4px;
 }
 
 .footer-addr {
   font-size: 13px;
-  color: rgba(255,255,255,0.42);
+  color: rgba(10,22,40,0.72);
   line-height: 1.75;
   margin: 0;
 }
@@ -156,11 +160,11 @@
   gap: 8px;
   font-size: 13.5px;
   font-weight: 600;
-  color: rgba(255,255,255,0.55);
+  color: rgba(10,22,40,0.60);
   text-decoration: none;
   transition: color 0.2s;
 }
-.footer-contact-item:hover { color: #fff; }
+.footer-contact-item:hover { color: var(--ink, #0A1628); }
 .footer-contact-item svg { flex-shrink: 0; opacity: 0.6; }
 
 /* ── SOCIALS ── */
@@ -172,17 +176,17 @@
 .footer-social {
   width: 34px; height: 34px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,63,136,0.07);
+  border: 1px solid rgba(0,63,136,0.14);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.40);
+  color: rgba(10,22,40,0.68);
   text-decoration: none;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .footer-social:hover {
-  background: rgba(0,87,184,0.20);
-  border-color: rgba(0,87,184,0.35);
-  color: #60a5fa;
+  background: rgba(0,87,184,0.15);
+  border-color: rgba(0,87,184,0.28);
+  color: #0057b8;
 }
 
 /* ── LINKS ── */
@@ -193,22 +197,22 @@
 }
 .footer-link {
   font-size: 13.5px;
-  color: rgba(255,255,255,0.50);
+  color: rgba(10,22,40,0.75);
   text-decoration: none;
   transition: color 0.2s;
   width: fit-content;
 }
-.footer-link:hover { color: #fff; }
+.footer-link:hover { color: var(--ink, #0A1628); }
 
 /* ── LEGAL ── */
 .fcol--legal { gap: 14px; }
 .footer-legal-text {
   font-size: 12.5px;
-  color: rgba(255,255,255,0.38);
+  color: rgba(10,22,40,0.68);
   line-height: 1.7;
   margin: 0;
 }
-.footer-legal-text strong { color: rgba(255,255,255,0.55); font-weight: 700; }
+.footer-legal-text strong { color: rgba(10,22,40,0.65); font-weight: 700; }
 
 
 /* ── BOTTOM BAR ── */
@@ -249,11 +253,14 @@
 
 /* ── RESPONSIVE ── */
 @media (max-width: 960px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .fcol:nth-child(odd) { padding-left: 0; border-left: none; }
+  .fcol:nth-child(even) { padding-left: 20px; border-left: 1px solid rgba(0,63,136,0.12); }
 }
 @media (max-width: 560px) {
   .footer-body { padding: 40px 0 36px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .fcol:not(:first-child) { padding-left: 0; border-left: none; border-top: 1px solid rgba(0,63,136,0.12); padding-top: 24px; }
   .footer-bar-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 </style>

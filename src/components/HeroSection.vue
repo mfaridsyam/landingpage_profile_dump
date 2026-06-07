@@ -319,8 +319,8 @@ const hoursData = computed(() => {
 
 .is-closed .hero-status-pill {
   border-color: rgba(239,68,68,0.65);
-  background: #fff5f5;
-  box-shadow: 0 2px 14px rgba(239,68,68,0.14);
+  background: #ffffff;
+  box-shadow: 0 2px 14px rgba(239,68,68,0.10);
 }
 
 .hero-status-pill:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(0,0,0,0.12); }

@@ -26,12 +26,14 @@
               <img :src="item.logo" :alt="item.name" />
             </div>
             <div class="career-item-body">
-              <div class="career-item-name">{{ item.name }}</div>
+              <div class="career-item-name-row">
+                <div class="career-item-name">{{ item.name }}</div>
+                <div class="career-item-badge">{{ item.tag }}</div>
+              </div>
               <div class="career-item-desc">{{ item.desc }}</div>
             </div>
-            <div class="career-item-badge">{{ item.tag }}</div>
             <div class="career-item-arrow">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </div>
           </a>
         </div>
@@ -195,21 +197,22 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 .career-item:hover .career-item-arrow { opacity: 1; transform: translate(2px, -2px); }
 
 .career-item-logo {
-  width: 44px; height: 44px; border-radius: 10px;
-  background: rgba(255,255,255,0.90);
-  border: 1px solid rgba(0,63,136,0.10);
+  width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
+  flex-shrink: 0;
 }
 .career-item-logo img {
-  width: 32px; height: 32px; object-fit: contain; display: block;
+  width: 44px; height: 44px; object-fit: contain; display: block;
 }
 
 .career-item-body { flex: 1; min-width: 0; }
+.career-item-name-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px; justify-content: space-between;
+}
 .career-item-name {
   font-size: 13.5px; font-weight: 700;
   color: rgba(10,22,40,0.88);
-  margin-bottom: 2px;
 }
 .career-item-desc {
   font-size: 12px; color: rgba(10,22,40,0.65);

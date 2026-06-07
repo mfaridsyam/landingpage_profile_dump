@@ -1,132 +1,44 @@
-﻿<template>
+<template>
   <section class="kurs-section" id="kurs">
     <div class="container">
 
       <div class="kurs-header reveal">
-        <div>
-          <div class="section-eyebrow">Informasi Valuta</div>
-          <h2 class="section-title" style="margin-bottom:6px">Kurs BRI</h2>
-          <p class="kurs-note">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Terakhir diperbarui {{ lastUpdated }} · Transaksi &lt; eq. USD 3.500
-          </p>
-        </div>
-      </div>
-
-      <!-- Tabs -->
-      <div class="kurs-tabs reveal">
-        <button class="kurs-tab" :class="{ active: tab === 'erate' }" @click="tab = 'erate'">
-          <span class="tab-dot"></span>E-Rate
-        </button>
-        <button class="kurs-tab" :class="{ active: tab === 'tt' }" @click="tab = 'tt'">
-          <span class="tab-dot"></span>Kurs TT Counter
-        </button>
+        <div class="section-eyebrow">Kurs &amp; Valas</div>
+        <h2 class="section-title">Kurs Hari Ini</h2>
+        <p class="kurs-desc">Pergerakan nilai tukar mata uang asing terhadap Rupiah. Data bersumber dari TradingView.</p>
       </div>
 
       <div class="kurs-body reveal">
 
-        <!-- Currency grid -->
-        <div class="kurs-grid">
-          <div
-            v-for="rate in currentRates" :key="rate.code"
-            class="kurs-card" :class="{ selected: calcCurrency === rate.code }"
-            @click="calcCurrency = rate.code; calcFromCurrency = 'IDR'; calcToCurrency = rate.code"
+        <!-- Currency pills -->
+        <div class="kurs-pills">
+          <button
+            v-for="code in CODES" :key="code"
+            class="kurs-pill" :class="{ active: currency === code }"
+            @click="currency = code"
           >
-            <div class="kurs-card-top">
-              <div class="kurs-flag-wrap">
-                <img
-                  class="kurs-flag-img"
-                  :src="`https://flagcdn.com/w40/${rate.code.slice(0,2).toLowerCase()}.png`"
-                  :srcset="`https://flagcdn.com/w80/${rate.code.slice(0,2).toLowerCase()}.png 2x`"
-                  :alt="rate.code"
-                  loading="lazy"
-                />
-              </div>
-              <span class="kurs-code">{{ rate.code }}</span>
-              <svg v-if="calcCurrency === rate.code" class="kurs-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="kurs-rates">
-              <div class="kurs-rate-item">
-                <span class="kurs-rate-lbl">Beli</span>
-                <span class="kurs-rate-val">{{ formatRate(rate.buy) }}</span>
-              </div>
-              <div class="kurs-rate-sep"></div>
-              <div class="kurs-rate-item">
-                <span class="kurs-rate-lbl">Jual</span>
-                <span class="kurs-rate-val">{{ formatRate(rate.sell) }}</span>
-              </div>
-            </div>
-          </div>
+            <img class="kurs-pill-flag" :src="flagUrl(code)" :alt="code" loading="lazy" />
+            <span>{{ code }}</span>
+          </button>
         </div>
 
-        <!-- Calculator -->
-        <div class="kurs-calc">
-          <div class="kurs-calc-top">
-            <div class="kurs-calc-header">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
-              Kalkulator Kurs
+        <!-- TradingView Chart -->
+        <div class="kurs-chart-wrap">
+          <div class="kurs-chart-head">
+            <div class="kurs-chart-pair">
+              <img class="kurs-chart-flag" :src="flagUrl(currency)" :alt="currency" />
+              <span>{{ currency }}/IDR</span>
             </div>
-            <div class="kurs-mode-row">
-              <button class="kurs-mode-btn" :class="{ active: mode === 'buy' }" @click="mode = 'buy'">Beli</button>
-              <button class="kurs-mode-btn" :class="{ active: mode === 'sell' }" @click="mode = 'sell'">Jual</button>
-            </div>
-          </div>
-
-          <!-- Backdrop closes dropdowns -->
-          <div v-if="calcFromOpen || calcToOpen" class="kurs-csel-backdrop"
-            @click="calcFromOpen = false; calcToOpen = false"></div>
-
-          <div class="kurs-calc-fields">
-            <div class="kurs-field-group">
-              <label class="kurs-field-label">Dari</label>
-              <div class="kurs-field-row">
-                <!-- Custom flag select: FROM -->
-                <div class="kurs-csel" :class="{ open: calcFromOpen }"
-                  @click.stop="calcFromOpen = !calcFromOpen; calcToOpen = false">
-                  <img class="kurs-csel-flag" :src="flagUrl(calcFromCurrency)" :alt="calcFromCurrency" />
-                  <span class="kurs-csel-code">{{ calcFromCurrency }}</span>
-                  <svg class="kurs-csel-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                  <div v-if="calcFromOpen" class="kurs-csel-drop" @click.stop>
-                    <div v-for="opt in calcAllOptions" :key="opt.code"
-                      class="kurs-csel-opt" :class="{ active: calcFromCurrency === opt.code }"
-                      @click="calcFromCurrency = opt.code; calcFromOpen = false">
-                      <img :src="flagUrl(opt.code)" :alt="opt.code" />
-                      <span>{{ opt.code }}</span>
-                    </div>
-                  </div>
-                </div>
-                <input class="kurs-input" type="text" inputmode="numeric" v-model="calcAmountDisplay" placeholder="0" />
-              </div>
-            </div>
-
-            <button class="kurs-swap-btn" @click="swapCalc" title="Tukar">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-            </button>
-
-            <div class="kurs-field-group">
-              <label class="kurs-field-label">Ke</label>
-              <div class="kurs-field-row">
-                <!-- Custom flag select: TO -->
-                <div class="kurs-csel" :class="{ open: calcToOpen }"
-                  @click.stop="calcToOpen = !calcToOpen; calcFromOpen = false">
-                  <img class="kurs-csel-flag" :src="flagUrl(calcToCurrency)" :alt="calcToCurrency" />
-                  <span class="kurs-csel-code">{{ calcToCurrency }}</span>
-                  <svg class="kurs-csel-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                  <div v-if="calcToOpen" class="kurs-csel-drop" @click.stop>
-                    <div v-for="opt in calcAllOptions" :key="opt.code"
-                      class="kurs-csel-opt" :class="{ active: calcToCurrency === opt.code }"
-                      @click="calcToCurrency = opt.code; calcToOpen = false">
-                      <img :src="flagUrl(opt.code)" :alt="opt.code" />
-                      <span>{{ opt.code }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="kurs-result">{{ formatResult(calcResult) }}</div>
-              </div>
+            <div class="kurs-chart-actions">
+              <a :href="`https://www.tradingview.com/symbols/${TV_SYMBOLS[currency]}/`"
+                target="_blank" rel="noopener" class="kurs-chart-btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Buka TradingView
+              </a>
+              <span class="kurs-chart-src">Powered by TradingView</span>
             </div>
           </div>
-
-          <p class="kurs-disclaimer">Kurs bersifat indikatif dan dapat berubah sewaktu-waktu.</p>
+          <div :key="currency" ref="tvContainer" class="kurs-chart-body"></div>
         </div>
 
       </div>
@@ -135,374 +47,171 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, watch, onMounted, nextTick } from 'vue'
 
-const tab  = ref('erate')
-const mode = ref('buy')
-const calcCurrency     = ref('USD')
-const calcFromCurrency = ref('IDR')
-const calcToCurrency   = ref('USD')
-const calcAmount       = ref(0)
+const currency = ref('USD')
 
-const calcFromOpen = ref(false)
-const calcToOpen   = ref(false)
-
-const calcAllOptions = computed(() => [
-  { code: 'IDR' },
-  ...erateRates.map(r => ({ code: r.code }))
-])
+const CODES = ['AUD', 'EUR', 'GBP', 'JPY', 'SGD', 'USD', 'HKD', 'MYR', 'CHF', 'CNY']
+const FLAG_MAP = { IDR:'id', AUD:'au', EUR:'eu', GBP:'gb', JPY:'jp', SGD:'sg', USD:'us', HKD:'hk', MYR:'my', CHF:'ch', CNY:'cn' }
 
 function flagUrl(code) {
-  const map = { IDR:'id', AUD:'au', EUR:'eu', GBP:'gb', JPY:'jp', SGD:'sg', USD:'us', HKD:'hk', MYR:'my' }
-  return `https://flagcdn.com/w40/${map[code] || code.slice(0,2).toLowerCase()}.png`
+  return `https://flagcdn.com/w40/${FLAG_MAP[code] || code.slice(0,2).toLowerCase()}.png`
 }
 
-const calcAmountDisplay = computed({
-  get() { return calcAmount.value > 0 ? calcAmount.value.toLocaleString('id-ID') : '' },
-  set(val) {
-    const raw = val.replace(/[^\d]/g, '')
-    calcAmount.value = raw ? parseInt(raw) : 0
-  }
-})
+const tvContainer = ref(null)
 
-const erateRates = [
-  { code: 'AUD', buy: 12622.21, sell: 12803.51 },
-  { code: 'EUR', buy: 20586.85, sell: 20857.80 },
-  { code: 'GBP', buy: 23764.87, sell: 24095.67 },
-  { code: 'JPY', buy: 110.95,   sell: 112.51   },
-  { code: 'SGD', buy: 13837.37, sell: 14027.77 },
-  { code: 'USD', buy: 17698.00, sell: 17890.00 },
-  { code: 'HKD', buy: 2263.45,  sell: 2300.12  },
-  { code: 'MYR', buy: 3845.20,  sell: 3920.00  },
-]
-
-const ttRates = erateRates.map(r => ({
-  ...r,
-  buy:  parseFloat((r.buy  * 0.997).toFixed(2)),
-  sell: parseFloat((r.sell * 1.003).toFixed(2)),
-}))
-
-const currentRates = computed(() => tab.value === 'erate' ? erateRates : ttRates)
-
-const lastUpdated = computed(() => {
-  const now = new Date()
-  return now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) +
-    ', ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-})
-
-function formatRate(val) {
-  return val.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const TV_SYMBOLS = {
+  AUD: 'AUDIDR', EUR: 'EURIDR', GBP: 'GBPIDR', JPY: 'JPYIDR',
+  SGD: 'SGDIDR', USD: 'USDIDR', HKD: 'HKDIDR', MYR: 'MYRIDR',
+  CHF: 'CHFIDR', CNY: 'CNYIDR',
 }
-function formatResult(val) {
-  if (!val && val !== 0) return '0,00'
-  return val.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-}
-function getRateFor(code) { return currentRates.value.find(r => r.code === code) }
 
-const calcResult = computed(() => {
-  if (!calcAmount.value) return 0
-  const useMode = mode.value
-  if (calcFromCurrency.value === 'IDR') {
-    const rate = getRateFor(calcToCurrency.value)
-    if (!rate) return 0
-    return calcAmount.value / (useMode === 'buy' ? rate.buy : rate.sell)
-  } else if (calcToCurrency.value === 'IDR') {
-    const rate = getRateFor(calcFromCurrency.value)
-    if (!rate) return 0
-    return calcAmount.value * (useMode === 'buy' ? rate.buy : rate.sell)
-  } else {
-    const fR = getRateFor(calcFromCurrency.value)
-    const tR = getRateFor(calcToCurrency.value)
-    if (!fR || !tR) return 0
-    const fromRate = useMode === 'buy' ? fR.buy : fR.sell
-    const toRate   = useMode === 'buy' ? tR.buy : tR.sell
-    return (calcAmount.value * fromRate) / toRate
-  }
-})
-
-function swapCalc() {
-  const tmp = calcFromCurrency.value
-  calcFromCurrency.value = calcToCurrency.value
-  calcToCurrency.value = tmp
+function initChart(code) {
+  nextTick(() => {
+    if (!tvContainer.value) return
+    tvContainer.value.innerHTML = ''
+    const script = document.createElement('script')
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js'
+    script.async = true
+    script.textContent = JSON.stringify({
+      symbols: [[`${TV_SYMBOLS[code]}|1D`]],
+      chartOnly: false,
+      width: '100%',
+      height: 420,
+      locale: 'id',
+      colorTheme: 'light',
+      autosize: true,
+      showVolume: false,
+      hideDateRanges: false,
+      hideMarketStatus: true,
+      scalePosition: 'right',
+      scaleMode: 'Normal',
+      valuesTracking: '0',
+      changeMode: 'no-values',
+      chartType: 'area',
+      lineWidth: 2,
+      lineType: 0,
+      dateRanges: ['1d|1', '5d|15', '1m|30', '6m|120', '12m|1D', '60m|1W', 'all|1M'],
+      lineColor: 'rgba(0,87,184,1)',
+      topColor: 'rgba(0,87,184,0.18)',
+      bottomColor: 'rgba(0,87,184,0)',
+      gridLineColor: 'rgba(0,63,136,0.06)',
+      scaleFontColor: 'rgba(10,22,40,0.42)',
+      backgroundColor: 'rgba(255,255,255,0)',
+      isTransparent: true,
+      largeChartUrl: `https://www.tradingview.com/symbols/${TV_SYMBOLS[code]}/`,
+    })
+    tvContainer.value.appendChild(script)
+  })
 }
+
+watch(currency, initChart)
+onMounted(() => initChart(currency.value))
 </script>
 
 <style scoped>
 .kurs-section { padding: 80px 0; background: transparent; }
 
-/* Header */
-.kurs-header {
-  margin-bottom: 36px;
-}
-.kurs-note {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 12px; color: rgba(10,22,40,0.62); margin-top: 6px;
+.kurs-header { margin-bottom: 32px; }
+.kurs-desc {
+  font-size: 15px;
+  color: rgba(10,22,40,0.58);
+  margin-top: 8px;
+  line-height: 1.6;
 }
 
-/* Tabs */
-.kurs-tabs {
-  display: flex; gap: 4px; margin-bottom: 32px;
-}
-.kurs-tab {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 20px; border-radius: 100px;
-  font-size: 12.5px; font-weight: 700;
-  color: rgba(10,22,40,0.68);
-  background: rgba(255,255,255,0.75);
-  border: 1.5px solid rgba(0,63,136,0.12);
-  cursor: pointer; font-family: inherit;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-}
-.kurs-tab.active {
-  color: var(--ink, #0A1628);
-  background: rgba(0,87,184,0.12);
-  border-color: rgba(0,87,184,0.35);
-}
-.tab-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: currentColor; opacity: 0.5; flex-shrink: 0;
-}
-.kurs-tab.active .tab-dot { opacity: 1; background: #0057b8; }
-
-/* Body: stacked flex layout */
+/* Body */
 .kurs-body {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Currency grid — full width */
-.kurs-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+/* Pills */
+.kurs-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-.kurs-card {
-  background: rgba(255,255,255,0.80);
-  border: 1.5px solid rgba(0,63,136,0.12);
-  border-radius: 18px;
-  padding: 20px 18px 16px;
-  cursor: pointer;
-  transition: border-color 0.22s, background 0.22s, transform 0.22s, box-shadow 0.22s;
+.kurs-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 15px; border-radius: 100px;
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(0,63,136,0.14);
+  font-size: 12.5px; font-weight: 800;
+  color: rgba(10,22,40,0.78);
+  cursor: pointer; font-family: inherit;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
- 
 }
-.kurs-card:hover {
-  background: rgba(255,255,255,0.95);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,63,136,0.12);
+.kurs-pill:hover {
+  border-color: rgba(0,87,184,0.35);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(0,63,136,0.10);
 }
-.kurs-card.selected {
-  background: rgba(232,241,251,0.85);
-  border-color: rgba(0,87,184,0.40);
+.kurs-pill.active {
+  background: #0057b8;
+  border-color: #0057b8;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,87,184,0.28);
 }
-.kurs-card-top {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-}
-.kurs-flag-wrap {
-  width: 30px; height: 21px;
-  border-radius: 4px;
-  overflow: hidden;
+.kurs-pill-flag {
+  width: 20px; height: 14px;
+  border-radius: 3px; object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.20);
-  border: 1px solid rgba(0,63,136,0.12);
+  border: 1px solid rgba(0,0,0,0.08);
 }
-.kurs-flag-img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-}
-.kurs-code {
-  font-size: 14px; font-weight: 800;
-  color: rgba(10,22,40,0.90);
-  flex: 1; letter-spacing: 0.03em;
-}
-.kurs-check { color: #0057b8; flex-shrink: 0; }
-.kurs-rates { display: flex; align-items: stretch; gap: 0; }
-.kurs-rate-item {
-  flex: 1;
-  display: flex; flex-direction: column; gap: 4px;
-}
-.kurs-rate-sep {
-  width: 1px; background: rgba(0,63,136,0.10);
-  margin: 0 12px; flex-shrink: 0;
-}
-.kurs-rate-lbl {
-  font-size: 9px; font-weight: 700;
-  color: rgba(10,22,40,0.75); text-transform: uppercase; letter-spacing: 0.07em;
-}
-.kurs-rate-val {
-  font-size: 12.5px; font-weight: 700;
-  color: rgba(10,22,40,0.78);
-  font-variant-numeric: tabular-nums; white-space: nowrap;
-}
-.kurs-card.selected .kurs-rate-val { color: #0057b8; }
 
-/* Calculator — centered horizontal strip */
-.kurs-calc {
+/* Chart */
+.kurs-chart-wrap {
   background: rgba(255,255,255,0.82);
   border: 1.5px solid rgba(0,63,136,0.12);
   border-radius: 20px;
-  padding: 22px 28px;
+  overflow: hidden;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-top: 8px;
- 
 }
-
-/* Top row: label + mode toggle */
-.kurs-calc-top {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 16px;
+.kurs-chart-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid rgba(0,63,136,0.08);
 }
-.kurs-calc-header {
+.kurs-chart-pair {
   display: flex; align-items: center; gap: 8px;
-  font-size: 11px; font-weight: 800;
-  color: rgba(10,22,40,0.62);
-  letter-spacing: 0.10em; text-transform: uppercase;
+  font-size: 14px; font-weight: 800;
+  color: rgba(10,22,40,0.88); letter-spacing: -0.01em;
 }
-.kurs-mode-row {
-  display: flex;
-  background: rgba(0,63,136,0.06);
-  border: 1px solid rgba(0,63,136,0.14);
-  border-radius: 10px; overflow: hidden;
-}
-.kurs-mode-btn {
-  padding: 8px 22px; font-size: 12px; font-weight: 800;
-  letter-spacing: 0.04em;
-  color: rgba(10,22,40,0.65);
-  background: none; border: none; cursor: pointer;
-  font-family: inherit;
-  transition: background 0.2s, color 0.2s;
-}
-.kurs-mode-btn.active { background: var(--bri-blue); color: #fff; }
-
-/* Fields row: FROM — swap — TO */
-.kurs-calc-fields {
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-}
-.kurs-calc-fields .kurs-field-group { flex: 1; min-width: 0; }
-
-.kurs-field-group { display: flex; flex-direction: column; gap: 6px; }
-.kurs-field-label {
-  font-size: 10px; font-weight: 700;
-  color: rgba(10,22,40,0.60);
-  text-transform: uppercase; letter-spacing: 0.08em;
-}
-.kurs-field-row {
-  display: flex;
-  border: 1.5px solid rgba(0,63,136,0.14);
-  border-radius: 12px; overflow: visible;
-  background: rgba(255,255,255,0.88);
-  transition: border-color 0.2s;
-  position: relative;
-}
-.kurs-field-row:focus-within { border-color: rgba(0,87,184,0.50); }
-
-/* Custom flag select */
-.kurs-csel-backdrop {
-  position: fixed; inset: 0; z-index: 98;
-}
-.kurs-csel {
-  position: relative; flex-shrink: 0;
-  display: flex; align-items: center; gap: 7px;
-  padding: 0 10px 0 12px;
-  border-right: 1px solid rgba(0,63,136,0.10);
-  cursor: pointer; min-width: 96px;
-  user-select: none;
-}
-.kurs-csel-flag {
-  width: 22px; height: 15px;
-  border-radius: 3px; object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
-  border: 1px solid rgba(0,63,136,0.10);
-}
-.kurs-csel-code {
-  font-size: 12px; font-weight: 700;
-  color: rgba(10,22,40,0.85); flex: 1;
-}
-.kurs-csel-chev {
-  color: rgba(10,22,40,0.62);
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-.kurs-csel.open .kurs-csel-chev { transform: rotate(180deg); }
-
-/* Dropdown list */
-.kurs-csel-drop {
-  position: absolute;
-  top: calc(100% + 6px); left: 0;
-  min-width: 130px;
-  background: rgba(248,251,255,0.98);
-  border: 1.5px solid rgba(0,63,136,0.14);
-  border-radius: 12px; overflow: hidden;
-  z-index: 99;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 12px 40px rgba(0,63,136,0.14);
-  max-height: 280px; overflow-y: auto;
-}
-.kurs-csel-opt {
-  display: flex; align-items: center; gap: 9px;
-  padding: 9px 14px;
-  cursor: pointer; font-size: 12.5px; font-weight: 600;
-  color: rgba(10,22,40,0.75);
-  transition: background 0.15s;
-}
-.kurs-csel-opt:hover { background: rgba(0,63,136,0.06); }
-.kurs-csel-opt.active {
-  background: rgba(0,87,184,0.12);
-  color: var(--ink, #0A1628);
-}
-.kurs-csel-opt img {
+.kurs-chart-flag {
   width: 22px; height: 15px; border-radius: 3px;
-  object-fit: cover; flex-shrink: 0;
-  border: 1px solid rgba(0,63,136,0.10);
+  object-fit: cover; border: 1px solid rgba(0,63,136,0.10);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
 }
-.kurs-input {
-  flex: 1; background: none; border: none;
-  color: rgba(10,22,40,0.88); font-family: inherit;
-  font-size: 15px; font-weight: 600;
-  padding: 13px 14px; outline: none; text-align: right; min-width: 0;
+.kurs-chart-actions {
+  display: flex; align-items: center; gap: 12px;
 }
-.kurs-result {
-  flex: 1; display: flex; align-items: center; justify-content: flex-end;
-  padding: 13px 14px; font-size: 15px; font-weight: 700;
-  color: #0057b8; font-variant-numeric: tabular-nums;
+.kurs-chart-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 600;
+  color: #0057b8;
+  background: rgba(0,87,184,0.08);
+  border: 1px solid rgba(0,87,184,0.18);
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
 }
-
-/* Swap button aligned with field rows */
-.kurs-swap-btn {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(0,87,184,0.12);
-  border: 1.5px solid rgba(0,87,184,0.28);
-  color: #0057b8; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
-  margin-bottom: 2px;
-  transition: background 0.2s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
-}
-.kurs-swap-btn:hover { background: rgba(0,87,184,0.22); transform: rotate(180deg); }
-
-.kurs-disclaimer {
-  font-size: 11px; color: rgba(10,22,40,0.75); line-height: 1.5;
-  text-align: center;
+.kurs-chart-btn:hover {
+  background: rgba(0,87,184,0.14);
+  border-color: rgba(0,87,184,0.32);
 }
 
-/* Responsive */
-@media (max-width: 700px) {
-  .kurs-grid { grid-template-columns: repeat(2, 1fr); }
-  .kurs-calc { padding: 20px 16px; }
-  .kurs-calc-fields { flex-direction: column; align-items: stretch; }
-  .kurs-swap-btn { margin: 0 auto; transform: rotate(90deg); }
-  .kurs-swap-btn:hover { transform: rotate(270deg); }
+.kurs-chart-src {
+  font-size: 10.5px; color: rgba(10,22,40,0.38); font-weight: 500;
 }
+.kurs-chart-body { min-height: 420px; }
+
 @media (max-width: 480px) {
-  .kurs-grid { grid-template-columns: repeat(2, 1fr); }
+  .kurs-pill { padding: 7px 13px; font-size: 12px; }
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <Teleport to="body">
-    <div class="cur-dot"  :style="dotStyle"  aria-hidden="true" />
-    <div class="cur-ring" :style="ringStyle" aria-hidden="true" />
+    <div class="cur-dot"  :style="dotStyle"  :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
+    <div class="cur-ring" :style="ringStyle" :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
   </Teleport>
 </template>
 
 <script setup>
-import { reactive, onMounted, onUnmounted } from 'vue'
+import { reactive, ref, onMounted, onUnmounted } from 'vue'
 
 let mx = -200, my = -200
 let rx = -200, ry = -200
@@ -14,10 +14,14 @@ let raf = null
 
 const dotStyle  = reactive({})
 const ringStyle = reactive({})
+const visible   = ref(true)
 
 function lerp(a, b, t) { return a + (b - a) * t }
 
-function onMove(e) { mx = e.clientX; my = e.clientY }
+function onMove(e) { mx = e.clientX; my = e.clientY; show() }
+function hide() { visible.value = false }
+function show() { visible.value = true }
+function onVisibility() { if (document.hidden) hide(); else show() }
 
 function tick() {
   rx = lerp(rx, mx, 0.14)
@@ -29,11 +33,17 @@ function tick() {
 
 onMounted(() => {
   window.addEventListener('mousemove', onMove, { passive: true })
+  document.addEventListener('mouseleave', hide)
+  document.addEventListener('mouseenter', show)
+  document.addEventListener('visibilitychange', onVisibility)
   raf = requestAnimationFrame(tick)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', onMove)
+  document.removeEventListener('mouseleave', hide)
+  document.removeEventListener('mouseenter', show)
+  document.removeEventListener('visibilitychange', onVisibility)
   cancelAnimationFrame(raf)
 })
 </script>
@@ -47,11 +57,14 @@ onUnmounted(() => {
   z-index: 2147483647;
   will-change: transform;
   border-radius: 50%;
+  transition: opacity 0.2s ease;
 }
+
+.cur-hidden { opacity: 0; }
 
 .cur-dot {
   width: 6px; height: 6px;
-  background: #fff;
+  background: #0057b8;
   margin-left: -3px; margin-top: -3px;
 }
 
@@ -64,6 +77,7 @@ onUnmounted(() => {
   transition: width 0.22s cubic-bezier(0.22,1,0.36,1),
               height 0.22s cubic-bezier(0.22,1,0.36,1),
               border-color 0.22s,
-              background 0.22s;
+              background 0.22s,
+              opacity 0.2s ease;
 }
 </style>

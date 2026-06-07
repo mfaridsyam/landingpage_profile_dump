@@ -131,15 +131,12 @@ defineEmits(['openCareer'])
 }
 
 .portal-logo-wrap {
-  width: 56px; height: 56px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.90);
-  border: 1px solid rgba(0,63,136,0.12);
+  width: 48px; height: 48px;
+  flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
 }
 .portal-logo-wrap img {
-  width: 40px; height: 40px;
+  width: 48px; height: 48px;
   object-fit: contain; display: block;
 }
 

@@ -33,7 +33,7 @@
           </div>
           <div>
             <div class="contact-strip-lbl">Alamat</div>
-            <div class="contact-strip-val">Jl. H. Andi Depu No.177, Polewali</div>
+            <div class="contact-strip-val">Jl. H. Andi Depu No.8, Polewali</div>
           </div>
         </div>
         <div class="contact-strip-sep"></div>

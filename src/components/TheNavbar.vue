@@ -1,16 +1,16 @@
 <template>
   <nav :class="{ scrolled: scrolled }" :style="navStyle">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">
+      <a href="#" class="nav-logo" @click.prevent="goHome">
         <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1780721401/Logo_header_mini_blue_lengkap_wblfyh.png" alt="BRI Cabang Polewali" />
       </a>
       <ul class="nav-links">
-        <li><a href="#" :class="{ active: activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
-        <li><a href="#layanan" :class="{ active: activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
-        <li><a href="#simulasi" :class="{ active: activeSection === 'simulasi' }" @click.prevent="scrollTo('simulasi')">Simulasi</a></li>
-        <li><a href="#galeri" :class="{ active: activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Media</a></li>
-        <li><a href="#jaringan" :class="{ active: activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Lokasi</a></li>
-        <li><a href="#kontak" :class="{ active: activeSection === 'kontak' }" @click.prevent="scrollTo('kontak')">Kontak</a></li>
+        <li><a href="#" :class="{ active: isHome && activeSection === 'hero' }" @click.prevent="scrollTo('hero')">Beranda</a></li>
+        <li><a href="#layanan" :class="{ active: isHome && activeSection === 'layanan' }" @click.prevent="scrollTo('layanan')">Layanan</a></li>
+        <li><a href="#simulasi" :class="{ active: isHome && activeSection === 'simulasi' }" @click.prevent="scrollTo('simulasi')">Simulasi</a></li>
+        <li><a href="#galeri" :class="{ active: isHome && activeSection === 'galeri' }" @click.prevent="scrollTo('galeri')">Media</a></li>
+        <li><a href="#jaringan" :class="{ active: isHome && activeSection === 'jaringan' }" @click.prevent="scrollTo('jaringan')">Lokasi</a></li>
+        <li><a href="#kontak" :class="{ active: isHome && activeSection === 'kontak' }" @click.prevent="scrollTo('kontak')">Kontak</a></li>
       </ul>
       <div class="nav-cta">
         <button class="hamburger" :class="{ open: mobileOpen }" @click="mobileOpen = !mobileOpen" aria-label="Menu">
@@ -32,7 +32,7 @@
             <ul class="mobile-nav-links">
               <li v-for="item in navItems" :key="item.id">
                 <a :href="item.id === 'hero' ? '#' : `#${item.id}`"
-                  :class="{ active: activeSection === item.id }"
+                  :class="{ active: isHome && activeSection === item.id }"
                   @click.prevent="scrollTo(item.id); mobileOpen = false">
                   {{ item.label }}
                 </a>
@@ -51,7 +51,13 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { lenis } from '@/lenis.js'
+
+const route = useRoute()
+const router = useRouter()
+
+const isHome = computed(() => route.path === '/')
 
 const scrolled = ref(false)
 const scrollY = ref(0)
@@ -81,12 +87,24 @@ const navStyle = computed(() => {
   }
 })
 
-function scrollTo(id) {
-  if (id === 'hero') {
+function goHome() {
+  if (isHome.value) {
     lenis.scrollTo(0, { duration: 1.2 })
   } else {
-    const el = document.getElementById(id)
-    if (el) lenis.scrollTo(el, { offset: -68, duration: 1.2 })
+    router.push('/')
+  }
+}
+
+function scrollTo(id) {
+  if (isHome.value) {
+    if (id === 'hero') {
+      lenis.scrollTo(0, { duration: 1.2 })
+    } else {
+      const el = document.getElementById(id)
+      if (el) lenis.scrollTo(el, { offset: -68, duration: 1.2 })
+    }
+  } else {
+    router.push({ path: '/', hash: id === 'hero' ? '' : `#${id}` })
   }
 }
 

@@ -143,9 +143,11 @@
 
 .brimo-badges {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
   width: 100%;
 }
 
@@ -158,7 +160,7 @@
   opacity: 0.90;
 }
 .brimo-badge:hover {
-  transform: translateY(-3px);
+  transform: scale(1.06);
   opacity: 1;
 }
 
@@ -247,13 +249,6 @@
     width: 100%;
   }
   .brimo-dl-heading { font-size: 20px; }
-  /* badges side-by-side on tablet portrait */
-  .brimo-badges {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
   .brimo-badge-img { width: 155px; }
   .brimo-badge-img--gplay { width: 180px; }
 }
@@ -273,7 +268,7 @@
     border-radius: 20px;
   }
   .brimo-dl-heading { font-size: 19px; }
-  .brimo-badges { flex-direction: column; align-items: center; }
+  .brimo-badges { flex-direction: column; }
   .brimo-badge-img { width: 150px; }
   .brimo-badge-img--gplay { width: 174px; }
 }

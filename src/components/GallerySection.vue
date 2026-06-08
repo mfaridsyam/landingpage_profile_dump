@@ -8,15 +8,15 @@
         </div>
         <div class="gallery-tabs reveal">
           <button class="gallery-tab" :class="{ active: tab === 'artikel' }" @click="tab = 'artikel'">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             Artikel
           </button>
           <button class="gallery-tab" :class="{ active: tab === 'foto' }" @click="tab = 'foto'">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             Foto
           </button>
           <button class="gallery-tab" :class="{ active: tab === 'video' }" @click="tab = 'video'">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
             Video
           </button>
         </div>
@@ -384,86 +384,18 @@
     </Transition>
     </Teleport>
 
-    <!-- ═══════════════════════════════════
-         TAMPILKAN LAINNYA MODAL
-         ═══════════════════════════════════ -->
-    <Teleport to="body">
-    <Transition name="modal-fade">
-      <div v-if="showModal" class="more-modal-overlay" :class="{'more-fullscreen': modalType==='foto'}" @click.self="closeMoreModal()">
-        <div class="more-modal-box" :class="{'more-fullscreen-box': modalType==='foto'}" data-lenis-prevent>
-          <div class="more-modal-header">
-            <div class="more-modal-title">
-              <svg v-if="modalType==='artikel'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <svg v-else-if="modalType==='foto'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-              Semua {{ modalType === 'artikel' ? 'Artikel' : modalType === 'foto' ? 'Foto' : 'Video' }}
-            </div>
-            <button class="more-modal-close" @click="closeMoreModal()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div v-if="modalType==='artikel'" class="more-modal-scroll" data-lenis-prevent>
-            <div class="more-artikel-list">
-              <div v-for="(art, i) in [...articles, ...articles]" :key="i"
-                class="more-artikel-row" @click="closeMoreModal(); openArtikel(i % articles.length)">
-                <div class="more-artikel-row-thumb">
-                  <img :src="art.img" :alt="art.label" />
-                </div>
-                <div class="more-artikel-row-body">
-                  <div class="artikel-cat-badge artikel-cat-badge--sm">{{ art.category }}</div>
-                  <p class="more-artikel-row-title">{{ art.label }}</p>
-                </div>
-                <div class="more-artikel-row-right">
-                  <span class="artikel-time">{{ art.time }}</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="more-artikel-row-arrow"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div v-else-if="modalType==='foto'" class="more-modal-scroll" data-lenis-prevent>
-            <div class="more-foto-grid">
-              <div v-for="(photo, i) in [...photos, ...photos]" :key="i"
-                class="more-foto-item" @click="closeMoreModal(); openFoto(i % photos.length)">
-                <img :src="photo.img" :alt="photo.label" />
-                <div class="more-foto-overlay"><span>{{ photo.label }}</span></div>
-              </div>
-            </div>
-          </div>
-          <div v-else class="more-modal-scroll" data-lenis-prevent>
-            <div class="more-artikel-list">
-              <div v-for="(vid, i) in [...videos, ...videos]" :key="i"
-                class="more-artikel-row" @click="closeMoreModal(); openVideoModalDirect(i % videos.length)">
-                <div class="more-artikel-row-thumb more-video-row-thumb">
-                  <img :src="`https://img.youtube.com/vi/${vid.ytId.trim()}/mqdefault.jpg`" :alt="vid.title" />
-                  <div class="more-video-row-play">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                  </div>
-                </div>
-                <div class="more-artikel-row-body">
-                  <div class="artikel-cat-badge artikel-cat-badge--sm">Video</div>
-                  <p class="more-artikel-row-title">{{ vid.title }}</p>
-                </div>
-                <div class="more-artikel-row-right">
-                  <span class="artikel-time">{{ vid.meta }}</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="more-artikel-row-arrow"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Transition>
-    </Teleport>
   </section>
 </template>
 
 <script setup>
 import { ref, reactive, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import { lenis } from '@/lenis.js'
+import { articles, photos, videos } from '@/data/galleryData.js'
+
+const router = useRouter()
 
 const tab = ref('artikel')
-const showModal = ref(false)
-const modalType = ref('artikel')
 const videoHover = ref(false)
 
 const fotoActive = ref(0)
@@ -534,15 +466,7 @@ function closeVideoModal() {
 }
 
 function openMoreModal(type) {
-  modalType.value = type
-  showModal.value = true
-  document.body.style.overflow = 'hidden'
-  lenis.stop()
-}
-function closeMoreModal() {
-  showModal.value = false
-  document.body.style.overflow = ''
-  lenis.start()
+  router.push(`/galeri/${type}`)
 }
 
 function onThumbError(e, idx) {
@@ -565,200 +489,9 @@ if (typeof window !== 'undefined') {
     }
     if (artikelModal.open && e.key === 'Escape') closeArtikel()
     if (videoModal.open && e.key === 'Escape') closeVideoModal()
-    if (showModal.value && e.key === 'Escape') closeMoreModal()
   })
 }
 
-const articles = [
-  {
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80',
-    label: 'BRI Dorong UMKM Polewali Naik Kelas Lewat Program KUR 2026',
-    time: '30 menit lalu',
-    category: 'Program KUR',
-    excerpt: 'BRI terus berkomitmen mendorong pertumbuhan ekonomi masyarakat Polewali Mandar melalui program KUR yang menjangkau ribuan pelaku usaha kecil di seluruh pelosok Sulawesi Barat...',
-    body: `<p class="news-lead">BRI terus berkomitmen mendorong pertumbuhan ekonomi masyarakat Polewali Mandar melalui program KUR yang menjangkau ribuan pelaku usaha kecil di seluruh pelosok Sulawesi Barat.</p>
-<p>Dengan jaringan yang luas dan layanan digital yang semakin canggih, BRI hadir untuk melayani setiap kebutuhan perbankan masyarakat setempat. Mulai dari petani di pelosok desa hingga pelaku UMKM perkotaan, semua dapat mengakses layanan perbankan yang terpercaya dan terjangkau tanpa perlu menempuh perjalanan jauh ke kota.</p>
-<h2 class="news-subheading">Ekspansi KUR ke Pelosok Sulawesi Barat</h2>
-<p>Program Kredit Usaha Rakyat (KUR) yang dijalankan BRI Cabang Polewali telah berhasil menjangkau lebih dari 12.000 pelaku UMKM di seluruh wilayah Polewali Mandar. Total penyaluran KUR pada semester pertama 2026 mencapai Rp 1,2 triliun, meningkat 34% dibanding periode yang sama tahun sebelumnya.</p>
-<p>Sektor pertanian, peternakan, dan perikanan mendominasi penerima KUR dengan porsi mencapai 62% dari total penyaluran. Hal ini sejalan dengan karakteristik perekonomian masyarakat Polewali Mandar yang sebagian besar bertumpu pada sektor primer. BRI secara aktif memberikan pendampingan bisnis kepada penerima KUR agar dana yang disalurkan benar-benar produktif dan mampu meningkatkan kapasitas usaha mereka.</p>
-<blockquote class="news-quote">"Kami hadir bukan hanya sebagai bank, tetapi sebagai mitra tumbuh bagi seluruh masyarakat Polewali Mandar. Setiap rupiah yang kami salurkan adalah investasi bagi masa depan daerah ini."</blockquote>
-<h2 class="news-subheading">Digitalisasi UMKM Lokal</h2>
-<p>Selain penyaluran kredit, BRI juga aktif mendampingi para pelaku UMKM dalam proses digitalisasi usaha mereka. Program BRI UMKM EXPO dan pelatihan digital marketing rutin digelar di berbagai kecamatan, membantu pengusaha kecil memanfaatkan platform e-commerce dan media sosial untuk memperluas jangkauan pasar mereka.</p>
-<p>Salah satu kisah sukses datang dari Ibu Nurhaeda, pemilik usaha tenun tradisional Mandar di Kecamatan Tinambung. Dengan modal KUR sebesar Rp 50 juta, ia berhasil mengembangkan usahanya dan kini memasarkan kain tenun Mandar hingga ke mancanegara melalui platform digital.</p>
-<h2 class="news-subheading">Outlook dan Target 2026</h2>
-<p>BRI Cabang Polewali menargetkan penyaluran KUR sebesar Rp 2,5 triliun hingga akhir tahun 2026. Target tersebut didukung oleh penambahan agen BRILink di 142 titik baru di wilayah pedesaan, serta perluasan layanan BRImo yang kini dapat diakses bahkan di wilayah dengan jaringan internet terbatas melalui fitur offline transaction.</p>
-<p>Dengan strategi ini, BRI optimis dapat semakin memperdalam penetrasi layanan keuangan formal di Polewali Mandar dan berkontribusi signifikan terhadap penurunan angka kemiskinan di Sulawesi Barat.</p>`
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80',
-    label: 'Ekspansi Jaringan AgenBRI Jangkau Desa Terpencil di Sulbar',
-    time: '1 hari lalu',
-    category: 'AgenBRI',
-    excerpt: 'Jaringan AgenBRI terus diperluas ke wilayah terpencil untuk menghadirkan layanan perbankan yang inklusif bagi seluruh lapisan masyarakat...',
-    body: `<p class="news-lead">Jaringan AgenBRI terus diperluas ke wilayah terpencil untuk menghadirkan layanan perbankan yang inklusif bagi seluruh lapisan masyarakat di Sulawesi Barat.</p>
-<p>Sebagai ujung tombak inklusi keuangan, AgenBRI hadir di warung-warung kecil, koperasi desa, dan bahkan di rumah-rumah warga yang berprofesi sebagai agen. Hingga pertengahan 2026, jumlah AgenBRI aktif di wilayah Polewali Mandar telah mencapai 3.847 titik, menjadikan hampir setiap desa memiliki akses ke layanan perbankan dasar.</p>
-<h2 class="news-subheading">Layanan yang Tersedia</h2>
-<p>Melalui AgenBRI, masyarakat dapat melakukan berbagai transaksi keuangan seperti setor tunai, tarik tunai, transfer, pembayaran tagihan listrik, PDAM, cicilan, hingga pembelian pulsa dan token listrik. Semua layanan ini tersedia 24 jam sehari, 7 hari seminggu, tanpa perlu antri di kantor bank.</p>
-<blockquote class="news-quote">"Dengan adanya AgenBRI di desa kami, warga tidak perlu lagi menempuh perjalanan 2 jam ke kota hanya untuk bayar tagihan atau kirim uang ke keluarga."</blockquote>
-<h2 class="news-subheading">Program Perekrutan Agen Baru</h2>
-<p>BRI Cabang Polewali terus membuka peluang bagi warga untuk menjadi AgenBRI. Persyaratan yang mudah dan training yang komprehensif membuat program ini sangat diminati. Dalam 6 bulan terakhir, lebih dari 500 agen baru berhasil direkrut dan aktif melayani masyarakat di lingkungan mereka masing-masing.</p>
-<p>Ke depan, BRI menargetkan peningkatan kualitas agen melalui program sertifikasi dan pemberian perangkat teknologi yang lebih canggih untuk mendukung kegiatan operasional agen sehari-hari.</p>`
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80',
-    label: 'Program CSR BRI untuk Masyarakat Polewali Mandar',
-    time: '6 hari lalu',
-    category: 'CSR',
-    excerpt: 'BRI hadir memberdayakan masyarakat melalui berbagai program sosial yang menyentuh langsung kehidupan warga Polewali Mandar...',
-    body: `<p class="news-lead">BRI hadir memberdayakan masyarakat melalui berbagai program sosial yang menyentuh langsung kehidupan warga Polewali Mandar, mulai dari bidang pendidikan, kesehatan, hingga pelestarian lingkungan.</p>
-<p>Program Tanggung Jawab Sosial dan Lingkungan (TJSL) BRI Cabang Polewali pada tahun 2026 difokuskan pada tiga pilar utama: pemberdayaan ekonomi, peningkatan kualitas pendidikan, dan pelestarian budaya lokal. Total anggaran CSR yang disalurkan mencapai Rp 4,8 miliar untuk wilayah Polewali Mandar dan sekitarnya.</p>
-<h2 class="news-subheading">BRI Peduli Pendidikan</h2>
-<p>Melalui program BRI Peduli, sebanyak 250 siswa berprestasi dari keluarga kurang mampu mendapatkan beasiswa pendidikan senilai total Rp 1,2 miliar. Selain itu, BRI juga membantu renovasi 8 gedung sekolah dasar di daerah pelosok yang kondisinya tidak layak pakai.</p>
-<blockquote class="news-quote">"Investasi terbaik adalah investasi pada generasi penerus bangsa. BRI berkomitmen untuk terus hadir membersamai perjalanan pendidikan anak-anak di Polewali Mandar."</blockquote>
-<h2 class="news-subheading">Pelestarian Budaya Mandar</h2>
-<p>Menyadari pentingnya pelestarian warisan budaya, BRI turut mendukung pengembangan industri tenun Mandar yang telah diakui sebagai warisan budaya tak benda nasional. Program ini melibatkan lebih dari 300 pengrajin tenun lokal yang mendapatkan bantuan alat, modal usaha, dan akses pasar yang lebih luas.</p>
-<p>BRI juga mendukung penyelenggaraan Festival Budaya Mandar Tahunan sebagai upaya memperkenalkan kekayaan budaya Sulawesi Barat kepada wisatawan nasional maupun mancanegara.</p>`
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80',
-    label: 'KUR Berhasil Berdayakan Petani Lokal di Polewali',
-    time: '1 jam lalu',
-    category: 'Program KUR',
-    excerpt: 'Ribuan petani di Polewali berhasil meningkatkan produksi dan pendapatan berkat akses KUR yang mudah dari BRI...',
-    body: `<p class="news-lead">Ribuan petani di Polewali berhasil meningkatkan produksi dan pendapatan berkat akses KUR yang mudah dari BRI, mengubah wajah pertanian lokal yang lebih modern dan berdaya saing tinggi.</p>
-<p>Sektor pertanian di Polewali Mandar kini bertransformasi pesat. Dengan dukungan KUR BRI, para petani tidak hanya mampu membeli bibit unggul dan pupuk berkualitas, tetapi juga berinvestasi pada peralatan pertanian modern yang meningkatkan efisiensi kerja dan hasil panen secara signifikan.</p>
-<h2 class="news-subheading">Transformasi Pertanian Kakao</h2>
-<p>Sulawesi Barat, termasuk Polewali Mandar, dikenal sebagai salah satu penghasil kakao terbaik di Indonesia. Dengan dukungan KUR BRI, petani kakao setempat berhasil menerapkan teknik budidaya modern dan sistem fermentasi yang tepat, menghasilkan kakao berkualitas premium yang diminati pasar ekspor.</p>
-<blockquote class="news-quote">"Dulu saya hanya bisa menanam setengah hektar karena keterbatasan modal. Sekarang dengan KUR BRI, saya bisa menggarap 3 hektar dan pendapatan saya meningkat tiga kali lipat."</blockquote>
-<p>Ke depan, BRI berencana mengembangkan program klaster pertanian yang menggabungkan akses pembiayaan, pendampingan teknis, dan jaminan offtaker untuk memberikan kepastian pasar bagi para petani binaan BRI di Polewali Mandar.</p>`
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=600&q=80',
-    label: 'BRImo Raih Penghargaan Best Digital Banking 2026',
-    time: '6 jam lalu',
-    category: 'Digital Banking',
-    excerpt: 'Penghargaan bergengsi diraih BRImo atas inovasi dan kemudahan layanan perbankan digital yang terus berkembang...',
-    body: `<p class="news-lead">BRImo kembali meraih penghargaan bergengsi sebagai Best Digital Banking Application 2026 dari lembaga riset keuangan internasional, mengukuhkan posisinya sebagai super app perbankan terdepan di Indonesia.</p>
-<p>Penghargaan ini merupakan bukti nyata komitmen BRI dalam menghadirkan inovasi digital yang tidak hanya canggih secara teknologi, tetapi juga mudah digunakan oleh seluruh lapisan masyarakat, termasuk mereka yang berada di daerah terpencil dengan keterbatasan akses internet.</p>
-<h2 class="news-subheading">Fitur Unggulan BRImo 2026</h2>
-<p>Versi terbaru BRImo hadir dengan lebih dari 200 fitur layanan lengkap, mulai dari transaksi keuangan dasar, investasi reksa dana, asuransi, hingga layanan pinjaman yang dapat diproses sepenuhnya secara digital dalam hitungan menit. Fitur AI-powered financial advisor juga hadir untuk membantu pengguna merencanakan keuangan mereka dengan lebih baik.</p>
-<blockquote class="news-quote">"BRImo dirancang untuk menjadi teman finansial setia bagi setiap orang Indonesia, dari Sabang sampai Merauke."</blockquote>
-<p>Hingga pertengahan 2026, pengguna aktif BRImo di wilayah Polewali Mandar telah mencapai 187.000 pengguna, meningkat 78% dibanding tahun sebelumnya, mencerminkan besarnya antusiasme masyarakat terhadap layanan perbankan digital.</p>`
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80',
-    label: 'Literasi Keuangan BRI Sasar 10.000 Pelaku UMKM',
-    time: '1 minggu lalu',
-    category: 'Literasi Keuangan',
-    excerpt: 'Program literasi keuangan BRI berhasil menjangkau lebih dari 10.000 pelaku UMKM di Sulawesi Barat...',
-    body: `<p class="news-lead">Program literasi keuangan BRI berhasil menjangkau lebih dari 10.000 pelaku UMKM di Sulawesi Barat sepanjang semester pertama 2026, memberikan pemahaman komprehensif tentang pengelolaan keuangan, akses kredit, dan pemanfaatan teknologi finansial.</p>
-<p>Edukasi keuangan menjadi fondasi penting dalam mewujudkan masyarakat yang sejahtera secara finansial. BRI Cabang Polewali menyadari bahwa akses ke produk keuangan saja tidak cukup; masyarakat perlu memiliki literasi yang memadai agar dapat memanfaatkan produk dan layanan keuangan secara optimal.</p>
-<h2 class="news-subheading">Roadshow ke 18 Kecamatan</h2>
-<p>Tim edukasi BRI melakukan roadshow ke 18 kecamatan di Polewali Mandar, menyelenggarakan workshop interaktif yang membahas topik-topik seperti pengelolaan arus kas usaha, strategi menabung, pentingnya asuransi, dan cara mengakses pembiayaan yang tepat sesuai kebutuhan.</p>
-<blockquote class="news-quote">"Kami percaya bahwa literasi keuangan adalah kunci kemandirian ekonomi. Semakin banyak warga yang melek keuangan, semakin kuat fondasi perekonomian daerah ini."</blockquote>
-<h2 class="news-subheading">Program Perempuan Berdaya</h2>
-<p>Salah satu program unggulan dalam rangkaian literasi keuangan ini adalah "Perempuan Berdaya", yang khusus menyasar ibu-ibu rumah tangga dan pelaku usaha perempuan. Program ini memberikan pelatihan kewirausahaan, akses ke KUR Khusus Perempuan, dan mentoring bisnis dari pengusaha sukses lokal.</p>
-<p>Hasil evaluasi menunjukkan bahwa peserta program literasi keuangan BRI mengalami peningkatan tabungan rata-rata sebesar 45% dalam 6 bulan setelah mengikuti pelatihan, membuktikan efektivitas program ini dalam mendorong perubahan perilaku keuangan yang positif.</p>`
-  },
-]
-
-const photos = [
-  {
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
-    label: 'Kantor Cabang Polewali',
-    description: 'Gedung BRI Cabang Polewali yang modern dan representatif melayani nasabah di jantung kota Polewali Mandar, Sulawesi Barat.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=800&q=80',
-    label: 'Layanan Nasabah',
-    description: 'Tim customer service BRI siap melayani setiap kebutuhan nasabah dengan penuh senyum dan profesionalisme tinggi.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
-    label: 'BRImo Digital',
-    description: 'Aplikasi BRImo hadir sebagai super app perbankan digital yang memudahkan transaksi kapan saja dan di mana saja.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
-    label: 'Program KUR UMKM',
-    description: 'BRI menyalurkan KUR kepada pelaku UMKM lokal untuk mendorong pertumbuhan ekonomi kerakyatan di Polewali Mandar.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80',
-    label: 'Kegiatan CSR Polewali',
-    description: 'Program Corporate Social Responsibility BRI menyentuh kehidupan masyarakat melalui berbagai kegiatan sosial dan pemberdayaan.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&q=80',
-    label: 'Pelayanan Prima',
-    description: 'Standar pelayanan prima BRI diterapkan di setiap lini untuk memastikan kepuasan nasabah di seluruh Indonesia.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-    label: 'Tim BRI Polewali',
-    description: 'Tim profesional BRI Cabang Polewali yang berdedikasi tinggi dalam melayani masyarakat Polewali Mandar setiap harinya.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80',
-    label: 'Rapat Koordinasi',
-    description: 'Rapat koordinasi rutin digelar untuk memastikan sinergi seluruh unit kerja dalam mencapai target dan melayani nasabah optimal.',
-    instagram: 'https://www.instagram.com/bankbri_id/',
-    facebook: 'https://www.facebook.com/bankbri/',
-    twitter: 'https://twitter.com/BANKBRI_ID'
-  },
-]
-
-const videos = [
-  {
-    ytId: 'hVCfDFjeCb4',
-    title: 'BRI — Melayani Sepenuh Hati untuk Indonesia',
-    meta: 'BRI Official · Profil Perusahaan',
-    description: 'BRI hadir untuk seluruh Indonesia, dari Sabang sampai Merauke, melayani setiap kebutuhan keuangan masyarakat dengan sepenuh hati. Video profil perusahaan ini menampilkan perjalanan panjang BRI dalam memberdayakan ekonomi rakyat.',
-    tags: ['BRI', 'BankBRI', 'MelayaniSepenuhHati']
-  },
-  {
-    ytId: 'yZjAU4yFSdU',
-    title: 'BRImo — Super App Perbankan Digital BRI',
-    meta: 'BRI Official · Layanan Digital',
-    description: 'BRImo adalah super app perbankan digital dari BRI yang menghadirkan ratusan fitur lengkap dalam satu genggaman. Nikmati kemudahan transaksi, investasi, dan berbagai layanan keuangan kapan saja dan di mana saja.',
-    tags: ['BRImo', 'DigitalBanking', 'SuperApp']
-  },
-  {
-    ytId: 'yZjAU4yFSdU',
-    title: 'KUR BRI — Kredit Usaha Rakyat untuk UMKM',
-    meta: 'BRI Official · Program KUR',
-    description: 'KUR BRI hadir sebagai solusi pembiayaan terpercaya bagi pelaku UMKM Indonesia. Dengan bunga rendah dan proses yang mudah, KUR BRI siap menjadi modal tumbuh bagi usaha Anda.',
-    tags: ['KUR', 'UMKM', 'KreditUsahaRakyat']
-  },
-  {
-    ytId: 'yZjAU4yFSdU',
-    title: 'AgenBRI — Perbankan Tanpa Batas di Pelosok',
-    meta: 'BRI Official · AgenBRI',
-    description: 'AgenBRI hadir menjangkau daerah-daerah terpencil yang belum terlayani oleh kantor bank konvensional. Lewat ribuan titik AgenBRI, layanan perbankan kini bisa dinikmati oleh seluruh masyarakat Indonesia.',
-    tags: ['AgenBRI', 'Inklusi', 'BRILink']
-  },
-]
 </script>
 
 <style scoped>
@@ -1658,4 +1391,288 @@ const videos = [
 .video-modal-left::-webkit-scrollbar-thumb:hover,
 .video-modal-sidebar::-webkit-scrollbar-thumb:hover,
 .more-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,87,184,0.50); }
+
+/* ══════════════════════════════════════════
+   GALLERY HEADER & TABS (redesigned)
+   ══════════════════════════════════════════ */
+.gallery-section { padding: 80px 0; }
+
+.gallery-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid rgba(0,63,136,0.10);
+  flex-wrap: wrap;
+}
+
+.gallery-tabs {
+  display: flex;
+  gap: 2px;
+  background: rgba(0,63,136,0.05);
+  border: 1.5px solid rgba(0,63,136,0.12);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.gallery-tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 18px; border-radius: 9px;
+  background: transparent; border: none;
+  font-size: 13.5px; font-weight: 600;
+  color: rgba(10,22,40,0.58);
+  cursor: pointer; font-family: inherit;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.gallery-tab svg { opacity: 0.65; transition: opacity 0.2s; }
+.gallery-tab.active {
+  background: #fff;
+  color: #003F88;
+  box-shadow: 0 2px 8px rgba(0,63,136,0.14);
+  font-weight: 700;
+}
+.gallery-tab.active svg { opacity: 1; }
+.gallery-tab:not(.active):hover {
+  background: rgba(255,255,255,0.60);
+  color: rgba(10,22,40,0.80);
+}
+
+/* ══════════════════════════════════════════
+   TAMPILKAN LAINNYA MODAL (full-screen redesign)
+   ══════════════════════════════════════════ */
+
+/* Full-screen overlay */
+.mmore-overlay {
+  position: fixed; inset: 0;
+  background: rgba(240,245,255,0.98);
+  backdrop-filter: blur(0);
+  z-index: 9998;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  outline: none;
+}
+
+/* Top bar */
+.mmore-topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 32px;
+  background: #fff;
+  border-bottom: 1.5px solid rgba(0,63,136,0.10);
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(0,63,136,0.05);
+}
+.mmore-topbar-left {
+  display: flex; align-items: center; gap: 14px;
+}
+.mmore-topbar-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(0,87,184,0.08);
+  border: 1.5px solid rgba(0,87,184,0.16);
+  display: flex; align-items: center; justify-content: center;
+  color: #0057b8; flex-shrink: 0;
+}
+.mmore-topbar-title {
+  font-size: 16px; font-weight: 800;
+  color: rgba(10,22,40,0.92);
+  letter-spacing: -0.02em;
+}
+.mmore-topbar-count {
+  font-size: 12px; color: rgba(10,22,40,0.50); font-weight: 500; margin-top: 1px;
+}
+.mmore-close {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(0,63,136,0.06);
+  border: 1.5px solid rgba(0,63,136,0.12);
+  color: rgba(10,22,40,0.72);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.mmore-close:hover { background: rgba(0,63,136,0.12); color: rgba(10,22,40,0.92); }
+
+/* Scrollable body */
+.mmore-body {
+  flex: 1; overflow-y: auto; padding: 28px 32px 40px;
+}
+.mmore-body::-webkit-scrollbar { width: 5px; }
+.mmore-body::-webkit-scrollbar-track { background: transparent; }
+.mmore-body::-webkit-scrollbar-thumb { background: rgba(0,63,136,0.15); border-radius: 4px; }
+
+/* ── Artikel card grid ── */
+.mmore-artikel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.mmore-artikel-card {
+  background: #fff;
+  border: 1.5px solid rgba(0,63,136,0.10);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  transition: border-color 0.22s, transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s;
+}
+.mmore-artikel-card:hover {
+  border-color: rgba(0,87,184,0.32);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0,63,136,0.12);
+}
+.mmore-artikel-img {
+  position: relative;
+  aspect-ratio: 16/9; overflow: hidden;
+}
+.mmore-artikel-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.45s ease;
+}
+.mmore-artikel-card:hover .mmore-artikel-img img { transform: scale(1.05); }
+.mmore-artikel-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,14,30,0.30) 0%, transparent 60%);
+}
+.mmore-artikel-body {
+  padding: 16px 18px 12px; flex: 1;
+}
+.mmore-artikel-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-bottom: 8px;
+}
+.mmore-artikel-title {
+  font-size: 14px; font-weight: 700;
+  color: rgba(10,22,40,0.90);
+  line-height: 1.45; margin: 0 0 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.mmore-artikel-excerpt {
+  font-size: 12px; color: rgba(10,22,40,0.58);
+  line-height: 1.6; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.mmore-artikel-footer {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 18px 14px;
+  border-top: 1px solid rgba(0,63,136,0.07);
+}
+.mmore-read-link {
+  font-size: 12px; font-weight: 700; color: #0057b8;
+  flex: 1;
+  transition: color 0.18s;
+}
+.mmore-artikel-card:hover .mmore-read-link { color: #003F88; }
+.mmore-artikel-footer svg { color: #0057b8; flex-shrink: 0; }
+
+/* ── Foto grid ── */
+.mmore-foto-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.mmore-foto-item {
+  aspect-ratio: 1; border-radius: 12px; overflow: hidden;
+  position: relative; cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: border-color 0.22s, transform 0.28s cubic-bezier(0.22,1,0.36,1);
+}
+.mmore-foto-item:hover {
+  border-color: rgba(0,87,184,0.40);
+  transform: scale(1.02);
+}
+.mmore-foto-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.40s ease;
+}
+.mmore-foto-item:hover img { transform: scale(1.08); }
+.mmore-foto-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,10,30,0.75) 0%, transparent 55%);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 12px;
+  opacity: 0; transition: opacity 0.25s;
+}
+.mmore-foto-item:hover .mmore-foto-overlay { opacity: 1; }
+.mmore-foto-label {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.92); line-height: 1.3; flex: 1;
+}
+.mmore-foto-overlay svg { color: #fff; flex-shrink: 0; opacity: 0.80; }
+
+/* ── Video card grid ── */
+.mmore-video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.mmore-video-card {
+  background: #fff;
+  border: 1.5px solid rgba(0,63,136,0.10);
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  transition: border-color 0.22s, transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s;
+}
+.mmore-video-card:hover {
+  border-color: rgba(0,87,184,0.30);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,63,136,0.10);
+}
+.mmore-video-thumb {
+  position: relative; aspect-ratio: 16/9; overflow: hidden;
+  background: #0c1219;
+}
+.mmore-video-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.40s ease;
+}
+.mmore-video-card:hover .mmore-video-thumb img { transform: scale(1.05); }
+.mmore-video-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.32);
+}
+.mmore-video-play svg {
+  width: 46px; height: 46px;
+  background: rgba(204,0,0,0.92);
+  border-radius: 50%;
+  padding: 12px;
+  color: #fff;
+  box-shadow: 0 2px 18px rgba(204,0,0,0.50);
+  transform: scale(0.85);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.mmore-video-card:hover .mmore-video-play svg { transform: scale(1); }
+.mmore-video-body {
+  padding: 14px 16px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.mmore-video-title {
+  font-size: 13.5px; font-weight: 700;
+  color: rgba(10,22,40,0.90);
+  line-height: 1.4; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.mmore-video-meta {
+  font-size: 11.5px; color: rgba(10,22,40,0.50); font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .mmore-artikel-grid { grid-template-columns: repeat(2, 1fr); }
+  .mmore-video-grid { grid-template-columns: repeat(2, 1fr); }
+  .mmore-foto-grid { grid-template-columns: repeat(3, 1fr); }
+  .mmore-body { padding: 20px 20px 32px; }
+  .mmore-topbar { padding: 14px 20px; }
+}
+@media (max-width: 580px) {
+  .mmore-artikel-grid { grid-template-columns: 1fr; }
+  .mmore-video-grid { grid-template-columns: 1fr; }
+  .mmore-foto-grid { grid-template-columns: repeat(2, 1fr); }
+  .mmore-body { padding: 16px 16px 28px; }
+  .mmore-topbar { padding: 12px 16px; }
+  .gallery-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
 </style>

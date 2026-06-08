@@ -12,7 +12,6 @@
         <!-- Info Lelang -->
         <a href="https://infolelang.bri.co.id/" target="_blank" rel="noopener"
           class="portal-card reveal" style="--accent: #f5a623;">
-          <div class="portal-card-accent"></div>
           <div class="portal-card-body">
             <div class="portal-card-head">
               <div class="portal-logo-wrap">
@@ -32,11 +31,11 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </span>
           </div>
+          <div class="portal-card-accent"></div>
         </a>
 
         <!-- Karier -->
         <button class="portal-card reveal reveal-delay-1" style="--accent: #3b82f6;" @click="$emit('openCareer')">
-          <div class="portal-card-accent"></div>
           <div class="portal-card-body">
             <div class="portal-card-head">
               <div class="portal-logo-wrap">
@@ -56,8 +55,32 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </div>
+          <div class="portal-card-accent"></div>
         </button>
 
+        <!-- Saham BBRI -->
+        <router-link to="/investasi" class="portal-card reveal reveal-delay-2" style="--accent: #10b981;">
+          <div class="portal-card-body">
+            <div class="portal-card-head">
+              <div class="portal-logo-wrap">
+                <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1778774735/lgogo_invest_zkkrvo.png" alt="Saham BBRI" />
+              </div>
+              <div class="portal-card-meta">
+                <div class="portal-card-tag">Investor Relations</div>
+                <div class="portal-card-name">Saham BBRI</div>
+              </div>
+            </div>
+            <div class="portal-card-desc">Pantau kinerja saham BRI (BBRI) di Bursa Efek Indonesia — grafik interaktif, data harga, dan informasi investasi terkini.</div>
+          </div>
+          <div class="portal-card-foot">
+            <span class="portal-card-url">IDX: BBRI</span>
+            <span class="portal-card-cta">
+              Lihat Grafik
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+          <div class="portal-card-accent"></div>
+        </router-link>
 
       </div>
     </div>
@@ -75,9 +98,8 @@ defineEmits(['openCareer'])
 
 .portal-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 800px;
 }
 
 /* ── CARD ── */
@@ -104,15 +126,17 @@ defineEmits(['openCareer'])
   box-shadow: 0 16px 40px rgba(0,63,136,0.12);
 }
 
-/* top accent line */
+/* bottom accent line */
 .portal-card-accent {
   height: 3px;
   background: var(--accent, rgba(0,87,184,0.50));
   flex-shrink: 0;
-  opacity: 0.75;
-  transition: opacity 0.25s;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: opacity 0.28s, transform 0.32s cubic-bezier(0.22,1,0.36,1);
 }
-.portal-card:hover .portal-card-accent { opacity: 1; }
+.portal-card:hover .portal-card-accent { opacity: 1; transform: scaleX(1); }
 
 /* body */
 .portal-card-body {
@@ -186,7 +210,10 @@ defineEmits(['openCareer'])
 }
 .portal-card:hover .portal-card-cta { gap: 8px; }
 
-@media (max-width: 900px) {
-  .portal-grid { grid-template-columns: 1fr; max-width: 480px; }
+@media (max-width: 960px) {
+  .portal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .portal-grid { grid-template-columns: 1fr; }
 }
 </style>

@@ -26,7 +26,6 @@
             <div class="why-title">{{ item.title }}</div>
           </div>
           <div class="why-desc">{{ item.desc }}</div>
-          <div class="why-badge">{{ item.badge }}</div>
         </div>
       </div>
     </div>

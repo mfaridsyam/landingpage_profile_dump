@@ -40,8 +40,13 @@
         <span class="hero-stat-l">ATM &amp; CDM</span>
       </div>
       <div class="hero-stat-vline"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">Cabang</span>
+        <span class="hero-stat-l">Polewali Mandar</span>
+      </div>
+      <div class="hero-stat-vline"></div>
       <div class="hero-stat hero-stat-loc">
-        <span class="hero-stat-n">Polewali</span>
+        <span class="hero-stat-n">Sulbar</span>
         <span class="hero-stat-l">Sulawesi Barat</span>
       </div>
     </div>
@@ -173,7 +178,7 @@ const hoursData = computed(() => {
   font-weight: 800;
   line-height: 1.0;
   letter-spacing: -0.035em;
-  color: var(--ink, #0A1628);
+  color: #0057b8;
   margin: 0;
   white-space: nowrap;
 }

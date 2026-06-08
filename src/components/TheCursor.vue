@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <div class="cur-dot"  :style="dotStyle"  :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
-    <div class="cur-ring" :style="ringStyle" :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
+    <div class="cur-ring" :style="ringStyle" :class="{ 'cur-hidden': !visible, 'cur-hover': hovered }" aria-hidden="true" />
   </Teleport>
 </template>
 
@@ -15,19 +15,27 @@ let raf = null
 const dotStyle  = reactive({})
 const ringStyle = reactive({})
 const visible   = ref(true)
+const hovered   = ref(false)
 
 function lerp(a, b, t) { return a + (b - a) * t }
 
-function onMove(e) { mx = e.clientX; my = e.clientY; show() }
+function onMove(e) {
+  mx = e.clientX
+  my = e.clientY
+  if (!visible.value) visible.value = true
+  const el = document.elementFromPoint(mx, my)
+  hovered.value = !!(el && el.closest('a, button, [role="button"], input, textarea, select, label'))
+}
+
 function hide() { visible.value = false }
 function show() { visible.value = true }
 function onVisibility() { if (document.hidden) hide(); else show() }
 
 function tick() {
-  rx = lerp(rx, mx, 0.14)
-  ry = lerp(ry, my, 0.14)
-  dotStyle.transform  = `translate(${mx}px, ${my}px)`
-  ringStyle.transform = `translate(${rx}px, ${ry}px)`
+  rx = lerp(rx, mx, 0.18)
+  ry = lerp(ry, my, 0.18)
+  dotStyle.transform  = `translate3d(${mx}px, ${my}px, 0)`
+  ringStyle.transform = `translate3d(${rx}px, ${ry}px, 0)`
   raf = requestAnimationFrame(tick)
 }
 
@@ -49,6 +57,8 @@ onUnmounted(() => {
 </script>
 
 <style>
+*, *::before, *::after { cursor: none !important; }
+
 .cur-dot,
 .cur-ring {
   position: fixed;
@@ -57,27 +67,32 @@ onUnmounted(() => {
   z-index: 2147483647;
   will-change: transform;
   border-radius: 50%;
-  transition: opacity 0.2s ease;
 }
 
-.cur-hidden { opacity: 0; }
+.cur-hidden { opacity: 0 !important; }
 
 .cur-dot {
-  width: 6px; height: 6px;
+  width: 5px; height: 5px;
   background: #0057b8;
-  margin-left: -3px; margin-top: -3px;
+  margin-left: -2.5px; margin-top: -2.5px;
+  transition: opacity 0.15s ease, transform 0.1s ease;
 }
 
 .cur-ring {
-  width: 32px; height: 32px;
-  border: 1.5px solid rgba(0,63,136,0.35);
-  background: rgba(0,87,184,0.08);
-  margin-left: -16px; margin-top: -16px;
-  backdrop-filter: blur(2px);
-  transition: width 0.22s cubic-bezier(0.22,1,0.36,1),
-              height 0.22s cubic-bezier(0.22,1,0.36,1),
-              border-color 0.22s,
-              background 0.22s,
-              opacity 0.2s ease;
+  width: 26px; height: 26px;
+  border: 1.5px solid rgba(0, 87, 184, 0.40);
+  margin-left: -13px; margin-top: -13px;
+  transition:
+    width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.20s ease,
+    opacity 0.15s ease;
+}
+
+.cur-ring.cur-hover {
+  width: 38px; height: 38px;
+  margin-left: -19px; margin-top: -19px;
+  border-color: rgba(0, 87, 184, 0.65);
 }
 </style>

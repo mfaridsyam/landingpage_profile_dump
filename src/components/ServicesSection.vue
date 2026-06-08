@@ -15,9 +15,9 @@
       </div>
 
       <div class="svc-grid">
-        <a
+        <router-link
           v-for="(svc, i) in allServices" :key="svc.name"
-          href="#kontak"
+          :to="`/layanan/${svc.slug}`"
           class="svc-card reveal" :class="`reveal-delay-${i % 3}`"
         >
           <div class="svc-card-inner">
@@ -31,8 +31,8 @@
                 <!-- SVG icon dengan kotak -->
                 <div v-else class="svc-icon" v-html="svc.icon"></div>
                 <div class="svc-head-meta">
-                  <span class="svc-cat">{{ svc.category }}</span>
                   <div class="svc-name">{{ svc.name }}</div>
+                  <span class="svc-cat">{{ svc.category }}</span>
                 </div>
               </div>
               <!-- Nomor kanan -->
@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
 
     </div>
@@ -60,52 +60,52 @@
 <script setup>
 const allServices = [
   {
+    slug: 'kur-kredit-umkm',
     name: 'KUR & Kredit UMKM',
     category: 'Kredit',
     desc: 'Kredit Usaha Rakyat dengan bunga rendah untuk mendorong pertumbuhan usaha mikro, kecil, dan menengah di Polewali Mandar.',
     tags: ['KUR Mikro', 'KUR Kecil', 'KUR TKI'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/KUR_dan_Kredit_UMKM_dmftty.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/KUR_dan_Kredit_UMKM_dmftty.png',
   },
   {
+    slug: 'brimo-mobile-banking',
     name: 'BRImo Mobile Banking',
     category: 'Digital',
     desc: 'Transaksi kapan saja, di mana saja lewat aplikasi BRImo — transfer, pembayaran tagihan, investasi, dan lebih banyak lagi.',
     tags: ['Transfer', 'Pembayaran', 'QRIS'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770586/BRImo_Mobile_Banking_zsjbjr.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770586/BRImo_Mobile_Banking_zsjbjr.png',
   },
   {
+    slug: 'simpanan-deposito',
     name: 'Simpanan & Deposito',
     category: 'Simpanan',
     desc: 'Tabungan BritAma, Simpedes, Deposito BRI, dan Giro BRI — pilihan produk simpanan dengan bunga kompetitif dan aman.',
     tags: ['BritAma', 'Simpedes', 'Deposito'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Simpanan_dan_Deposito_hwl54o.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770580/Simpanan_dan_Deposito_hwl54o.png',
   },
   {
+    slug: 'kredit-pemilikan-rumah',
     name: 'Kredit Pemilikan Rumah',
     category: 'Kredit',
     desc: 'KPR BRI dengan cicilan ringan dan proses mudah untuk mewujudkan impian memiliki hunian idaman bersama keluarga.',
     tags: ['KPR Subsidi', 'KPR Non-Subsidi'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770578/Kredit_Pemilikan_Rumah_cj0spd.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770578/Kredit_Pemilikan_Rumah_cj0spd.png',
   },
   {
+    slug: 'layanan-digital',
     name: 'Layanan Digital 24/7',
     category: 'Infrastruktur',
     desc: 'ATM, CDM, dan AgenBRI tersebar luas di wilayah Polewali Mandar — layanan perbankan tanpa batas waktu untuk Anda.',
     tags: ['ATM', 'CDM', 'AgenBRI'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770579/Layanan_24_per_7_nb3srl.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770579/Layanan_24_per_7_nb3srl.png',
   },
   {
+    slug: 'valuta-asing',
     name: 'Valuta Asing & Remitansi',
     category: 'Internasional',
     desc: 'Penukaran valuta asing dan layanan pengiriman uang internasional dengan kurs kompetitif dan proses cepat.',
     tags: ['Forex', 'Remittance', 'SWIFT'],
     iconImg: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Valuta_Asing_dan_Remitasi_jb7fsm.png',
-    iconImgHover: 'https://res.cloudinary.com/dnacoymkh/image/upload/v1780770581/Valuta_Asing_dan_Remitasi_jb7fsm.png',
   },
 ]
 </script>

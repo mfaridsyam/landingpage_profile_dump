@@ -30,6 +30,7 @@
               <span>{{ currency }}/IDR</span>
             </div>
             <div class="kurs-chart-actions">
+              <span v-if="lastUpdate" class="kurs-last-update">Diperbarui: {{ lastUpdate }}</span>
               <a :href="`https://www.tradingview.com/symbols/${TV_SYMBOLS[currency]}/`"
                 target="_blank" rel="noopener" class="kurs-chart-btn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -50,6 +51,16 @@
 import { ref, watch, onMounted, nextTick } from 'vue'
 
 const currency = ref('USD')
+const lastUpdate = ref('')
+
+function formatUpdate() {
+  const now = new Date()
+  return now.toLocaleString('id-ID', {
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+    timeZone: 'Asia/Makassar', hour12: false
+  }) + ' WITA'
+}
 
 const CODES = ['AUD', 'EUR', 'GBP', 'JPY', 'SGD', 'USD', 'HKD', 'MYR', 'CHF', 'CNY']
 const FLAG_MAP = { IDR:'id', AUD:'au', EUR:'eu', GBP:'gb', JPY:'jp', SGD:'sg', USD:'us', HKD:'hk', MYR:'my', CHF:'ch', CNY:'cn' }
@@ -67,6 +78,7 @@ const TV_SYMBOLS = {
 }
 
 function initChart(code) {
+  lastUpdate.value = formatUpdate()
   nextTick(() => {
     if (!tvContainer.value) return
     tvContainer.value.innerHTML = ''
@@ -74,24 +86,24 @@ function initChart(code) {
     script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js'
     script.async = true
     script.textContent = JSON.stringify({
-      symbols: [[`${TV_SYMBOLS[code]}|1D`]],
+      symbols: [[`${TV_SYMBOLS[code]}|5D`]],
       chartOnly: false,
       width: '100%',
-      height: 420,
+      height: 400,
       locale: 'id',
       colorTheme: 'light',
-      autosize: true,
+      autosize: false,
       showVolume: false,
       hideDateRanges: false,
       hideMarketStatus: true,
       scalePosition: 'right',
       scaleMode: 'Normal',
-      valuesTracking: '0',
-      changeMode: 'no-values',
+      valuesTracking: '1',
+      changeMode: 'price-and-percent',
       chartType: 'area',
       lineWidth: 2,
       lineType: 0,
-      dateRanges: ['1d|1', '5d|15', '1m|30', '6m|120', '12m|1D', '60m|1W', 'all|1M'],
+      dateRanges: ['1d|60', '5d|15', '1m|30', '6m|120', '12m|1D', '60m|1W', 'all|1M'],
       lineColor: 'rgba(0,87,184,1)',
       topColor: 'rgba(0,87,184,0.18)',
       bottomColor: 'rgba(0,87,184,0)',
@@ -209,7 +221,11 @@ onMounted(() => initChart(currency.value))
 .kurs-chart-src {
   font-size: 10.5px; color: rgba(10,22,40,0.38); font-weight: 500;
 }
-.kurs-chart-body { min-height: 420px; }
+.kurs-last-update {
+  font-size: 10.5px; color: rgba(10,22,40,0.46); font-weight: 500;
+  white-space: nowrap;
+}
+.kurs-chart-body { min-height: 400px; }
 
 @media (max-width: 480px) {
   .kurs-pill { padding: 7px 13px; font-size: 12px; }

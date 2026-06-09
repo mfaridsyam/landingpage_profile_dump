@@ -46,7 +46,7 @@
       </div>
       <div class="hero-stat-vline"></div>
       <div class="hero-stat">
-        <span class="hero-stat-n">Sulawesi Barat</span>
+        <span class="hero-stat-n">Polman &amp; Mamasa</span>
         <span class="hero-stat-l">Wilayah Kerja</span>
       </div>
     </div>

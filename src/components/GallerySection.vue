@@ -1,21 +1,22 @@
 ﻿<template>
   <section class="gallery-section" id="galeri">
     <div class="container">
-      <div class="gallery-header">
-        <div class="gallery-header-left">
-          <div class="section-eyebrow reveal">Galeri &amp; Media</div>
+      <div class="news-head">
+        <div class="news-head-left">
+          <div class="section-eyebrow reveal">Berita &amp; Media</div>
           <h2 class="section-title reveal" style="margin-bottom:0">Info Terkini</h2>
+          <p class="news-head-desc reveal">Berita, foto, dan video terbaru dari BRI Cabang Polewali.</p>
         </div>
-        <div class="gallery-tabs reveal">
-          <button class="gallery-tab" :class="{ active: tab === 'artikel' }" @click="tab = 'artikel'">
+        <div class="news-tabs reveal">
+          <button class="news-tab" :class="{ active: tab === 'artikel' }" @click="tab = 'artikel'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             Artikel
           </button>
-          <button class="gallery-tab" :class="{ active: tab === 'foto' }" @click="tab = 'foto'">
+          <button class="news-tab" :class="{ active: tab === 'foto' }" @click="tab = 'foto'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             Foto
           </button>
-          <button class="gallery-tab" :class="{ active: tab === 'video' }" @click="tab = 'video'">
+          <button class="news-tab" :class="{ active: tab === 'video' }" @click="tab = 'video'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
             Video
           </button>
@@ -24,37 +25,35 @@
 
       <!-- ─── ARTIKEL ─── -->
       <div v-show="tab === 'artikel'">
-        <div class="artikel-layout">
 
-          <!-- Featured (kiri) -->
-          <div class="artikel-featured reveal" @click="openArtikel(0)">
-            <div class="artikel-featured-img-wrap">
-              <img :src="articles[0].img" :alt="articles[0].label" />
-              <div class="artikel-featured-overlay"></div>
-            </div>
-            <div class="artikel-featured-body">
-              <div class="artikel-cat-badge">{{ articles[0].category }}</div>
-              <span class="artikel-time">{{ articles[0].time }}</span>
-              <h3 class="artikel-featured-title">{{ articles[0].label }}</h3>
-              <p class="artikel-featured-excerpt">{{ articles[0].excerpt }}</p>
-            </div>
+        <!-- Hero article: full width -->
+        <div class="art-hero reveal" @click="openArtikel(0)">
+          <img :src="articles[0].img" :alt="articles[0].label" class="art-hero-img" />
+          <div class="art-hero-overlay"></div>
+          <div class="art-hero-body">
+            <div class="art-cat-pill">{{ articles[0].category }}</div>
+            <span class="art-time">{{ articles[0].time }}</span>
+            <h3 class="art-hero-title">{{ articles[0].label }}</h3>
+            <p class="art-hero-excerpt">{{ articles[0].excerpt }}</p>
           </div>
-
-          <!-- Stack teks-only (kanan) -->
-          <div class="artikel-stack-col">
-            <div v-for="(art, i) in articles.slice(1, 5)" :key="art.label"
-              class="artikel-stack-item"
-              @click="openArtikel(i + 1)">
-              <div class="artikel-stack-top">
-                <div class="artikel-cat-badge artikel-cat-badge--sm">{{ art.category }}</div>
-                <span class="artikel-time">{{ art.time }}</span>
-              </div>
-              <p class="artikel-stack-title">{{ art.label }}</p>
-              <svg class="artikel-stack-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
         </div>
+
+        <!-- 3-column card grid -->
+        <div class="art-grid reveal">
+          <div v-for="(art, i) in articles.slice(1, 4)" :key="art.label"
+            class="art-card" @click="openArtikel(i + 1)">
+            <div class="art-card-img-wrap">
+              <img :src="art.img" :alt="art.label" loading="lazy" />
+              <div class="art-card-cat">{{ art.category }}</div>
+            </div>
+            <div class="art-card-content">
+              <span class="art-time art-card-time">{{ art.time }}</span>
+              <h4 class="art-card-title">{{ art.label }}</h4>
+              <p class="art-card-excerpt">{{ art.excerpt }}</p>
+            </div>
+          </div>
+        </div>
+
         <div class="load-more-wrap reveal">
           <button class="btn-load-more" @click="openMoreModal('artikel')">
             <span>Lihat Semua Artikel</span>
@@ -495,13 +494,99 @@ if (typeof window !== 'undefined') {
 </script>
 
 <style scoped>
-/* ── ARTIKEL LAYOUT ── */
-.artikel-layout {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 16px;
-  margin-bottom: 16px;
+/* ── ARTIKEL NEW DESIGN ── */
+.art-hero {
+  position: relative; border-radius: 20px; overflow: hidden;
+  cursor: pointer; aspect-ratio: 21/8; min-height: 240px;
+  margin-bottom: 20px;
+  transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
 }
+.art-hero:hover { transform: translateY(-2px); }
+.art-hero-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.55s ease;
+}
+.art-hero:hover .art-hero-img { transform: scale(1.03); }
+.art-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5,14,30,0.92) 0%,
+    rgba(5,14,30,0.52) 45%,
+    rgba(5,14,30,0.08) 70%,
+    transparent 100%
+  );
+}
+.art-hero-body {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 36px; z-index: 1;
+}
+.art-cat-pill {
+  display: inline-block; font-size: 9px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  background: rgba(245,166,35,0.92); color: #1a0800;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 10px;
+}
+.art-time {
+  display: block; font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.58); margin-bottom: 10px;
+}
+.art-hero-title {
+  font-size: clamp(17px, 2.4vw, 26px); font-weight: 800;
+  color: #fff; letter-spacing: -0.02em; line-height: 1.2;
+  margin-bottom: 10px; max-width: 780px;
+}
+.art-hero-excerpt {
+  font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.6;
+  max-width: 700px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Card grid */
+.art-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px; margin-bottom: 24px;
+}
+.art-card {
+  background: rgba(255,255,255,0.82);
+  border: 1.5px solid rgba(0,63,136,0.10);
+  border-radius: 16px; overflow: hidden; cursor: pointer;
+  display: flex; flex-direction: column;
+  transition: all 0.28s cubic-bezier(0.22,1,0.36,1);
+}
+.art-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 36px rgba(0,63,136,0.12);
+  border-color: rgba(0,87,184,0.26);
+}
+.art-card-img-wrap {
+  position: relative; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0;
+}
+.art-card-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.42s ease;
+}
+.art-card:hover .art-card-img-wrap img { transform: scale(1.06); }
+.art-card-cat {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em;
+  background: rgba(245,166,35,0.92); color: #1a0800;
+  padding: 3px 8px; border-radius: 100px;
+}
+.art-card-content { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+.art-card-time { color: rgba(10,22,40,0.46) !important; margin-bottom: 8px; }
+.art-card-title {
+  font-size: 14.5px; font-weight: 700; color: rgba(10,22,40,0.90);
+  letter-spacing: -0.01em; line-height: 1.35; margin-bottom: 8px; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.art-card-excerpt {
+  font-size: 12px; color: rgba(10,22,40,0.55); line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Stub — old classes */
+.artikel-layout { display: none; }
 .artikel-featured {
   background: rgba(0,20,60,0.06);
   border: 1.5px solid rgba(0,63,136,0.12);
@@ -1397,47 +1482,45 @@ if (typeof window !== 'undefined') {
    ══════════════════════════════════════════ */
 .gallery-section { padding: 80px 0; }
 
-.gallery-header {
-  display: flex;
-  align-items: flex-end;
+/* ── SECTION HEADER ── */
+.news-head {
+  display: flex; align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 24px; margin-bottom: 28px;
   padding-bottom: 20px;
   border-bottom: 1.5px solid rgba(0,63,136,0.10);
   flex-wrap: wrap;
 }
-
-.gallery-tabs {
-  display: flex;
-  gap: 2px;
-  background: rgba(0,63,136,0.05);
+.news-head-desc {
+  font-size: 14px; color: rgba(10,22,40,0.55);
+  margin-top: 8px; max-width: 420px;
+}
+.news-tabs {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.72);
   border: 1.5px solid rgba(0,63,136,0.12);
-  border-radius: 12px;
-  padding: 4px;
+  border-radius: 14px; padding: 5px; flex-shrink: 0;
 }
-
-.gallery-tab {
+.news-tab {
   display: inline-flex; align-items: center; gap: 7px;
-  padding: 8px 18px; border-radius: 9px;
+  padding: 8px 18px; border-radius: 10px;
   background: transparent; border: none;
-  font-size: 13.5px; font-weight: 600;
-  color: rgba(10,22,40,0.58);
+  font-size: 13px; font-weight: 600;
+  color: rgba(10,22,40,0.56);
   cursor: pointer; font-family: inherit;
-  letter-spacing: 0.01em;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: all 0.2s;
 }
-.gallery-tab svg { opacity: 0.65; transition: opacity 0.2s; }
-.gallery-tab.active {
-  background: #fff;
-  color: #003F88;
-  box-shadow: 0 2px 8px rgba(0,63,136,0.14);
+.news-tab svg { opacity: 0.60; transition: opacity 0.2s; }
+.news-tab.active {
+  background: #0057b8;
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(0,87,184,0.28);
   font-weight: 700;
 }
-.gallery-tab.active svg { opacity: 1; }
-.gallery-tab:not(.active):hover {
-  background: rgba(255,255,255,0.60);
-  color: rgba(10,22,40,0.80);
+.news-tab.active svg { opacity: 1; filter: brightness(0) invert(1); }
+.news-tab:not(.active):hover {
+  background: rgba(0,87,184,0.08);
+  color: rgba(10,22,40,0.82);
 }
 
 /* ══════════════════════════════════════════
@@ -1673,6 +1756,15 @@ if (typeof window !== 'undefined') {
   .mmore-foto-grid { grid-template-columns: repeat(2, 1fr); }
   .mmore-body { padding: 16px 16px 28px; }
   .mmore-topbar { padding: 12px 16px; }
-  .gallery-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .news-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .art-grid { grid-template-columns: 1fr; }
+  .art-hero { aspect-ratio: 4/3; min-height: 200px; }
+  .art-hero-body { padding: 20px 20px; }
+}
+@media (max-width: 760px) {
+  .art-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .art-grid { grid-template-columns: 1fr; }
 }
 </style>

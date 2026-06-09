@@ -41,13 +41,13 @@
       </div>
       <div class="hero-stat-vline"></div>
       <div class="hero-stat">
-        <span class="hero-stat-n">Cabang</span>
+        <span class="hero-stat-n">Branch Office</span>
         <span class="hero-stat-l">Polewali Mandar</span>
       </div>
       <div class="hero-stat-vline"></div>
-      <div class="hero-stat hero-stat-loc">
-        <span class="hero-stat-n">Sulbar</span>
-        <span class="hero-stat-l">Sulawesi Barat</span>
+      <div class="hero-stat">
+        <span class="hero-stat-n">Sulawesi Barat</span>
+        <span class="hero-stat-l">Wilayah Kerja</span>
       </div>
     </div>
 

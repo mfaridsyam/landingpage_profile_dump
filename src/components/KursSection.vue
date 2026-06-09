@@ -30,7 +30,6 @@
               <span>{{ currency }}/IDR</span>
             </div>
             <div class="kurs-chart-actions">
-              <span v-if="lastUpdate" class="kurs-last-update">Diperbarui: {{ lastUpdate }}</span>
               <a :href="`https://www.tradingview.com/symbols/${TV_SYMBOLS[currency]}/`"
                 target="_blank" rel="noopener" class="kurs-chart-btn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -39,7 +38,13 @@
               <span class="kurs-chart-src">Powered by TradingView</span>
             </div>
           </div>
-          <div :key="currency" ref="tvContainer" class="kurs-chart-body"></div>
+          <div class="kurs-chart-area">
+            <div :key="currency" ref="tvContainer" class="kurs-chart-body"></div>
+          </div>
+          <div v-if="lastUpdate" class="kurs-update-row">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Terakhir diperbarui: {{ lastUpdate }}
+          </div>
         </div>
 
       </div>
@@ -221,11 +226,20 @@ onMounted(() => initChart(currency.value))
 .kurs-chart-src {
   font-size: 10.5px; color: rgba(10,22,40,0.38); font-weight: 500;
 }
-.kurs-last-update {
-  font-size: 10.5px; color: rgba(10,22,40,0.46); font-weight: 500;
-  white-space: nowrap;
-}
+.kurs-chart-area { position: relative; }
 .kurs-chart-body { min-height: 400px; }
+
+
+.kurs-update-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 20px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(10,22,40,0.42);
+  border-top: 1px solid rgba(0,63,136,0.06);
+}
 
 @media (max-width: 480px) {
   .kurs-pill { padding: 7px 13px; font-size: 12px; }

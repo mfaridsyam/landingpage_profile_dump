@@ -164,15 +164,14 @@
   opacity: 1;
 }
 
-/* Samakan LEBAR agar kedua badge proporsional — tinggi otomatis */
+/* Samakan tinggi visual — Google Play butuh nilai lebih besar karena padding internal gambar */
 .brimo-badge-img {
   display: block;
-  width: 162px;
-  height: auto;
+  height: 44px;
+  width: auto;
 }
-/* Google Play: sedikit lebih lebar karena teks "GET IT ON" membuatnya lebih tinggi */
 .brimo-badge-img--gplay {
-  width: 188px;
+  height: 64px; /* kompensasi ~30% whitespace built-in pada badge Google Play */
 }
 
 .brimo-divider {
@@ -249,8 +248,8 @@
     width: 100%;
   }
   .brimo-dl-heading { font-size: 20px; }
-  .brimo-badge-img { width: 155px; }
-  .brimo-badge-img--gplay { width: 180px; }
+  .brimo-badge-img { height: 40px; }
+  .brimo-badge-img--gplay { height: 60px; }
 }
 
 /* ────────────────────────────────
@@ -269,8 +268,8 @@
   }
   .brimo-dl-heading { font-size: 19px; }
   .brimo-badges { flex-direction: column; }
-  .brimo-badge-img { width: 150px; }
-  .brimo-badge-img--gplay { width: 174px; }
+  .brimo-badge-img { height: 40px; }
+  .brimo-badge-img--gplay { height: 60px; }
 }
 
 /* ────────────────────────────────
@@ -282,8 +281,8 @@
   .brimo-dl-card { padding: 28px 20px; border-radius: 18px; gap: 12px; }
   .brimo-dl-heading { font-size: 18px; }
   .brimo-dl-sub { font-size: 12.5px; }
-  .brimo-badge-img { width: 144px; }
-  .brimo-badge-img--gplay { width: 167px; }
+  .brimo-badge-img { height: 38px; }
+  .brimo-badge-img--gplay { height: 57px; }
   .brimo-hashtags { font-size: 11.5px; }
 }
 
@@ -296,7 +295,7 @@
   .brimo-dl-heading { font-size: 17px; }
   .brimo-desc { font-size: 13.5px; }
   .brimo-feat { font-size: 12px; }
-  .brimo-badge-img { width: 136px; }
-  .brimo-badge-img--gplay { width: 158px; }
+  .brimo-badge-img { height: 36px; }
+  .brimo-badge-img--gplay { height: 54px; }
 }
 </style>

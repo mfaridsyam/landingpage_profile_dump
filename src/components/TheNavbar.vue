@@ -1,5 +1,5 @@
 <template>
-  <nav :class="{ scrolled: scrolled }" :style="navStyle">
+  <nav :class="{ scrolled: scrolled, 'on-dark-hero': onDarkHero }" :style="navStyle">
     <div class="nav-inner">
       <a href="#" class="nav-logo" @click.prevent="goHome">
         <img src="https://res.cloudinary.com/dnacoymkh/image/upload/v1780721401/Logo_header_mini_blue_lengkap_wblfyh.png" alt="BRI Cabang Polewali" />
@@ -58,6 +58,7 @@ const route = useRoute()
 const router = useRouter()
 
 const isHome = computed(() => route.path === '/')
+const onDarkHero = computed(() => !!route.meta?.darkHero && scrollY.value < 120)
 
 const scrolled = ref(false)
 const scrollY = ref(0)

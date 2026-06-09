@@ -23,7 +23,7 @@ const routes = [
     path: '/galeri/:type',
     name: 'Gallery',
     component: () => import('@/views/GalleryView.vue'),
-    meta: { scrollToTop: true }
+    meta: { scrollToTop: true, darkHero: true }
   }
 ]
 

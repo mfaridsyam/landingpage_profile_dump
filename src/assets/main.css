@@ -32,14 +32,14 @@ body {
 }
 
 /* ── CUSTOM SCROLLBAR ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: rgba(0,0,0,0.04); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(0,63,136,0.05); }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0,63,136,0.22);
+  background: rgba(0,87,184,0.45);
   border-radius: 100px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,87,184,0.45); }
-* { scrollbar-width: thin; scrollbar-color: rgba(0,63,136,0.22) transparent; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,87,184,0.72); }
+* { scrollbar-width: thin; scrollbar-color: rgba(0,87,184,0.45) rgba(0,63,136,0.05); }
 
 body::after { display: none; }
 
@@ -79,7 +79,7 @@ nav {
 }
 nav.scrolled { box-shadow: 0 2px 24px rgba(0,63,136,0.10); }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo img { height: 56px; width: auto; object-fit: contain; }
+.nav-logo img { height: 56px; width: auto; object-fit: contain; transition: filter 0.25s ease; }
 .nav-logo-text { display: flex; flex-direction: column; line-height: 1.15; }
 .nav-logo-name { font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px; }
 .nav-logo-branch { font-size: 10px; font-weight: 500; color: rgba(10,22,40,0.68); letter-spacing: 0.04em; text-transform: uppercase; }
@@ -106,6 +106,16 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(0,63,136,0.10); }
 .nav-cta { display: flex; align-items: center; gap: 10px; }
 .btn-primary { padding: 8px 20px; background: rgba(0,63,136,0.07); border: 1.5px solid rgba(0,63,136,0.18); border-radius: var(--radius-sm); color: rgba(10,22,40,0.80); font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: background 0.22s, border-color 0.22s, transform 0.22s; backdrop-filter: blur(10px); }
 .btn-primary:hover { background: rgba(0,63,136,0.13); border-color: rgba(0,63,136,0.30); transform: translateY(-1px); }
+
+/* ── Navbar on dark-hero sub-pages (Gallery, Service, Stock) ── */
+nav.on-dark-hero .nav-links a { color: rgba(255,255,255,0.78); }
+nav.on-dark-hero .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+nav.on-dark-hero .nav-links a.active { color: #fff; }
+nav.on-dark-hero .nav-logo img { filter: brightness(0) invert(1); }
+nav.on-dark-hero .btn-primary { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.90); }
+nav.on-dark-hero .btn-primary:hover { background: rgba(255,255,255,0.20); border-color: rgba(255,255,255,0.38); }
+nav.on-dark-hero .hamburger { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
+nav.on-dark-hero .hamburger span { background: rgba(255,255,255,0.85); }
 
 /* HERO */
 .hero {

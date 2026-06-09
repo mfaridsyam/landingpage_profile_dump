@@ -9,10 +9,10 @@
         <div class="gpage-breadcrumb">
           <a @click.prevent="router.push('/')" href="/" class="gpage-bc-link">Beranda</a>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          <span>Media &amp; Galeri</span>
+          <span>Berita &amp; Media</span>
         </div>
         <h1 class="gpage-title">
-          <span class="gpage-title-accent">Media</span> &amp; Galeri
+          <span class="gpage-title-accent">Berita</span> &amp; Media
         </h1>
         <p class="gpage-subtitle">Kumpulan artikel, foto, dan video terkini dari BRI Cabang Polewali Mandar</p>
 

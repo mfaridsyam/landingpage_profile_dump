@@ -80,40 +80,48 @@
         <div class="stock-info-grid">
 
           <div class="stock-card">
-            <div class="stock-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><path d="M6 22V4a2 2 0 012-2h8a2 2 0 012 2v18z"/><path d="M6 12H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/><path d="M18 9h2a2 2 0 012 2v9a2 2 0 01-2 2h-2"/></svg>
+            <div class="stock-card-head">
+              <div class="stock-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><path d="M6 22V4a2 2 0 012-2h8a2 2 0 012 2v18z"/><path d="M6 12H4a2 2 0 00-2 2v6a2 2 0 002 2h2"/><path d="M18 9h2a2 2 0 012 2v9a2 2 0 01-2 2h-2"/></svg>
+              </div>
+              <h3 class="stock-card-title">Tentang BRI</h3>
             </div>
-            <h3 class="stock-card-title">Tentang BRI</h3>
             <p class="stock-card-desc">
               PT Bank Rakyat Indonesia (Persero) Tbk. adalah bank BUMN terbesar di Indonesia berdasarkan aset, dengan fokus utama pada segmen UMKM. Didirikan pada 16 Desember 1895 di Purwokerto.
             </p>
           </div>
 
           <div class="stock-card">
-            <div class="stock-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div class="stock-card-head">
+              <div class="stock-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <h3 class="stock-card-title">IPO &amp; Listing</h3>
             </div>
-            <h3 class="stock-card-title">IPO & Listing</h3>
             <p class="stock-card-desc">
               BRI melakukan IPO pada 10 November 2003 dengan kode saham BBRI. Saham BRI termasuk dalam indeks LQ45, IDX30, dan MSCI Indonesia Index — sebagai salah satu blue chip di BEI.
             </p>
           </div>
 
           <div class="stock-card">
-            <div class="stock-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <div class="stock-card-head">
+              <div class="stock-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </div>
+              <h3 class="stock-card-title">Dividen</h3>
             </div>
-            <h3 class="stock-card-title">Dividen</h3>
             <p class="stock-card-desc">
               BRI secara konsisten membagikan dividen kepada pemegang saham setiap tahun. Besaran dividen ditentukan berdasarkan kinerja keuangan perusahaan dan diumumkan pada Rapat Umum Pemegang Saham (RUPS).
             </p>
           </div>
 
           <div class="stock-card">
-            <div class="stock-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="stock-card-head">
+              <div class="stock-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0057b8" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 class="stock-card-title">Tata Kelola</h3>
             </div>
-            <h3 class="stock-card-title">Tata Kelola</h3>
             <p class="stock-card-desc">
               Sebagai perusahaan publik, BRI menerapkan prinsip Good Corporate Governance (GCG) yang ketat, diawasi oleh OJK (Otoritas Jasa Keuangan) dan Kementerian BUMN.
             </p>
@@ -340,16 +348,23 @@ onMounted(() => {
   box-shadow: 0 8px 28px rgba(0,63,136,0.08);
   border-color: rgba(0,87,184,0.22);
 }
+.stock-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .stock-card-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
   background: rgba(0,87,184,0.08);
   border: 1px solid rgba(0,87,184,0.16);
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
 .stock-card-title {
   font-size: 15px; font-weight: 700;
   color: rgba(10,22,40,0.88); letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 .stock-card-desc {
   font-size: 13px; color: rgba(10,22,40,0.65); line-height: 1.65;

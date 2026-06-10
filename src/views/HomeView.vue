@@ -9,8 +9,7 @@
     <BrimoSection />
     <GallerySection />
     <NetworkSection />
-    <PortalSection @open-career="careerOpen = true" />
-    <CareerModal v-model="careerOpen" />
+    <PortalSection />
     <ContactSection />
     <TheFooter />
     <TheFab />
@@ -18,7 +17,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import HeroSection from '@/components/HeroSection.vue'
 import ServicesSection from '@/components/ServicesSection.vue'
@@ -28,13 +26,11 @@ import LoanCalculatorSection from '@/components/LoanCalculatorSection.vue'
 import GallerySection from '@/components/GallerySection.vue'
 import BrimoSection from '@/components/BrimoSection.vue'
 import PortalSection from '@/components/PortalSection.vue'
-import CareerModal from '@/components/CareerModal.vue'
 import NetworkSection from '@/components/NetworkSection.vue'
 import ContactSection from '@/components/ContactSection.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import TheFab from '@/components/TheFab.vue'
 import { useScrollReveal } from '@/composables/useScrollReveal.js'
 
-const careerOpen = ref(false)
 useScrollReveal()
 </script>

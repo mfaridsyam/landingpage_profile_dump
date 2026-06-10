@@ -41,12 +41,12 @@
       </div>
       <div class="hero-stat-vline"></div>
       <div class="hero-stat">
-        <span class="hero-stat-n">Polewali</span>
+        <span class="hero-stat-n">POLEWALI</span>
         <span class="hero-stat-l">Branch Office</span>
       </div>
       <div class="hero-stat-vline"></div>
       <div class="hero-stat">
-        <span class="hero-stat-n">Polman &amp; Mamasa</span>
+        <span class="hero-stat-n">POLMAN &amp; MAMASA</span>
         <span class="hero-stat-l">Wilayah Kerja</span>
       </div>
     </div>

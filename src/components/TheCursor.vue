@@ -1,20 +1,25 @@
 <template>
   <Teleport to="body">
-    <div ref="dotEl" class="cur-dot" :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
-    <div ref="ringEl" class="cur-ring" :class="{ 'cur-hidden': !visible, 'cur-hover': hovered }" aria-hidden="true" />
+    <div ref="dotEl"  class="cur-dot"  :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
+    <div ref="ringEl" class="cur-ring" :class="{ 'cur-hidden': !visible }" aria-hidden="true" />
   </Teleport>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const dotEl  = ref(null)
-const ringEl = ref(null)
+const dotEl   = ref(null)
+const ringEl  = ref(null)
 const visible = ref(false)
 const hovered = ref(false)
 
 let mx = -200, my = -200
 let rx = -200, ry = -200
+
+// Interpolated state — all lerp-driven, no CSS transitions for hover
+let dotRot    = 45   // starts as diamond (45°), goes to 0° (square) on hover
+let ringRot   = 0    // starts square (0°), goes to 45° (diamond) on hover
+let ringScale = 1
 let raf = null
 
 function lerp(a, b, t) { return a + (b - a) * t }
@@ -22,7 +27,7 @@ function lerp(a, b, t) { return a + (b - a) * t }
 function onMove(e) {
   mx = e.clientX; my = e.clientY
   if (!visible.value) {
-    rx = mx; ry = my  // teleport ring on first appearance — no slide-in artifact
+    rx = mx; ry = my
     visible.value = true
   }
   const el = document.elementFromPoint(mx, my)
@@ -30,10 +35,21 @@ function onMove(e) {
 }
 
 function tick() {
-  rx = lerp(rx, mx, 0.18)
-  ry = lerp(ry, my, 0.18)
-  if (dotEl.value)  dotEl.value.style.transform  = `translate3d(${mx}px,${my}px,0)`
-  if (ringEl.value) ringEl.value.style.transform = `translate3d(${rx}px,${ry}px,0)`
+  rx = lerp(rx, mx, 0.28)
+  ry = lerp(ry, my, 0.28)
+
+  dotRot    = lerp(dotRot,    hovered.value ? 0  : 45,  0.22)
+  ringRot   = lerp(ringRot,   hovered.value ? 45 : 0,   0.22)
+  ringScale = lerp(ringScale, hovered.value ? 1.6 : 1,  0.18)
+
+  if (dotEl.value)
+    dotEl.value.style.transform =
+      `translate3d(${mx}px,${my}px,0) rotate(${dotRot}deg)`
+
+  if (ringEl.value)
+    ringEl.value.style.transform =
+      `translate3d(${rx}px,${ry}px,0) scale(${ringScale}) rotate(${ringRot}deg)`
+
   raf = requestAnimationFrame(tick)
 }
 
@@ -69,34 +85,25 @@ onUnmounted(() => {
   will-change: transform;
 }
 
-.cur-hidden { opacity: 0; }
+.cur-hidden { opacity: 0 !important; }
 
-/* Dot — mix-blend-mode: difference makes it visible on any background */
+/* Dot: sharp square — starts rotated 45° (diamond), lerps to 0° (square) on hover */
 .cur-dot {
-  width: 5px; height: 5px;
+  width: 6px; height: 6px;
   background: #fff;
-  border-radius: 50%;
-  margin-left: -2.5px; margin-top: -2.5px;
+  border-radius: 0;
+  margin-left: -3px; margin-top: -3px;
   mix-blend-mode: difference;
   transition: opacity 0.18s ease;
 }
 
-/* Ring via outline-offset — mix-blend-mode: difference for all-background visibility */
+/* Ring: sharp square outline — starts square, lerps to 45° (diamond) and scales on hover */
 .cur-ring {
-  width: 0; height: 0;
-  border-radius: 50%;
-  outline: 1.5px solid #fff;
-  outline-offset: 13px;
+  width: 22px; height: 22px;
+  margin-left: -11px; margin-top: -11px;
+  border: 1.5px solid #fff;
+  border-radius: 0;
   mix-blend-mode: difference;
-  transition:
-    outline-offset 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    outline-width  0.22s ease,
-    opacity        0.18s ease;
-}
-
-/* Hover state: ring expands, gets bolder */
-.cur-ring.cur-hover {
-  outline-offset: 19px;
-  outline-width: 2px;
+  transition: opacity 0.18s ease;
 }
 </style>

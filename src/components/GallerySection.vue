@@ -240,6 +240,120 @@
               </div>
             </div>
           </div>
+
+          <!-- Comment Section -->
+          <div class="comment-section">
+            <div class="comment-section-head">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <h3 class="comment-section-title">Komentar ({{ articleComments.length }})</h3>
+            </div>
+
+            <div v-if="articleComments.length" class="comment-list">
+              <div v-for="c in articleComments" :key="c.id" class="comment-item">
+                <div class="comment-avatar">{{ c.initial }}</div>
+                <div class="comment-body">
+                  <div class="comment-meta">
+                    <span class="comment-name">{{ c.name }}</span>
+                    <span class="comment-dot">·</span>
+                    <span class="comment-time">{{ c.time }}</span>
+                  </div>
+                  <p class="comment-text">{{ c.text }}</p>
+                </div>
+              </div>
+            </div>
+            <div v-else class="comment-empty">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <p>Belum ada komentar. Jadilah yang pertama!</p>
+            </div>
+
+            <div class="comment-write">
+              <div v-if="commentVerified" class="comment-verified-user">
+                <div class="comment-write-avatar">{{ verifiedUser.name.charAt(0).toUpperCase() }}</div>
+                <span class="comment-write-name">{{ verifiedUser.name }}</span>
+                <span class="comment-write-badge">Terverifikasi</span>
+              </div>
+              <div class="comment-input-wrap" @click="onCommentFocus">
+                <textarea
+                  v-model="commentText"
+                  class="comment-textarea"
+                  :placeholder="commentVerified ? 'Tulis komentar Anda...' : 'Klik untuk menulis komentar...'"
+                  :readonly="!commentVerified"
+                  rows="3"
+                  maxlength="500"
+                ></textarea>
+              </div>
+              <div v-if="commentVerified" class="comment-footer">
+                <span class="comment-count">{{ commentText.length }}/500</span>
+                <button class="comment-submit-btn" @click="submitComment" :disabled="!commentText.trim()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  Kirim
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </Transition>
+    </Teleport>
+
+    <!-- OTP Verification Popup -->
+    <Teleport to="body">
+    <Transition name="otp-fade">
+      <div v-if="otpPopup.show" class="otp-overlay">
+        <div class="otp-box">
+          <div class="otp-head">
+            <div class="otp-head-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="otp-head-text">
+              <h3 class="otp-title">Verifikasi Identitas</h3>
+              <p class="otp-subtitle">Masukkan nama &amp; email untuk mendapatkan kode OTP</p>
+            </div>
+            <button class="otp-close-btn" @click="otpPopup.show = false">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="otp-fields">
+            <div class="otp-field">
+              <label class="otp-label">Nama</label>
+              <input v-model="otpPopup.name" class="otp-input" type="text"
+                placeholder="Nama lengkap Anda" :disabled="otpPopup.codeSent" />
+            </div>
+
+            <div class="otp-field">
+              <label class="otp-label">Email</label>
+              <div class="otp-email-row">
+                <input v-model="otpPopup.email" class="otp-input" type="email"
+                  placeholder="email@contoh.com" :disabled="otpPopup.codeSent" />
+                <button class="otp-send-btn" @click="sendOTP"
+                  :disabled="otpPopup.sending || otpPopup.countdown > 0 || !otpPopup.name.trim() || !otpPopup.email.trim()">
+                  <span v-if="otpPopup.sending">Mengirim…</span>
+                  <span v-else-if="otpPopup.countdown > 0">{{ otpPopup.countdown }}d</span>
+                  <span v-else>{{ otpPopup.codeSent ? 'Kirim Ulang' : 'Kirim Kode OTP' }}</span>
+                </button>
+              </div>
+            </div>
+
+            <Transition name="otp-slide">
+              <div v-if="otpPopup.codeSent" class="otp-field">
+                <label class="otp-label">Kode OTP</label>
+                <input v-model="otpPopup.inputCode" class="otp-input otp-code-input"
+                  type="text" inputmode="numeric" placeholder="_ _ _ _ _ _" maxlength="6"
+                  @input="otpPopup.inputCode = otpPopup.inputCode.replace(/\D/g, '')" />
+                <span class="otp-hint">Cek inbox atau folder spam email Anda</span>
+              </div>
+            </Transition>
+
+            <p v-if="otpPopup.error" class="otp-error">{{ otpPopup.error }}</p>
+
+            <button class="otp-verify-btn" @click="verifyOTP"
+              :disabled="!otpPopup.codeSent || otpPopup.inputCode.length < 6">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Verifikasi &amp; Mulai Komentar
+            </button>
+          </div>
         </div>
       </div>
     </Transition>
@@ -387,10 +501,17 @@
 </template>
 
 <script setup>
-import { ref, reactive, nextTick } from 'vue'
+import { ref, reactive, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { lenis } from '@/lenis.js'
 import { articles, photos, videos } from '@/data/galleryData.js'
+import emailjs from '@emailjs/browser'
+
+// ── EmailJS — isi credentials dari emailjs.com ──
+// Template perlu variabel: {{to_name}}, {{to_email}}, {{otp_code}}
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY'
 
 const router = useRouter()
 
@@ -405,6 +526,27 @@ const fotoOverlayRef = ref(null)
 const artikelModal = reactive({ open: false, idx: 0 })
 const fotoModal = reactive({ open: false, idx: 0 })
 const videoModal = reactive({ open: false, idx: 0 })
+
+// ── KOMENTAR ──
+const comments = ref(typeof window !== 'undefined'
+  ? JSON.parse(localStorage.getItem('bri_comments') || '[]')
+  : [])
+const commentText    = ref('')
+const commentVerified = ref(false)
+const verifiedUser   = reactive({ name: '', email: '' })
+
+const otpPopup = reactive({
+  show: false,
+  name: '', email: '',
+  inputCode: '', generatedCode: '',
+  sending: false, codeSent: false,
+  error: '', countdown: 0,
+})
+let otpTimer = null
+
+const articleComments = computed(() =>
+  comments.value.filter(c => c.articleIdx === artikelModal.idx)
+)
 
 // Video ordering — index 0 is always featured
 const videoOrder = ref([0, 1, 2, 3])
@@ -423,6 +565,7 @@ function openArtikel(idx) {
 }
 function closeArtikel() {
   artikelModal.open = false
+  otpPopup.show = false
   document.body.style.overflow = ''
   lenis.start()
 }
@@ -477,6 +620,78 @@ function relatedArticles(currentIdx) {
     .map((art, i) => ({ ...art, originalIdx: i }))
     .filter((_, i) => i !== currentIdx)
     .slice(0, 3)
+}
+
+// ── OTP & COMMENT FUNCTIONS ──
+function onCommentFocus() {
+  if (!commentVerified.value) {
+    otpPopup.show  = true
+    otpPopup.error = ''
+  }
+}
+
+function generateOTP() {
+  return String(Math.floor(100000 + Math.random() * 900000))
+}
+
+async function sendOTP() {
+  if (!otpPopup.name.trim() || !otpPopup.email.trim()) {
+    otpPopup.error = 'Nama dan email harus diisi.'
+    return
+  }
+  otpPopup.sending = true
+  otpPopup.error   = ''
+  otpPopup.generatedCode = generateOTP()
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_name:  otpPopup.name,
+      to_email: otpPopup.email,
+      otp_code: otpPopup.generatedCode,
+    }, EMAILJS_PUBLIC_KEY)
+    otpPopup.codeSent = true
+    otpPopup.inputCode = ''
+    otpPopup.countdown = 60
+    clearInterval(otpTimer)
+    otpTimer = setInterval(() => {
+      if (otpPopup.countdown > 0) otpPopup.countdown--
+      else clearInterval(otpTimer)
+    }, 1000)
+  } catch {
+    otpPopup.error = 'Gagal mengirim OTP. Periksa koneksi dan email Anda.'
+  } finally {
+    otpPopup.sending = false
+  }
+}
+
+function verifyOTP() {
+  if (otpPopup.inputCode.trim() === otpPopup.generatedCode) {
+    verifiedUser.name  = otpPopup.name
+    verifiedUser.email = otpPopup.email
+    commentVerified.value = true
+    otpPopup.show = false
+    nextTick(() => document.querySelector('.comment-textarea')?.focus())
+  } else {
+    otpPopup.error = 'Kode OTP salah. Silakan coba lagi.'
+  }
+}
+
+function submitComment() {
+  const text = commentText.value.trim()
+  if (!text) return
+  const entry = {
+    id: Date.now(),
+    articleIdx: artikelModal.idx,
+    name: verifiedUser.name,
+    initial: verifiedUser.name.charAt(0).toUpperCase(),
+    text,
+    time: new Date().toLocaleString('id-ID', {
+      day: 'numeric', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Makassar',
+    }),
+  }
+  comments.value = [entry, ...comments.value]
+  try { localStorage.setItem('bri_comments', JSON.stringify(comments.value)) } catch {}
+  commentText.value = ''
 }
 
 if (typeof window !== 'undefined') {
@@ -1767,4 +1982,189 @@ if (typeof window !== 'undefined') {
 @media (max-width: 480px) {
   .art-grid { grid-template-columns: 1fr; }
 }
+
+/* ══════════════════════════════════════════
+   COMMENT SECTION
+   ══════════════════════════════════════════ */
+.comment-section {
+  max-width: 760px; margin: 48px auto 0;
+  padding: 40px 0 60px;
+  border-top: 2px solid #e0e0e0;
+}
+.comment-section-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
+  color: #0057b8;
+}
+.comment-section-title {
+  font-size: 20px; font-weight: 800; color: #0d1117;
+  letter-spacing: -0.01em; margin: 0;
+}
+
+/* List */
+.comment-list { display: flex; flex-direction: column; margin-bottom: 28px; }
+.comment-item {
+  display: flex; gap: 14px; padding: 18px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.comment-item:last-child { border-bottom: none; }
+.comment-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #003f8a, #0057b8);
+  color: #fff; font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.comment-body { flex: 1; min-width: 0; }
+.comment-meta {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 6px; flex-wrap: wrap;
+}
+.comment-name { font-size: 13px; font-weight: 700; color: #0d1117; }
+.comment-dot { color: #ccc; }
+.comment-time { font-size: 12px; color: #888; }
+.comment-text { font-size: 14.5px; color: #333; line-height: 1.65; margin: 0; }
+
+/* Empty */
+.comment-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 32px 0 24px; color: #aaa; text-align: center;
+}
+.comment-empty p { font-size: 14px; margin: 0; }
+.comment-empty svg { opacity: 0.30; }
+
+/* Write */
+.comment-write {
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px; overflow: hidden;
+}
+.comment-verified-user {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px 0;
+}
+.comment-write-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, #003f8a, #0057b8);
+  color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.comment-write-name { font-size: 13px; font-weight: 700; color: #0d1117; }
+.comment-write-badge {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: #10b981; background: rgba(16,185,129,0.10);
+  border: 1px solid rgba(16,185,129,0.25); border-radius: 100px; padding: 2px 8px;
+}
+.comment-input-wrap { padding: 12px 16px; cursor: text; }
+.comment-textarea {
+  width: 100%; border: none; outline: none; resize: none;
+  font-size: 14.5px; font-family: inherit;
+  color: #1a1a1a; background: transparent; line-height: 1.65;
+  cursor: inherit;
+}
+.comment-textarea::placeholder { color: #bbb; }
+.comment-textarea[readonly] { cursor: pointer; }
+.comment-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #f0f0f0;
+}
+.comment-count { font-size: 12px; color: #bbb; }
+.comment-submit-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 22px; border-radius: 100px;
+  background: #0057b8; color: #fff; border: none;
+  font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: background 0.2s, transform 0.18s;
+}
+.comment-submit-btn:hover:not(:disabled) { background: #003f88; transform: translateY(-1px); }
+.comment-submit-btn:disabled { opacity: 0.40; cursor: default; }
+
+/* ══════════════════════════════════════════
+   OTP POPUP
+   ══════════════════════════════════════════ */
+.otp-overlay {
+  position: fixed; inset: 0; z-index: 10200;
+  background: rgba(0,10,30,0.65);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.otp-box {
+  background: #fff; border-radius: 20px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.30);
+  padding: 28px;
+}
+.otp-head {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px;
+}
+.otp-head-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(0,87,184,0.10); border: 1.5px solid rgba(0,87,184,0.20);
+  display: flex; align-items: center; justify-content: center; color: #0057b8;
+}
+.otp-head-text { flex: 1; }
+.otp-title { font-size: 16px; font-weight: 800; color: #0d1117; margin: 0 0 4px; }
+.otp-subtitle { font-size: 13px; color: #666; margin: 0; line-height: 1.5; }
+.otp-close-btn {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(0,0,0,0.06); border: none; color: #666;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-top: 2px; transition: background 0.18s;
+}
+.otp-close-btn:hover { background: rgba(0,0,0,0.12); }
+
+.otp-fields { display: flex; flex-direction: column; gap: 16px; }
+.otp-field { display: flex; flex-direction: column; gap: 6px; }
+.otp-label {
+  font-size: 11px; font-weight: 700; color: #666;
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+.otp-input {
+  width: 100%; padding: 11px 14px; border-radius: 10px;
+  border: 1.5px solid #d1d5db; font-size: 14px; font-family: inherit;
+  outline: none; transition: border-color 0.2s; box-sizing: border-box;
+}
+.otp-input:focus { border-color: #0057b8; box-shadow: 0 0 0 3px rgba(0,87,184,0.10); }
+.otp-input:disabled { background: #f8f9fa; color: #999; }
+
+.otp-email-row { display: flex; gap: 8px; align-items: stretch; }
+.otp-email-row .otp-input { flex: 1; }
+.otp-send-btn {
+  padding: 11px 16px; border-radius: 10px; white-space: nowrap;
+  background: #003f88; color: #fff; border: none;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; flex-shrink: 0;
+  transition: background 0.2s, opacity 0.2s;
+}
+.otp-send-btn:hover:not(:disabled) { background: #0057b8; }
+.otp-send-btn:disabled { opacity: 0.45; cursor: default; }
+
+.otp-code-input {
+  letter-spacing: 0.25em; font-size: 22px; font-weight: 700;
+  text-align: center; padding: 14px;
+}
+.otp-hint { font-size: 12px; color: #999; margin: 0; }
+.otp-error {
+  font-size: 13px; color: #dc2626;
+  background: rgba(220,38,38,0.07);
+  border: 1px solid rgba(220,38,38,0.18);
+  border-radius: 8px; padding: 9px 14px; margin: 0;
+}
+
+.otp-verify-btn {
+  width: 100%; padding: 14px; border-radius: 12px;
+  background: #0057b8; color: #fff; border: none;
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer; font-family: inherit; margin-top: 4px;
+  transition: background 0.2s, transform 0.18s, opacity 0.2s;
+}
+.otp-verify-btn:hover:not(:disabled) { background: #003f88; transform: translateY(-1px); }
+.otp-verify-btn:disabled { opacity: 0.38; cursor: default; }
+
+.otp-fade-enter-active, .otp-fade-leave-active { transition: opacity 0.22s ease; }
+.otp-fade-enter-from, .otp-fade-leave-to { opacity: 0; }
+.otp-slide-enter-active, .otp-slide-leave-active { transition: opacity 0.22s, transform 0.22s; }
+.otp-slide-enter-from { opacity: 0; transform: translateY(-8px); }
+.otp-slide-leave-to { opacity: 0; transform: translateY(-8px); }
 </style>

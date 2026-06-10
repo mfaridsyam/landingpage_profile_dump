@@ -24,6 +24,12 @@ const routes = [
     name: 'Gallery',
     component: () => import('@/views/GalleryView.vue'),
     meta: { scrollToTop: true, darkHero: true }
+  },
+  {
+    path: '/karir',
+    name: 'Career',
+    component: () => import('@/views/CareerView.vue'),
+    meta: { scrollToTop: true }
   }
 ]
 

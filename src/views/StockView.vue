@@ -188,7 +188,7 @@ onMounted(() => {
     locale: 'id',
     backgroundColor: 'rgba(255, 255, 255, 0)',
     gridColor: 'rgba(0, 63, 136, 0.06)',
-    hide_top_toolbar: false,
+    hide_top_toolbar: true,
     hide_legend: false,
     allow_symbol_change: false,
     save_image: false,

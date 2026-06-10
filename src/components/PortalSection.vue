@@ -35,7 +35,7 @@
         </a>
 
         <!-- Karier -->
-        <button class="portal-card reveal reveal-delay-1" style="--accent: #3b82f6;" @click="$emit('openCareer')">
+        <router-link to="/karir" class="portal-card reveal reveal-delay-1" style="--accent: #3b82f6;">
           <div class="portal-card-body">
             <div class="portal-card-head">
               <div class="portal-logo-wrap">
@@ -56,7 +56,7 @@
             </span>
           </div>
           <div class="portal-card-accent"></div>
-        </button>
+        </router-link>
 
         <!-- Saham BBRI -->
         <router-link to="/investasi" class="portal-card reveal reveal-delay-2" style="--accent: #10b981;">
@@ -88,7 +88,6 @@
 </template>
 
 <script setup>
-defineEmits(['openCareer'])
 </script>
 
 <style scoped>

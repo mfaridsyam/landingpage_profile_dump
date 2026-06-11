@@ -14,11 +14,8 @@ const visible = ref(false)
 const hovered = ref(false)
 
 let mx = -200, my = -200
-let rx = -200, ry = -200
-
-// Interpolated state — all lerp-driven, no CSS transitions for hover
-let dotRot    = 45   // starts as diamond (45°), goes to 0° (square) on hover
-let ringRot   = 0    // starts square (0°), goes to 45° (diamond) on hover
+let dotRot   = 45
+let ringRot  = 0
 let ringScale = 1
 let raf = null
 
@@ -26,29 +23,21 @@ function lerp(a, b, t) { return a + (b - a) * t }
 
 function onMove(e) {
   mx = e.clientX; my = e.clientY
-  if (!visible.value) {
-    rx = mx; ry = my
-    visible.value = true
-  }
+  if (!visible.value) visible.value = true
   const el = document.elementFromPoint(mx, my)
   hovered.value = !!(el && el.closest('a,button,[role="button"],input,textarea,select,label'))
 }
 
 function tick() {
-  rx = lerp(rx, mx, 0.28)
-  ry = lerp(ry, my, 0.28)
-
   dotRot    = lerp(dotRot,    hovered.value ? 0  : 45,  0.22)
   ringRot   = lerp(ringRot,   hovered.value ? 45 : 0,   0.22)
   ringScale = lerp(ringScale, hovered.value ? 1.6 : 1,  0.18)
 
   if (dotEl.value)
-    dotEl.value.style.transform =
-      `translate3d(${mx}px,${my}px,0) rotate(${dotRot}deg)`
+    dotEl.value.style.transform = `translate3d(${mx}px,${my}px,0) rotate(${dotRot}deg)`
 
   if (ringEl.value)
-    ringEl.value.style.transform =
-      `translate3d(${rx}px,${ry}px,0) scale(${ringScale}) rotate(${ringRot}deg)`
+    ringEl.value.style.transform = `translate3d(${mx}px,${my}px,0) scale(${ringScale}) rotate(${ringRot}deg)`
 
   raf = requestAnimationFrame(tick)
 }

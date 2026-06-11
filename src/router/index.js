@@ -30,6 +30,12 @@ const routes = [
     name: 'Career',
     component: () => import('@/views/CareerView.vue'),
     meta: { scrollToTop: true }
+  },
+  {
+    path: '/lelang',
+    name: 'Lelang',
+    component: () => import('@/views/LelangView.vue'),
+    meta: { scrollToTop: true }
   }
 ]
 

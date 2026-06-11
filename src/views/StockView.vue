@@ -367,7 +367,7 @@ onMounted(() => {
   line-height: 1.3;
 }
 .stock-card-desc {
-  font-size: 13px; color: rgba(10,22,40,0.65); line-height: 1.65;
+  font-size: 13px; color: rgba(10,22,40,0.65); line-height: 1.65; text-align: justify;
 }
 
 /* ── CTA ── */

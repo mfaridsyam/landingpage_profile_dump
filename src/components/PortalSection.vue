@@ -10,7 +10,7 @@
       <div class="portal-grid">
 
         <!-- Info Lelang -->
-        <a href="https://infolelang.bri.co.id/" target="_blank" rel="noopener"
+        <router-link to="/lelang"
           class="portal-card reveal" style="--accent: #f5a623;">
           <div class="portal-card-body">
             <div class="portal-card-head">
@@ -25,14 +25,14 @@
             <div class="portal-card-desc">Platform lelang resmi aset BRI — temukan penawaran terbaik aset properti dan kendaraan dari seluruh Indonesia.</div>
           </div>
           <div class="portal-card-foot">
-            <span class="portal-card-url">infolelang.bri.co.id</span>
+            <span class="portal-card-url">bri-polewali.id/lelang</span>
             <span class="portal-card-cta">
-              Kunjungi
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Lihat Aset
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </div>
           <div class="portal-card-accent"></div>
-        </a>
+        </router-link>
 
         <!-- Karier -->
         <router-link to="/karir" class="portal-card reveal reveal-delay-1" style="--accent: #3b82f6;">

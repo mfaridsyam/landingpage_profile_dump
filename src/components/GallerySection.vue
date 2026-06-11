@@ -198,100 +198,134 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
         <div class="artikel-modal-scroll">
-          <article class="news-article">
-            <div class="news-category-badge">{{ articles[artikelModal.idx].category }}</div>
-            <h1 class="news-headline">{{ articles[artikelModal.idx].label }}</h1>
-            <div class="news-meta">
-              <span class="news-author">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                Tim Redaksi BRI Polewali
-              </span>
-              <span class="news-dot">·</span>
-              <span class="news-date">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                {{ articles[artikelModal.idx].time }}
-              </span>
-              <span class="news-dot">·</span>
-              <span class="news-read-time">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                5 menit baca
-              </span>
-            </div>
-            <div class="news-divider"></div>
-            <figure class="news-figure">
-              <img :src="articles[artikelModal.idx].img" :alt="articles[artikelModal.idx].label" class="news-hero-img" />
-              <figcaption>Foto: BRI Cabang Polewali Mandar</figcaption>
-            </figure>
-            <div class="news-body" v-html="articles[artikelModal.idx].body"></div>
-          </article>
+          <div class="art-reader-layout">
 
-          <!-- Related Articles -->
-          <div class="related-articles">
-            <h3 class="related-title">Artikel Terkait</h3>
-            <div class="related-grid">
-              <div v-for="(art, i) in relatedArticles(artikelModal.idx)" :key="i"
-                class="related-item" @click="artikelModal.idx = art.originalIdx">
-                <div class="related-img-wrap"><img :src="art.img" :alt="art.label" /></div>
-                <div class="related-body">
-                  <span class="artikel-time">{{ art.time }}</span>
-                  <p class="related-item-title">{{ art.label }}</p>
-                  <span class="related-read-link">Baca selengkapnya →</span>
+            <!-- ── MAIN COLUMN ── -->
+            <div class="art-reader-main">
+              <article class="news-article">
+                <figure class="news-figure">
+                  <img :src="articles[artikelModal.idx].img" :alt="articles[artikelModal.idx].label" class="news-hero-img" />
+                  <figcaption>Foto: BRI Cabang Polewali Mandar</figcaption>
+                </figure>
+                <h1 class="news-headline">{{ articles[artikelModal.idx].label }}</h1>
+                <div class="news-meta">
+                  <span class="news-date">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    {{ articles[artikelModal.idx].time }}
+                  </span>
+                  <span class="news-dot">/</span>
+                  <span class="news-author">
+                    Tim Redaksi BRI Polewali
+                  </span>
+                  <span class="news-dot">/</span>
+                  <span class="news-category-inline">{{ articles[artikelModal.idx].category }}</span>
+                  <span class="news-dot">/</span>
+                  <span class="news-read-time">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    5 menit baca
+                  </span>
                 </div>
-              </div>
-            </div>
-          </div>
+                <div class="news-divider"></div>
+                <div class="news-body" v-html="articles[artikelModal.idx].body"></div>
+              </article>
 
-          <!-- Comment Section -->
-          <div class="comment-section">
-            <div class="comment-section-head">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              <h3 class="comment-section-title">Komentar ({{ articleComments.length }})</h3>
-            </div>
-
-            <div v-if="articleComments.length" class="comment-list">
-              <div v-for="c in articleComments" :key="c.id" class="comment-item">
-                <div class="comment-avatar">{{ c.initial }}</div>
-                <div class="comment-body">
-                  <div class="comment-meta">
-                    <span class="comment-name">{{ c.name }}</span>
-                    <span class="comment-dot">·</span>
-                    <span class="comment-time">{{ c.time }}</span>
+              <!-- Related Articles -->
+              <div class="related-articles">
+                <div class="art-sidebar-heading"><span>Artikel Terkait</span></div>
+                <div class="related-grid">
+                  <div v-for="(art, i) in relatedArticles(artikelModal.idx)" :key="i"
+                    class="related-item" @click="artikelModal.idx = art.originalIdx">
+                    <div class="related-img-wrap"><img :src="art.img" :alt="art.label" /></div>
+                    <div class="related-body">
+                      <span class="art-cat-inline">{{ art.category }}</span>
+                      <p class="related-item-title">{{ art.label }}</p>
+                      <span class="related-read-link">Baca selengkapnya →</span>
+                    </div>
                   </div>
-                  <p class="comment-text">{{ c.text }}</p>
+                </div>
+              </div>
+
+              <!-- Comment Section -->
+              <div class="comment-section">
+                <div class="comment-section-head">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <h3 class="comment-section-title">Komentar ({{ articleComments.length }})</h3>
+                </div>
+
+                <div v-if="articleComments.length" class="comment-list">
+                  <div v-for="c in articleComments" :key="c.id" class="comment-item">
+                    <div class="comment-avatar">{{ c.initial }}</div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">{{ c.name }}</span>
+                        <span class="comment-dot">·</span>
+                        <span class="comment-time">{{ c.time }}</span>
+                      </div>
+                      <p class="comment-text">{{ c.text }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div v-else class="comment-empty">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <p>Belum ada komentar. Jadilah yang pertama!</p>
+                </div>
+
+                <div class="comment-write">
+                  <div v-if="commentVerified" class="comment-verified-user">
+                    <div class="comment-write-avatar">{{ verifiedUser.name.charAt(0).toUpperCase() }}</div>
+                    <span class="comment-write-name">{{ verifiedUser.name }}</span>
+                    <span class="comment-write-badge">Terverifikasi</span>
+                  </div>
+                  <div class="comment-input-wrap" @click="onCommentFocus">
+                    <textarea
+                      v-model="commentText"
+                      class="comment-textarea"
+                      :placeholder="commentVerified ? 'Tulis komentar Anda...' : 'Klik untuk menulis komentar...'"
+                      :readonly="!commentVerified"
+                      rows="3"
+                      maxlength="500"
+                    ></textarea>
+                  </div>
+                  <div v-if="commentVerified" class="comment-footer">
+                    <span class="comment-count">{{ commentText.length }}/500</span>
+                    <button class="comment-submit-btn" @click="submitComment" :disabled="!commentText.trim()">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                      Kirim
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div v-else class="comment-empty">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              <p>Belum ada komentar. Jadilah yang pertama!</p>
-            </div>
 
-            <div class="comment-write">
-              <div v-if="commentVerified" class="comment-verified-user">
-                <div class="comment-write-avatar">{{ verifiedUser.name.charAt(0).toUpperCase() }}</div>
-                <span class="comment-write-name">{{ verifiedUser.name }}</span>
-                <span class="comment-write-badge">Terverifikasi</span>
+            <!-- ── SIDEBAR ── -->
+            <aside class="art-sidebar">
+              <!-- Recent News -->
+              <div class="art-sidebar-block">
+                <div class="art-sidebar-heading"><span>Berita Terkini</span></div>
+                <div class="art-sidebar-news-list">
+                  <div v-for="(art, i) in sidebarArticles(artikelModal.idx)" :key="i"
+                    class="art-sidebar-news-item" @click="artikelModal.idx = art.originalIdx">
+                    <div class="art-sidebar-thumb">
+                      <img :src="art.img" :alt="art.label" />
+                    </div>
+                    <div class="art-sidebar-news-body">
+                      <p class="art-sidebar-news-title">{{ art.label }}</p>
+                      <span class="art-sidebar-news-meta">{{ art.time }} · {{ art.category }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="comment-input-wrap" @click="onCommentFocus">
-                <textarea
-                  v-model="commentText"
-                  class="comment-textarea"
-                  :placeholder="commentVerified ? 'Tulis komentar Anda...' : 'Klik untuk menulis komentar...'"
-                  :readonly="!commentVerified"
-                  rows="3"
-                  maxlength="500"
-                ></textarea>
+
+              <!-- Tag Cloud -->
+              <div class="art-sidebar-block">
+                <div class="art-sidebar-heading"><span>Tag Cloud</span></div>
+                <div class="art-sidebar-tags">
+                  <span v-for="cat in allCategories" :key="cat" class="art-sidebar-tag">{{ cat }}</span>
+                </div>
               </div>
-              <div v-if="commentVerified" class="comment-footer">
-                <span class="comment-count">{{ commentText.length }}/500</span>
-                <button class="comment-submit-btn" @click="submitComment" :disabled="!commentText.trim()">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                  Kirim
-                </button>
-              </div>
-            </div>
+            </aside>
+
           </div>
-
         </div>
       </div>
     </Transition>
@@ -619,8 +653,19 @@ function relatedArticles(currentIdx) {
   return articles
     .map((art, i) => ({ ...art, originalIdx: i }))
     .filter((_, i) => i !== currentIdx)
-    .slice(0, 3)
+    .slice(0, 4)
 }
+
+function sidebarArticles(currentIdx) {
+  return articles
+    .map((art, i) => ({ ...art, originalIdx: i }))
+    .filter((_, i) => i !== currentIdx)
+    .slice(0, 5)
+}
+
+const allCategories = computed(() =>
+  [...new Set(articles.map(a => a.category))]
+)
 
 // ── OTP & COMMENT FUNCTIONS ──
 function onCommentFocus() {
@@ -754,7 +799,7 @@ if (typeof window !== 'undefined') {
 .art-hero-excerpt {
   font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.6;
   max-width: 700px;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
 /* Card grid */
@@ -793,11 +838,11 @@ if (typeof window !== 'undefined') {
 .art-card-title {
   font-size: 14.5px; font-weight: 700; color: rgba(10,22,40,0.90);
   letter-spacing: -0.01em; line-height: 1.35; margin-bottom: 8px; flex: 1;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .art-card-excerpt {
   font-size: 12px; color: rgba(10,22,40,0.55); line-height: 1.6;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
 /* Stub — old classes */
@@ -1396,48 +1441,100 @@ if (typeof window !== 'undefined') {
 .artikel-modal-overlay {
   position: fixed; inset: 0; background: #f4f4f0; z-index: 9999; overflow-y: auto;
 }
-.artikel-modal-scroll { max-width: 760px; margin: 0 auto; padding: 72px 24px 80px; }
-.news-category-badge {
-  display: inline-block; background: #003f8a; color: white;
-  font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
-  text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 16px;
+.artikel-modal-scroll { max-width: 1320px; margin: 0 auto; padding: 72px 48px 80px; }
+
+/* ── 2-COLUMN READER LAYOUT ── */
+.art-reader-layout {
+  display: grid;
+  grid-template-columns: 1fr 290px;
+  gap: 52px;
+  align-items: start;
 }
+.art-reader-main { min-width: 0; }
+
+/* ── ARTICLE CONTENT ── */
 .news-headline {
-  font-size: clamp(24px, 4vw, 40px); font-weight: 800; color: #0d1117;
-  line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 18px;
+  font-size: clamp(22px, 3.2vw, 36px); font-weight: 800; color: #0d1117;
+  line-height: 1.2; letter-spacing: -0.02em; margin: 18px 0 14px;
 }
 .news-meta {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 13px; color: #555; flex-wrap: wrap; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: #666; flex-wrap: wrap; margin-bottom: 14px;
 }
-.news-author, .news-date, .news-read-time { display: flex; align-items: center; gap: 5px; }
-.news-dot { color: #bbb; }
-.news-divider { height: 2px; background: #e0e0e0; border-radius: 2px; margin-bottom: 28px; }
-.news-figure { margin: 0 0 32px; }
-.news-hero-img { width: 100%; border-radius: 10px; display: block; max-height: 460px; object-fit: cover; }
-.news-figure figcaption { font-size: 12px; color: #888; margin-top: 8px; font-style: italic; }
-.news-body { font-size: 17px; line-height: 1.8; color: #1a1a1a; }
+.news-date, .news-read-time { display: flex; align-items: center; gap: 4px; }
+.news-category-inline { font-weight: 700; color: #003f8a; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.04em; }
+.news-dot { color: #bbb; font-weight: 300; }
+.news-divider { height: 1.5px; background: #e0e0e0; border-radius: 2px; margin-bottom: 24px; }
+.news-figure { margin: 0 0 0; }
+.news-hero-img { width: 100%; border-radius: 8px; display: block; max-height: 480px; object-fit: cover; }
+.news-figure figcaption { font-size: 11.5px; color: #999; margin-top: 7px; font-style: italic; }
+.news-body { font-size: 16.5px; line-height: 1.82; color: #1a1a1a; margin-top: 24px; }
 :deep(.news-body p) { margin: 0 0 20px; }
-:deep(.news-lead) { font-size: 19px !important; font-weight: 600 !important; color: #111 !important; line-height: 1.65 !important; }
-:deep(.news-subheading) { font-size: 22px; font-weight: 700; color: #0d1117; margin: 32px 0 14px; letter-spacing: -0.01em; }
+:deep(.news-lead) { font-size: 18px !important; font-weight: 600 !important; color: #111 !important; line-height: 1.65 !important; }
+:deep(.news-subheading) { font-size: 20px; font-weight: 700; color: #0d1117; margin: 32px 0 12px; letter-spacing: -0.01em; }
 :deep(.news-quote) {
   border-left: 4px solid #003f8a; margin: 28px 0; padding: 12px 20px;
-  font-size: 18px; font-style: italic; color: #333;
+  font-size: 17px; font-style: italic; color: #333;
   background: rgba(0,63,138,0.05); border-radius: 0 8px 8px 0;
 }
 
-/* Related articles */
-.related-articles {
-  max-width: 760px; margin: 48px auto 0; padding-top: 40px;
-  border-top: 2px solid #e0e0e0;
+/* ── SIDEBAR HEADING (shared) ── */
+.art-sidebar-heading {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
 }
-.related-title {
-  font-size: 20px; font-weight: 800; color: #0d1117;
-  margin: 0 0 24px; letter-spacing: -0.01em;
+.art-sidebar-heading span {
+  font-size: 14px; font-weight: 800; color: #0d1117;
+  white-space: nowrap; letter-spacing: -0.01em;
 }
-.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.art-sidebar-heading::after {
+  content: ''; flex: 1; height: 2px;
+  background: #006400;
+}
+
+/* ── SIDEBAR ── */
+.art-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 32px; }
+.art-sidebar-block {}
+
+/* Recent news list */
+.art-sidebar-news-list { display: flex; flex-direction: column; gap: 0; }
+.art-sidebar-news-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid #ebebeb; cursor: pointer;
+  transition: background 0.15s;
+}
+.art-sidebar-news-item:last-child { border-bottom: none; }
+.art-sidebar-news-item:hover .art-sidebar-news-title { color: #003f8a; }
+.art-sidebar-thumb {
+  width: 72px; height: 52px; flex-shrink: 0;
+  border-radius: 6px; overflow: hidden;
+}
+.art-sidebar-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.art-sidebar-news-body { flex: 1; min-width: 0; }
+.art-sidebar-news-title {
+  font-size: 12.5px; font-weight: 600; color: #0d1117;
+  line-height: 1.45; margin: 0 0 5px;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  transition: color 0.15s;
+}
+.art-sidebar-news-meta { font-size: 11px; color: #888; }
+
+/* Tag cloud */
+.art-sidebar-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.art-sidebar-tag {
+  display: inline-block; padding: 5px 11px;
+  background: #006400; color: #fff;
+  font-size: 11.5px; font-weight: 700;
+  border-radius: 3px; text-transform: uppercase; letter-spacing: 0.04em;
+  cursor: pointer; transition: background 0.18s;
+}
+.art-sidebar-tag:hover { background: #004d00; }
+
+/* ── RELATED ARTICLES ── */
+.related-articles { margin: 44px 0 0; padding-top: 36px; border-top: 2px solid #e0e0e0; }
+.related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
 .related-item {
-  background: #fff; border-radius: 12px; overflow: hidden;
+  background: #fff; border-radius: 10px; overflow: hidden;
   border: 1.5px solid #ebebeb; cursor: pointer;
   transition: border-color 0.2s, transform 0.25s, box-shadow 0.25s;
 }
@@ -1445,9 +1542,13 @@ if (typeof window !== 'undefined') {
 .related-img-wrap { aspect-ratio: 16/9; overflow: hidden; }
 .related-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
 .related-item:hover .related-img-wrap img { transform: scale(1.04); }
-.related-body { padding: 12px 14px 14px; }
-.related-item-title { font-size: 13px; font-weight: 700; color: #0d1117; line-height: 1.45; margin: 4px 0 8px; }
-.related-read-link { font-size: 11.5px; font-weight: 600; color: #003f8a; }
+.related-body { padding: 10px 12px 12px; }
+.art-cat-inline {
+  font-size: 10px; font-weight: 800; color: #003f8a;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.related-item-title { font-size: 12.5px; font-weight: 700; color: #0d1117; line-height: 1.45; margin: 4px 0 8px; }
+.related-read-link { font-size: 11px; font-weight: 600; color: #003f8a; }
 
 /* ── FOTO LIGHTBOX (modern) ── */
 .foto-modal-overlay {

@@ -85,6 +85,11 @@ onUnmounted(() => {
 
 .cur-hidden { opacity: 0 !important; }
 
+/* Never show the custom cursor on touch / no-mouse devices */
+@media (hover: none), (pointer: coarse) {
+  .cur-dot, .cur-ring { display: none !important; }
+}
+
 /* Dot: sharp square — starts rotated 45° (diamond), lerps to 0° (square) on hover */
 .cur-dot {
   width: 6px; height: 6px;

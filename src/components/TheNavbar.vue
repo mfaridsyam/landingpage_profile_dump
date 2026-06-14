@@ -150,27 +150,30 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  background: rgba(0,63,136,0.07);
-  border: 1px solid rgba(0,63,136,0.16);
-  border-radius: 8px;
+  gap: 4.5px;
+  width: 42px;
+  height: 42px;
+  background: #fff;
+  border: 1.5px solid rgba(0,63,136,0.14);
+  border-radius: 12px;
   cursor: pointer;
   padding: 0;
+  box-shadow: 0 2px 8px rgba(0,63,136,0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+.hamburger:active { border-color: rgba(0,87,184,0.40); }
 .hamburger span {
   display: block;
-  width: 18px;
+  width: 19px;
   height: 2px;
-  background: rgba(10,22,40,0.70);
+  background: #0057b8;
   border-radius: 2px;
   transition: transform 0.25s, opacity 0.2s;
   transform-origin: center;
 }
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width: 900px) {
   .hamburger { display: flex; }
@@ -180,22 +183,23 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,20,60,0.35);
-  backdrop-filter: blur(6px);
+  background: rgba(0,20,60,0.45);
+  backdrop-filter: blur(4px);
   z-index: 9000;
   display: flex;
   justify-content: flex-end;
 }
 .mobile-nav-panel {
-  width: min(320px, 85vw);
+  position: relative;
+  width: min(320px, 86vw);
   height: 100%;
-  background: rgba(238,243,252,0.98);
+  background: #f4f7fc;
   border-left: 1px solid rgba(0,63,136,0.14);
   display: flex;
   flex-direction: column;
-  padding: 72px 28px 40px;
+  padding: 76px 24px 32px;
   gap: 8px;
-  box-shadow: -16px 0 64px rgba(0,63,136,0.12);
+  box-shadow: -16px 0 64px rgba(0,63,136,0.18);
 }
 .mobile-nav-close {
   position: absolute;

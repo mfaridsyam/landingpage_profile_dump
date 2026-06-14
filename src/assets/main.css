@@ -643,6 +643,7 @@ nav.on-dark-hero .hamburger span { background: rgba(255,255,255,0.85); }
 
   /* Nav: hide links, keep logo + cta */
   .nav-links { display: none; }
+  .nav-logo img { height: 46px; }
 
   /* Hero */
   .hero-title { font-size: clamp(30px, 5.5vw, 44px); }
@@ -690,6 +691,7 @@ nav.on-dark-hero .hamburger span { background: rgba(255,255,255,0.85); }
 
   /* Nav */
   .nav-links { display: none; }
+  .nav-logo img { height: 38px; }
   .nav-cta .btn-primary span { display: none; }
 
   /* Hero */

@@ -30,6 +30,20 @@
       <!-- Main panel -->
       <div class="network-panel">
 
+        <!-- Mobile-only: single dropdown picker -->
+        <div class="network-mobile-picker">
+          <label class="network-picker-label" for="unit-select">Pilih Unit Kerja</label>
+          <div class="network-select-wrap">
+            <svg class="network-select-pin" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <select id="unit-select" class="network-select" v-model.number="selectedIdx">
+              <option v-for="(unit, i) in units" :key="i" :value="i">
+                {{ unit.name }} · {{ unit.type }}
+              </option>
+            </select>
+            <svg class="network-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+
         <!-- Left: filter + list -->
         <div class="network-list-col">
           <!-- Filter tabs -->
@@ -202,6 +216,38 @@ function gMapsUrl(unit) {
   grid-template-columns: 320px 1fr;
   gap: 20px;
   align-items: start;
+}
+
+/* ── MOBILE PICKER (hidden on desktop) ── */
+.network-mobile-picker { display: none; }
+.network-picker-label {
+  display: block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: rgba(10,22,40,0.55);
+  margin-bottom: 8px;
+}
+.network-select-wrap { position: relative; display: flex; align-items: center; }
+.network-select-pin {
+  position: absolute; left: 14px; color: #0057b8;
+  pointer-events: none; flex-shrink: 0;
+}
+.network-select {
+  width: 100%;
+  appearance: none; -webkit-appearance: none;
+  font-family: inherit; font-size: 14px; font-weight: 700;
+  color: var(--ink, #0A1628);
+  background: #fff;
+  border: 1.5px solid rgba(0,63,136,0.16);
+  border-radius: 12px;
+  padding: 13px 42px 13px 38px;
+  cursor: pointer; outline: none;
+  box-shadow: 0 2px 10px rgba(0,63,136,0.05);
+  transition: border-color 0.2s;
+}
+.network-select:focus { border-color: rgba(0,87,184,0.45); }
+.network-select-chevron {
+  position: absolute; right: 15px; color: rgba(10,22,40,0.50);
+  pointer-events: none;
 }
 
 /* ── LEFT LIST COL ── */
@@ -403,7 +449,7 @@ function gMapsUrl(unit) {
   .network-header { align-items: flex-start; }
 }
 
-/* Tablet portrait & HP (≤767px): 1 kolom, MAP dulu baru list */
+/* Tablet portrait & HP (≤767px): 1 kolom, dropdown picker + map */
 @media (max-width: 767px) {
   .network-section { padding: 64px 0; }
 
@@ -413,41 +459,15 @@ function gMapsUrl(unit) {
     gap: 16px;
   }
 
-  /* Map naik ke atas */
+  /* Ganti list kartu dengan satu dropdown */
+  .network-list-col { display: none; }
+  .network-mobile-picker { display: block; order: -2; }
+
+  /* Map di bawah dropdown */
   .network-map-col { order: -1; }
 
   /* Map lebih tinggi agar proporsional di portrait */
   .map-wrap { aspect-ratio: 16/9; }
-
-  /* Accordion compact: sembunyikan detail, tampil hanya saat active */
-  .unit-list-addr,
-  .unit-list-footer { display: none; }
-  .unit-list-item.active .unit-list-addr { display: block; }
-  .unit-list-item.active .unit-list-footer { display: flex; }
-
-  /* Padding lebih ramping untuk baris yang terlipat */
-  .unit-list-item { padding: 10px 14px; }
-  .unit-list-item.active { padding: 13px 14px; }
-
-  /* Hilangkan scroll panjang — tampilkan semua item */
-  .unit-list { max-height: 380px; }
-
-  /* Tambah chevron hint agar user tahu bisa diklik */
-  .unit-list-item-top::after {
-    content: '';
-    display: block;
-    width: 7px; height: 7px;
-    border-right: 2px solid rgba(10,22,40,0.22);
-    border-bottom: 2px solid rgba(10,22,40,0.22);
-    transform: rotate(45deg);
-    margin-left: auto;
-    flex-shrink: 0;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .unit-list-item.active .unit-list-item-top::after {
-    transform: rotate(-135deg);
-    border-color: #0057b8;
-  }
 }
 
 /* HP sedang & kecil (≤599px) */

@@ -1,5 +1,8 @@
 ﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-*, *::before, *::after { cursor: none !important; }
+/* Hide native cursor only on devices that actually have a mouse (custom cursor active) */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
 
 :root {
   --bri-blue: #003F88;
@@ -546,17 +549,17 @@ nav.on-dark-hero .hamburger span { background: rgba(255,255,255,0.85); }
 .toast-enter-from { opacity: 0; transform: translateY(12px) scale(0.95); }
 .toast-leave-to { opacity: 0; transform: translateY(6px); }
 
-/* SCROLL ANIMATIONS — IntersectionObserver */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+/* SCROLL ANIMATIONS — disabled for performance; content shown immediately on all devices */
+.reveal,
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.07s; }
-.reveal-delay-2 { transition-delay: 0.14s; }
-.reveal-delay-3 { transition-delay: 0.21s; }
-.reveal-delay-4 { transition-delay: 0.28s; }
+.reveal-delay-1,
+.reveal-delay-2,
+.reveal-delay-3,
+.reveal-delay-4 { transition-delay: 0s; }
 
 /* RESPONSIVE */
 /* ══════════════════════════════════════════

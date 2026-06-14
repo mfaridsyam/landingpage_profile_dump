@@ -18,6 +18,14 @@ const REPEL_RADIUS   = 160
 const REPEL_STRENGTH = 3.5
 const ANGLE_DRIFT    = 0.018
 
+// Skip the canvas animation on phones / reduced-motion to stay lightweight.
+function shouldDisable() {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(max-width: 768px)').matches ||
+         window.matchMedia('(pointer: coarse)').matches ||
+         window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 function initCanvas() {
   const canvas  = canvasRef.value
   if (!canvas) return
@@ -105,7 +113,11 @@ function onMouseMove(e) { mouseX = e.clientX; mouseY = e.clientY }
 function onMouseLeave() { mouseX = -9999; mouseY = -9999 }
 function onResize() { initCanvas() }
 
+let disabled = false
+
 onMounted(() => {
+  disabled = shouldDisable()
+  if (disabled) return
   initCanvas()
   tick()
   window.addEventListener('mousemove',  onMouseMove,  { passive: true })
@@ -114,6 +126,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (disabled) return
   cancelAnimationFrame(animId)
   window.removeEventListener('mousemove',  onMouseMove)
   window.removeEventListener('mouseleave', onMouseLeave)

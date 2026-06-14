@@ -78,13 +78,22 @@ const navItems = [
 const sections = ['kontak', 'jaringan', 'galeri', 'simulasi', 'layanan', 'hero']
 
 const navStyle = computed(() => {
+  if (!isHome.value) {
+    return {
+      background: 'rgba(238,243,252,0.97)',
+      backdropFilter: 'blur(20px)',
+      borderBottomColor: 'rgba(0,63,136,0.10)',
+      borderBottomStyle: 'solid',
+      borderBottomWidth: '1px',
+    }
+  }
   const ratio = Math.min(scrollY.value / (window.innerHeight * 0.4), 1)
   return {
     background: `rgba(238,243,252,${ratio * 0.95})`,
     backdropFilter: `blur(${ratio * 20}px)`,
     borderBottomColor: `rgba(0,63,136,${ratio * 0.12})`,
     borderBottomStyle: 'solid',
-    borderBottomWidth: '1px'
+    borderBottomWidth: '1px',
   }
 })
 

@@ -78,11 +78,10 @@
         </div>
         <div class="lelang-steps-grid">
           <div v-for="(step, i) in steps" :key="i" class="lelang-step-card">
-            <div class="lelang-step-num">{{ String(i + 1).padStart(2, '0') }}</div>
-            <div class="lelang-step-icon">
-              <component :is="'span'" v-html="step.icon"></component>
+            <div class="lelang-step-header">
+              <span class="lelang-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
+              <h3 class="lelang-step-title">{{ step.title }}</h3>
             </div>
-            <h3 class="lelang-step-title">{{ step.title }}</h3>
             <p class="lelang-step-desc">{{ step.desc }}</p>
           </div>
         </div>
@@ -112,13 +111,17 @@
         </div>
 
         <div class="lelang-grid">
-          <div v-for="item in filteredItems" :key="item.id" class="lelang-card">
+          <RouterLink
+            v-for="item in filteredItems" :key="item.id"
+            :to="`/lelang/${item.id}`"
+            class="lelang-card"
+          >
             <div class="lelang-card-img">
               <img :src="item.img" :alt="item.title" loading="lazy" />
               <div class="lelang-card-badge" :class="`badge-${item.status}`">
                 {{ item.statusLabel }}
               </div>
-              <div class="lelang-card-type">{{ item.type }}</div>
+              <div class="lelang-card-type">{{ item.typeLabel }}</div>
             </div>
             <div class="lelang-card-body">
               <h3 class="lelang-card-title">{{ item.title }}</h3>
@@ -140,7 +143,7 @@
                 {{ item.date }}
               </div>
             </div>
-          </div>
+          </RouterLink>
         </div>
 
         <!-- CTA Banner -->
@@ -205,6 +208,7 @@ import { ref, computed } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import { useScrollReveal } from '@/composables/useScrollReveal.js'
+import { asetItems } from '@/data/lelangData.js'
 
 useScrollReveal()
 
@@ -240,97 +244,14 @@ const steps = [
   },
 ]
 
-const asetItems = [
-  {
-    id: 1, type: 'Properti',
-    title: 'Rumah Tinggal 2 Lantai',
-    location: 'Kec. Polewali, Kab. Polman',
-    specs: ['LT 180 m²', 'LB 140 m²', '3 KT', '2 KM'],
-    price: 'Rp 385.000.000',
-    date: '25 Jun 2026',
-    status: 'aktif', statusLabel: 'Aktif',
-    img: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=75',
-  },
-  {
-    id: 2, type: 'Kendaraan',
-    title: 'Toyota Kijang Innova 2019',
-    location: 'BRI Cab. Polewali',
-    specs: ['2019', 'Manual', 'Diesel', '98.000 km'],
-    price: 'Rp 178.000.000',
-    date: '25 Jun 2026',
-    status: 'aktif', statusLabel: 'Aktif',
-    img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=75',
-  },
-  {
-    id: 3, type: 'Tanah',
-    title: 'Tanah Kosong SHM Pinggir Jalan',
-    location: 'Kec. Campalagian, Kab. Polman',
-    specs: ['LT 450 m²', 'SHM', 'Strategis'],
-    price: 'Rp 220.000.000',
-    date: '02 Jul 2026',
-    status: 'aktif', statusLabel: 'Aktif',
-    img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=75',
-  },
-  {
-    id: 4, type: 'Properti',
-    title: 'Ruko 2 Lantai Pusat Kota',
-    location: 'Kec. Polewali, Kab. Polman',
-    specs: ['LT 80 m²', 'LB 160 m²', 'SHM', 'Strategis'],
-    price: 'Rp 650.000.000',
-    date: '02 Jul 2026',
-    status: 'aktif', statusLabel: 'Aktif',
-    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75',
-  },
-  {
-    id: 5, type: 'Kendaraan',
-    title: 'Honda BR-V 2020',
-    location: 'BRI Cab. Polewali',
-    specs: ['2020', 'Matic', 'Bensin', '67.000 km'],
-    price: 'Rp 155.000.000',
-    date: '10 Jul 2026',
-    status: 'segera', statusLabel: 'Segera',
-    img: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=75',
-  },
-  {
-    id: 6, type: 'Tanah',
-    title: 'Kavling Perumahan SHM',
-    location: 'Kec. Wonomulyo, Kab. Polman',
-    specs: ['LT 200 m²', 'SHM', 'Siap Bangun'],
-    price: 'Rp 95.000.000',
-    date: '10 Jul 2026',
-    status: 'segera', statusLabel: 'Segera',
-    img: 'https://images.unsplash.com/photo-1416331108676-a22ccb276e35?w=600&q=75',
-  },
-  {
-    id: 7, type: 'Properti',
-    title: 'Rumah Tinggal 1 Lantai',
-    location: 'Kec. Mamasa, Kab. Mamasa',
-    specs: ['LT 120 m²', 'LB 72 m²', '2 KT', '1 KM'],
-    price: 'Rp 195.000.000',
-    date: '18 Jul 2026',
-    status: 'segera', statusLabel: 'Segera',
-    img: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=75',
-  },
-  {
-    id: 8, type: 'Kendaraan',
-    title: 'Daihatsu Xenia 2018',
-    location: 'BRI KCP Wonomulyo',
-    specs: ['2018', 'Manual', 'Bensin', '112.000 km'],
-    price: 'Rp 118.000.000',
-    date: '18 Jul 2026',
-    status: 'segera', statusLabel: 'Segera',
-    img: 'https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=600&q=75',
-  },
-]
-
 function countByType(val) {
   if (val === 'semua') return asetItems.length
-  return asetItems.filter(i => i.type.toLowerCase() === val).length
+  return asetItems.filter(i => i.type === val).length
 }
 
 const filteredItems = computed(() => {
   if (activeFilter.value === 'semua') return asetItems
-  return asetItems.filter(i => i.type.toLowerCase() === activeFilter.value)
+  return asetItems.filter(i => i.type === activeFilter.value)
 })
 </script>
 
@@ -443,17 +364,15 @@ const filteredItems = computed(() => {
   transform: translateY(-4px);
   box-shadow: 0 12px 36px rgba(0,63,136,0.10);
 }
+.lelang-step-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
 .lelang-step-num {
-  font-size: 11px; font-weight: 800; color: #0057b8;
-  letter-spacing: 0.10em; margin-bottom: 14px;
+  font-size: 24px; font-weight: 900; color: rgba(10,22,40,0.10);
+  letter-spacing: -0.03em; flex-shrink: 0; line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
-.lelang-step-icon {
-  width: 48px; height: 48px; border-radius: 12px;
-  background: rgba(0,87,184,0.08); border: 1.5px solid rgba(0,87,184,0.14);
-  display: flex; align-items: center; justify-content: center;
-  color: #0057b8; margin-bottom: 16px;
-}
-.lelang-step-title { font-size: 15px; font-weight: 800; color: #0a1628; margin: 0 0 10px; letter-spacing: -0.01em; }
+.lelang-step-title { font-size: 15px; font-weight: 800; color: #0a1628; margin: 0; letter-spacing: -0.01em; line-height: 1.3; }
 .lelang-step-desc { font-size: 13px; color: rgba(10,22,40,0.62); line-height: 1.65; margin: 0; text-align: justify; }
 
 /* ── ASSETS ── */
@@ -496,6 +415,7 @@ const filteredItems = computed(() => {
   border: 1.5px solid rgba(0,63,136,0.10);
   display: flex; flex-direction: column;
   transition: border-color 0.25s, transform 0.28s, box-shadow 0.28s;
+  text-decoration: none; color: inherit;
 }
 .lelang-card:hover {
   border-color: rgba(0,87,184,0.28);
@@ -594,21 +514,52 @@ const filteredItems = computed(() => {
 .lelang-info-desc { font-size: 13.5px; color: rgba(10,22,40,0.65); line-height: 1.68; margin: 0; text-align: justify; }
 
 /* ── RESPONSIVE ── */
+
+/* Laptop / large tablet landscape */
 @media (max-width: 1100px) {
   .lelang-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Tablet */
 @media (max-width: 900px) {
-  .lelang-hero-inner { grid-template-columns: 1fr; }
+  .lelang-hero { padding: 92px 0 56px; }
+  .lelang-hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .lelang-hero-right { display: none; }
+  .lelang-steps { padding: 56px 0; }
   .lelang-steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .lelang-assets { padding: 56px 0; }
   .lelang-grid { grid-template-columns: repeat(2, 1fr); }
   .lelang-info-inner { grid-template-columns: 1fr; }
 }
+
+/* Large phone — stack head, make filter tabs swipeable */
+@media (max-width: 680px) {
+  .lelang-assets-head { flex-direction: column; align-items: stretch; gap: 16px; }
+  .lelang-filter-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+  .lelang-filter-tabs::-webkit-scrollbar { display: none; }
+  .lelang-filter-tab { flex-shrink: 0; }
+}
+
+/* Phone */
 @media (max-width: 560px) {
+  .lelang-hero { padding: 84px 0 48px; }
+  .lelang-hero-actions { flex-direction: column; align-items: stretch; }
+  .lelang-btn-primary, .lelang-btn-ghost { justify-content: center; }
   .lelang-steps-grid { grid-template-columns: 1fr; }
   .lelang-grid { grid-template-columns: 1fr; }
-  .lelang-cta-banner { flex-direction: column; text-align: center; }
+  .lelang-cta-banner { flex-direction: column; text-align: center; padding: 24px 22px; }
   .lelang-cta-left { flex-direction: column; align-items: center; text-align: center; }
-  .lelang-assets-head { flex-direction: column; align-items: flex-start; }
+  .lelang-cta-btn { width: 100%; justify-content: center; }
+  .lelang-info-card { padding: 20px; }
+}
+
+/* Small phone */
+@media (max-width: 380px) {
+  .lelang-card-specs { gap: 4px; }
+  .lelang-filter-tab { padding: 8px 12px; }
 }
 </style>

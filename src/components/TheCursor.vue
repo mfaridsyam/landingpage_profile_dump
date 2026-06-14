@@ -46,7 +46,13 @@ function hide() { visible.value = false }
 function show() { visible.value = true }
 function onViz() { if (document.hidden) hide(); else show() }
 
+// Only run the custom cursor on devices that have a real mouse (fine pointer).
+// Phones/tablets keep their native touch behavior and skip the rAF loop entirely.
+const hasMouse = typeof window !== 'undefined' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
 onMounted(() => {
+  if (!hasMouse) return
   window.addEventListener('mousemove', onMove, { passive: true })
   document.addEventListener('mouseleave', hide)
   document.addEventListener('mouseenter', show)
@@ -55,6 +61,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (!hasMouse) return
   window.removeEventListener('mousemove', onMove)
   document.removeEventListener('mouseleave', hide)
   document.removeEventListener('mouseenter', show)
@@ -64,7 +71,9 @@ onUnmounted(() => {
 </script>
 
 <style>
-*, *::before, *::after { cursor: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
 
 .cur-dot, .cur-ring {
   position: fixed;
